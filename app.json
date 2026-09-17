@@ -2,6 +2,7 @@
   "expo": {
     "name": "TurfSlot",
     "slug": "turfslot-mobile",
+    "owner": "sabbirtanvirs-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -36,6 +37,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "46ea213f-35d3-4d64-807f-0e8c2c9f2287"
+      }
     }
   }
 }

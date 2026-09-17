@@ -46,74 +46,76 @@ export default function LoginScreen() {
   };
 
   return (
-    <ScreenWrapper scrollable className="justify-center py-10">
-      {/* Brand Header */}
-      <View className="items-center my-6">
-        <View className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 items-center justify-center mb-3 shadow-lg shadow-emerald-950">
-          <Text className="text-3xl">⚽</Text>
-        </View>
-        <Text className="text-3xl font-black text-white tracking-tight">
-          Turf<Text className="text-emerald-500">Slot</Text>
-        </Text>
-        <Text className="text-zinc-400 text-xs mt-1">
-          Sports Venue Management & Slot Booking
-        </Text>
-      </View>
-
-      {/* Login Card */}
-      <Card className="p-6 bg-zinc-900 border-zinc-800 shadow-xl shadow-black/50">
-        <Text className="text-white font-bold text-xl mb-1">
-          Welcome Back
-        </Text>
-        <Text className="text-zinc-400 text-xs mb-5">
-          Sign in with your account credentials to access your dashboard
-        </Text>
-
-        {errorMessage ? (
-          <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 mb-4">
-            <Text className="text-red-400 text-xs font-medium">
-              {errorMessage}
-            </Text>
+    <ScreenWrapper scrollable className="justify-center items-center py-10">
+      <View className="w-full max-w-md self-center">
+        {/* Brand Header */}
+        <View className="items-center my-6">
+          <View className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 items-center justify-center mb-3 shadow-lg shadow-emerald-950">
+            <Text className="text-3xl">⚽</Text>
           </View>
-        ) : null}
-
-        <Input
-          label="Email Address"
-          placeholder="e.g. name@turfslot.com"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-
-        <Input
-          label="Password"
-          placeholder="••••••••"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          autoCapitalize="none"
-        />
-
-        <Button
-          title="Sign In"
-          onPress={handleLogin}
-          loading={loading}
-          variant="primary"
-          size="lg"
-          className="mt-3"
-        />
-      </Card>
-
-      {/* Footer Register Link */}
-      <View className="flex-row justify-center items-center mt-6">
-        <Text className="text-zinc-400 text-sm">Don't have an account? </Text>
-        <Pressable onPress={() => router.push("/(auth)/register")}>
-          <Text className="text-emerald-400 font-semibold text-sm">
-            Sign Up
+          <Text className="text-3xl font-black text-white tracking-tight">
+            Turf<Text className="text-emerald-500">Slot</Text>
           </Text>
-        </Pressable>
+          <Text className="text-zinc-400 text-xs mt-1">
+            Sports Venue Management & Slot Booking
+          </Text>
+        </View>
+
+        {/* Login Card */}
+        <Card className="p-6 bg-zinc-900 border-zinc-800 shadow-xl shadow-black/50">
+          <Text className="text-white font-bold text-xl mb-1">
+            Welcome Back
+          </Text>
+          <Text className="text-zinc-400 text-xs mb-5">
+            Sign in with your account credentials to access your dashboard
+          </Text>
+
+          {errorMessage ? (
+            <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 mb-4">
+              <Text className="text-red-400 text-xs font-medium">
+                {errorMessage}
+              </Text>
+            </View>
+          ) : null}
+
+          <Input
+            label="Email Address"
+            placeholder="e.g. name@turfslot.com"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+
+          <Input
+            label="Password"
+            placeholder="••••••••"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            autoCapitalize="none"
+          />
+
+          <Button
+            title="Sign In"
+            onPress={handleLogin}
+            loading={loading}
+            variant="primary"
+            size="lg"
+            className="mt-3"
+          />
+        </Card>
+
+        {/* Footer Register Link */}
+        <View className="flex-row justify-center items-center mt-6">
+          <Text className="text-zinc-400 text-sm">Don't have an account? </Text>
+          <Pressable onPress={() => router.push("/(auth)/register")}>
+            <Text className="text-emerald-400 font-semibold text-sm">
+              Sign Up
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </ScreenWrapper>
   );

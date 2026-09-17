@@ -31,6 +31,7 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   const content = scrollable ? (
     <ScrollView
       className="flex-1"
+      contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
       refreshControl={
         onRefresh ? (
@@ -43,7 +44,7 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
         ) : undefined
       }
     >
-      <View className={`px-4 py-2 ${className}`} {...props}>
+      <View className={`flex-1 px-4 py-2 ${className}`} {...props}>
         {children}
       </View>
     </ScrollView>
