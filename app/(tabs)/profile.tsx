@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text, Alert } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Alert, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button } from "@/components/ui";
 import { useAuthStore, selectUser } from "@/stores/auth.store";
+import { queryClient } from "@/config/queryClient";
 import { env } from "@/config/env";
 import { resolveApiBaseUrl } from "@/api/client";
 
@@ -38,20 +39,43 @@ export default function ProfileScreen() {
   const router = useRouter();
   const user = useAuthStore(selectUser);
   const logout = useAuthStore((state) => state.logout);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const role = (user?.role || "customer").toLowerCase();
   const permissions = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.customer;
 
+  const performLogout = async () => {
+    try {
+      setLoggingOut(true);
+      await logout();
+      queryClient.clear();
+      router.replace("/(auth)/login");
+    } catch (err) {
+      console.error("Logout error:", err);
+    } finally {
+      setLoggingOut(false);
+    }
+  };
+
   const handleLogout = () => {
+    if (Platform.OS === "web") {
+      if (typeof window !== "undefined") {
+        const confirmed = window.confirm("Are you sure you want to sign out of TurfSlot?");
+        if (confirmed) {
+          performLogout();
+        }
+      } else {
+        performLogout();
+      }
+      return;
+    }
+
     Alert.alert("Sign Out", "Are you sure you want to sign out of TurfSlot?", [
       { text: "Cancel", style: "cancel" },
       {
         text: "Sign Out",
         style: "destructive",
-        onPress: async () => {
-          await logout();
-          router.replace("/(auth)/login");
-        },
+        onPress: performLogout,
       },
     ]);
   };
@@ -159,8 +183,9 @@ export default function ProfileScreen() {
 
       {/* Logout Button */}
       <Button
-        title="Sign Out"
+        title={loggingOut ? "Signing Out..." : "Sign Out"}
         variant="danger"
+        loading={loggingOut}
         onPress={handleLogout}
         className="w-full"
       />
