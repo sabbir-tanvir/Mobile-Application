@@ -1,40 +1,32 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { Text, View } from "react-native";
-
-interface TabBarIconProps {
-  icon: string;
-  focused: boolean;
-  label: string;
-}
-
-function TabIcon({ icon, focused, label }: TabBarIconProps) {
-  return (
-    <View className="items-center justify-center pt-1">
-      <Text className="text-xl">{icon}</Text>
-      <Text
-        className={`text-[10px] mt-0.5 font-medium ${
-          focused ? "text-emerald-400 font-bold" : "text-zinc-500"
-        }`}
-      >
-        {label}
-      </Text>
-    </View>
-  );
-}
+import { Home, Compass, CalendarDays, Trophy, User } from "lucide-react-native";
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
+        tabBarShowLabel: true,
+        tabBarActiveTintColor: "#10b981",
+        tabBarInactiveTintColor: "#71717a",
         tabBarStyle: {
           backgroundColor: "#09090b",
           borderTopColor: "#27272a",
           borderTopWidth: 1,
-          height: 62,
-          paddingBottom: 6,
+          height: 60,
+          paddingTop: 6,
+          paddingBottom: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 10,
+          fontWeight: "600",
+          letterSpacing: 0.1,
+          marginTop: 2,
+        },
+        tabBarItemStyle: {
+          justifyContent: "center",
+          alignItems: "center",
         },
       }}
     >
@@ -42,8 +34,9 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon icon="🏠" focused={focused} label="Home" />
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, focused }) => (
+            <Home size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
           ),
         }}
       />
@@ -51,8 +44,9 @@ export default function TabsLayout() {
         name="explore"
         options={{
           title: "Explore",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon icon="🔍" focused={focused} label="Explore" />
+          tabBarLabel: "Explore",
+          tabBarIcon: ({ color, focused }) => (
+            <Compass size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
           ),
         }}
       />
@@ -60,8 +54,9 @@ export default function TabsLayout() {
         name="bookings"
         options={{
           title: "Bookings",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon icon="📋" focused={focused} label="Bookings" />
+          tabBarLabel: "Bookings",
+          tabBarIcon: ({ color, focused }) => (
+            <CalendarDays size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
           ),
         }}
       />
@@ -69,8 +64,9 @@ export default function TabsLayout() {
         name="tournaments"
         options={{
           title: "Events",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon icon="🏆" focused={focused} label="Tournaments" />
+          tabBarLabel: "Events",
+          tabBarIcon: ({ color, focused }) => (
+            <Trophy size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
           ),
         }}
       />
@@ -78,8 +74,9 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon icon="👤" focused={focused} label="Profile" />
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color, focused }) => (
+            <User size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
           ),
         }}
       />
