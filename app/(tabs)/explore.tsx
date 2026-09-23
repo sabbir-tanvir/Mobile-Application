@@ -37,15 +37,15 @@ export default function ExploreScreen() {
       {/* Header */}
       <View className="flex-row items-center justify-between my-3">
         <View>
-          <Text className="text-white text-2xl font-black">Explore Turfs</Text>
-          <Text className="text-zinc-400 text-xs mt-0.5">
+          <Text className="text-slate-900 dark:text-white text-2xl font-black">Explore Turfs</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
             Find and reserve sports grounds
           </Text>
         </View>
         {isAdmin && (
           <Pressable
             onPress={() => router.push("/turf/manage" as any)}
-            className="flex-row items-center px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950"
+            className="flex-row items-center px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-900/30"
           >
             <Text className="text-white font-bold text-xs">+ Add Pitch</Text>
           </Pressable>
@@ -53,18 +53,18 @@ export default function ExploreScreen() {
       </View>
 
       {/* Search Input Bar */}
-      <View className="flex-row items-center bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 mb-3.5">
-        <Text className="text-zinc-500 mr-2 text-base">🔍</Text>
+      <View className="flex-row items-center bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 mb-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-base">🔍</Text>
         <TextInput
           placeholder="Search by turf name or location..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-sm"
+          className="flex-1 text-slate-900 dark:text-white text-sm"
         />
         {searchQuery.length > 0 && (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-500 text-xs font-bold px-1">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-xs font-bold px-1">✕</Text>
           </Pressable>
         )}
       </View>
@@ -79,13 +79,13 @@ export default function ExploreScreen() {
               onPress={() => setSelectedCategory(category)}
               className={`px-3.5 py-1.5 rounded-full border ${
                 isSelected
-                  ? "bg-emerald-600 border-emerald-500"
-                  : "bg-zinc-900 border-zinc-800"
+                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
               }`}
             >
               <Text
                 className={`text-xs font-semibold ${
-                  isSelected ? "text-white" : "text-zinc-400"
+                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                 }`}
               >
                 {category}
@@ -116,12 +116,15 @@ export default function ExploreScreen() {
           refreshing={isRefetching}
           onRefresh={refetch}
           ListEmptyComponent={
-            <Card className="items-center justify-center py-12 bg-zinc-900/60">
+            <Card
+              variant="surface"
+              className="items-center justify-center py-12 bg-white dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800"
+            >
               <Text className="text-4xl mb-3">🔍</Text>
-              <Text className="text-white font-bold text-base">
+              <Text className="text-slate-900 dark:text-white font-bold text-base">
                 No turfs match your criteria
               </Text>
-              <Text className="text-zinc-500 text-xs mt-1 text-center px-4">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-1 text-center px-4">
                 Try searching with different keywords or choosing "All"
               </Text>
             </Card>

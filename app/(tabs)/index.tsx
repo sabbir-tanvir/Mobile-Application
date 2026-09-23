@@ -88,19 +88,19 @@ export default function HomeScreen() {
       <View className="flex-row items-center justify-between my-3">
         <View className="flex-1 mr-2">
           <View className="flex-row items-center gap-2 mb-1">
-            <Text className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold uppercase tracking-wider">
               TurfSlot
             </Text>
             <Badge label={roleBadge.label} variant={roleBadge.variant} size="sm" />
           </View>
-          <Text className="text-white text-2xl font-black" numberOfLines={1}>
+          <Text className="text-slate-900 dark:text-white text-2xl font-black" numberOfLines={1}>
             {user?.fullName || user?.name || "Player"} 👋
           </Text>
         </View>
 
         <Pressable
           onPress={() => router.push("/(tabs)/profile")}
-          className="w-11 h-11 rounded-full bg-zinc-900 border border-emerald-500/40 items-center justify-center"
+          className="w-11 h-11 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-emerald-500/40 shadow-sm items-center justify-center active:scale-95"
         >
           <Text className="text-lg">
             {role === "admin"

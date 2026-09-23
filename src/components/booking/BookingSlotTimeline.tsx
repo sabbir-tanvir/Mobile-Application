@@ -56,7 +56,7 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
           <View key={hour} className="flex-row items-start gap-2.5">
             {/* Time Indicator Column */}
             <View className="w-16 pt-2 items-end">
-              <Text className="text-zinc-400 text-xs font-bold font-mono">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-bold font-mono">
                 {formatHourLabel(hour)}
               </Text>
             </View>
@@ -75,7 +75,6 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
                 );
 
                 if (matchingBooking) {
-                  const isBookingStart = hour === matchingBooking.startHour;
                   const duration = matchingBooking.endHour - matchingBooking.startHour;
 
                   return (
@@ -85,21 +84,22 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
                       className="active:opacity-80"
                     >
                       <Card
-                        className={`p-3 border ${
+                        variant="elevated"
+                        className={`p-3 border rounded-2xl shadow-sm ${
                           matchingBooking.status === "completed"
-                            ? "bg-blue-950/40 border-blue-600/50"
+                            ? "bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-600/50"
                             : matchingBooking.status === "confirmed"
-                            ? "bg-emerald-950/30 border-emerald-600/50"
-                            : "bg-amber-950/30 border-amber-600/50"
+                            ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-600/50"
+                            : "bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-600/50"
                         }`}
                       >
                         <View className="flex-row items-center justify-between mb-1">
                           <View className="flex-row items-center gap-1.5 flex-1 mr-2">
-                            <Text className="text-white font-bold text-xs" numberOfLines={1}>
+                            <Text className="text-slate-900 dark:text-white font-bold text-xs" numberOfLines={1}>
                               👤 {matchingBooking.customerName}
                             </Text>
                             {targetTurfs.length > 1 && (
-                              <Text className="text-zinc-400 text-[10px]" numberOfLines={1}>
+                              <Text className="text-slate-500 dark:text-zinc-400 text-[10px]" numberOfLines={1}>
                                 • {turf.name}
                               </Text>
                             )}
@@ -118,10 +118,10 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
                         </View>
 
                         <View className="flex-row items-center justify-between">
-                          <Text className="text-zinc-300 text-[11px]">
+                          <Text className="text-slate-700 dark:text-zinc-300 text-[11px] font-medium">
                             ⏰ {matchingBooking.startHour}:00 - {matchingBooking.endHour}:00 ({duration}h)
                           </Text>
-                          <Text className="text-zinc-400 text-[10px]">
+                          <Text className="text-slate-500 dark:text-zinc-400 text-[10px]">
                             {matchingBooking.customerPhone}
                           </Text>
                         </View>
@@ -149,24 +149,24 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
                     onPress={() => onSelectEmptySlot(turf.id, selectedDate, hour)}
                     className="active:opacity-75"
                   >
-                    <View className="p-2.5 rounded-xl border border-dashed border-zinc-800 bg-zinc-950/60 flex-row items-center justify-between">
+                    <View className="p-2.5 rounded-2xl border border-dashed border-slate-300 dark:border-zinc-800 bg-white dark:bg-zinc-950/60 shadow-sm shadow-slate-100 dark:shadow-none flex-row items-center justify-between">
                       <View className="flex-row items-center gap-2">
-                        <View className="w-2 h-2 rounded-full bg-emerald-500" />
-                        <Text className="text-zinc-300 text-xs font-semibold">
+                        <View className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-semibold">
                           Available Slot
                         </Text>
                         {targetTurfs.length > 1 && (
-                          <Text className="text-zinc-500 text-[10px]">
+                          <Text className="text-slate-400 dark:text-zinc-500 text-[10px]">
                             ({turf.name})
                           </Text>
                         )}
                       </View>
 
                       <View className="flex-row items-center gap-2">
-                        <Text className="text-emerald-400 font-bold text-xs">
+                        <Text className="text-emerald-600 dark:text-emerald-400 font-bold text-xs">
                           {formatTaka(rate)}
                         </Text>
-                        <Text className="text-emerald-500 font-bold text-xs bg-emerald-500/10 px-2 py-0.5 rounded-md">
+                        <Text className="text-emerald-700 dark:text-emerald-400 font-bold text-xs bg-emerald-500/15 dark:bg-emerald-500/10 px-2 py-0.5 rounded-md">
                           + Book
                         </Text>
                       </View>

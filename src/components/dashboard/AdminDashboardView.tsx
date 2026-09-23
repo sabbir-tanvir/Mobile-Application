@@ -23,97 +23,98 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
 }) => {
   const router = useRouter();
 
-  // Matches web client Dashboard.jsx formatCurrency: divides poisha by 100
   const formatFin = (amountInPoisha?: number) => {
     if (amountInPoisha === undefined || amountInPoisha === null) return "৳0";
     return formatTaka(Math.round(amountInPoisha / 100));
   };
 
   return (
-    <View className="space-y-6">
+    <View className="space-y-5">
       {/* Role Indicator Banner */}
-      <View className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 flex-row items-center justify-between">
-        <View className="flex-row items-center gap-2">
-          <Text className="text-xl">👑</Text>
+      <View className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
+        <View className="flex-row items-center gap-2.5">
+          <Text className="text-2xl">👑</Text>
           <View>
-            <Text className="text-emerald-400 font-bold text-xs uppercase tracking-wider">
+            <Text className="text-emerald-700 dark:text-emerald-400 font-extrabold text-xs uppercase tracking-wider">
               Executive Administrator
             </Text>
-            <Text className="text-zinc-400 text-[11px]">
+            <Text className="text-slate-600 dark:text-zinc-400 text-[11px]">
               Full financial, operational & partner authority
             </Text>
           </View>
         </View>
-        <Badge label="Active Mode" variant="paid" size="sm" />
+        <Badge label="Active" variant="paid" size="sm" />
       </View>
 
-      {/* Financial KPIs Grid (matching web Dashboard.jsx) */}
+      {/* Financial KPIs Grid */}
       <View>
         <View className="flex-row items-center justify-between mb-2.5">
-          <Text className="text-zinc-300 font-bold text-sm uppercase tracking-wider">
+          <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider">
             Financial Overview (Monthly)
           </Text>
           <Pressable onPress={() => router.push("/accounting" as any)}>
-            <Text className="text-emerald-400 text-xs font-semibold">Accounting Hub →</Text>
+            <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
+              Accounting Hub →
+            </Text>
           </Pressable>
         </View>
 
         {isLoadingReport ? (
-          <View className="grid grid-cols-2 gap-3 mb-2">
-            <Skeleton height={85} borderRadius={16} />
-            <Skeleton height={85} borderRadius={16} />
-            <Skeleton height={85} borderRadius={16} />
-            <Skeleton height={85} borderRadius={16} />
+          <View className="grid grid-cols-2 gap-2.5 mb-2">
+            <Skeleton height={90} borderRadius={16} />
+            <Skeleton height={90} borderRadius={16} />
+            <Skeleton height={90} borderRadius={16} />
+            <Skeleton height={90} borderRadius={16} />
           </View>
         ) : (
           <View className="grid grid-cols-2 gap-2.5">
-            <Card className="bg-zinc-900 border-zinc-800 p-3.5">
-              <Text className="text-zinc-400 text-xs font-medium">Net Profit</Text>
-              <Text className="text-emerald-400 text-xl font-black mt-1">
+            <Card className="p-3.5">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Net Profit</Text>
+              <Text className="text-emerald-600 dark:text-emerald-400 text-xl font-black mt-1">
                 {formatFin(report?.netProfit)}
               </Text>
-              <Text className="text-zinc-500 text-[10px] mt-0.5">Current Month</Text>
+              <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Current Month</Text>
             </Card>
 
-            <Card className="bg-zinc-900 border-zinc-800 p-3.5">
-              <Text className="text-zinc-400 text-xs font-medium">Total Revenue</Text>
-              <Text className="text-blue-400 text-xl font-black mt-1">
+            <Card className="p-3.5">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Total Revenue</Text>
+              <Text className="text-blue-600 dark:text-blue-400 text-xl font-black mt-1">
                 {formatFin(report?.totalRevenue)}
               </Text>
-              <Text className="text-zinc-500 text-[10px] mt-0.5">Booking & Sales</Text>
+              <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Booking & Sales</Text>
             </Card>
 
-            <Card className="bg-zinc-900 border-zinc-800 p-3.5">
-              <Text className="text-zinc-400 text-xs font-medium">Cash on Hand</Text>
-              <Text className="text-amber-400 text-xl font-black mt-1">
+            <Card className="p-3.5">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Cash on Hand</Text>
+              <Text className="text-amber-600 dark:text-amber-400 text-xl font-black mt-1">
                 {formatFin(report?.totalCash)}
               </Text>
-              <Text className="text-zinc-500 text-[10px] mt-0.5">All Accounts</Text>
+              <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">All Accounts</Text>
             </Card>
 
-            <Card className="bg-zinc-900 border-zinc-800 p-3.5">
-              <Text className="text-zinc-400 text-xs font-medium">Receivables</Text>
-              <Text className="text-purple-400 text-xl font-black mt-1">
+            <Card className="p-3.5">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Receivables</Text>
+              <Text className="text-purple-600 dark:text-purple-400 text-xl font-black mt-1">
                 {formatFin(report?.totalReceivables)}
               </Text>
-              <Text className="text-zinc-500 text-[10px] mt-0.5">Unpaid Bookings</Text>
+              <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Unpaid Bookings</Text>
             </Card>
           </View>
         )}
       </View>
 
       {/* Operational Stats */}
-      <View className="flex-row gap-3">
-        <Card className="flex-1 bg-zinc-950/80 border-zinc-800/80 p-3">
-          <Text className="text-zinc-500 text-[10px] uppercase font-bold">Turfs</Text>
-          <Text className="text-white text-lg font-black mt-0.5">
+      <View className="flex-row gap-2.5">
+        <Card variant="surface" className="flex-1 p-3">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">Turfs</Text>
+          <Text className="text-slate-900 dark:text-white text-base font-black mt-0.5">
             {turfs.length} Grounds
           </Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-950/80 border-zinc-800/80 p-3">
-          <Text className="text-zinc-500 text-[10px] uppercase font-bold">Bookings</Text>
-          <Text className="text-white text-lg font-black mt-0.5">
+        <Card variant="surface" className="flex-1 p-3">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">Bookings</Text>
+          <Text className="text-slate-900 dark:text-white text-base font-black mt-0.5">
             {report?.bookingCount ?? bookings.length} Total
           </Text>
         </Card>
@@ -122,9 +123,9 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           onPress={() => router.push("/partners" as any)}
           className="flex-1 active:opacity-80"
         >
-          <Card className="bg-zinc-950/80 border-zinc-800/80 p-3">
-            <Text className="text-zinc-500 text-[10px] uppercase font-bold">Partners</Text>
-            <Text className="text-purple-400 text-lg font-black mt-0.5">
+          <Card variant="surface" className="p-3">
+            <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">Partners</Text>
+            <Text className="text-purple-600 dark:text-purple-400 text-base font-black mt-0.5">
               {report?.partnerCount ?? 1} Active →
             </Text>
           </Card>
@@ -132,11 +133,11 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       </View>
 
       {/* Quick Admin Actions */}
-      <Card className="bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-zinc-300 font-bold text-sm uppercase tracking-wider mb-3">
+      <Card className="p-4">
+        <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-3">
           Quick Management Actions
         </Text>
-        <View className="space-y-2">
+        <View className="space-y-2.5">
           <View className="flex-row gap-2.5">
             <Button
               title="+ Booking"
@@ -210,7 +211,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               className="flex-1"
             />
             <Button
-              title="📊 Reports"
+              title="📈 Reports"
               variant="secondary"
               size="sm"
               onPress={() => router.push("/reports" as any)}
@@ -223,11 +224,11 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       {/* Recent Bookings Activity Feed */}
       <View>
         <View className="flex-row items-center justify-between mb-3">
-          <Text className="text-white font-bold text-lg">
+          <Text className="text-slate-900 dark:text-white font-black text-lg">
             Live Reservation Feed
           </Text>
           <Pressable onPress={() => router.push("/(tabs)/bookings")}>
-            <Text className="text-emerald-400 text-xs font-semibold">
+            <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
               View All ({bookings.length}) →
             </Text>
           </Pressable>

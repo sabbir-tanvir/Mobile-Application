@@ -58,32 +58,34 @@ export default function BookingsScreen() {
       {/* Top Header */}
       <View className="flex-row items-center justify-between my-3">
         <View>
-          <Text className="text-white text-2xl font-black">Bookings & Schedule</Text>
-          <Text className="text-zinc-400 text-xs mt-0.5">
+          <Text className="text-slate-900 dark:text-white text-2xl font-black">Bookings & Schedule</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
             {bookings.length} reservations across all pitches
           </Text>
         </View>
 
         <Pressable
           onPress={() => router.push("/booking/create" as any)}
-          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950 flex-row items-center"
+          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-900/30 flex-row items-center"
         >
           <Text className="text-white font-bold text-xs">+ Book Slot</Text>
         </Pressable>
       </View>
 
       {/* View Switcher: List vs Timeline */}
-      <View className="flex-row bg-zinc-900 border border-zinc-800 rounded-xl p-1 mb-3.5">
+      <View className="flex-row bg-slate-200/70 dark:bg-zinc-900 border border-slate-300/60 dark:border-zinc-800 rounded-2xl p-1 mb-3.5">
         <Pressable
           onPress={() => setViewMode("timeline")}
-          className={`flex-1 py-2 rounded-lg items-center justify-center flex-row gap-1.5 ${
-            viewMode === "timeline" ? "bg-emerald-600 shadow-sm" : "bg-transparent"
+          className={`flex-1 py-2 rounded-xl items-center justify-center flex-row gap-1.5 ${
+            viewMode === "timeline" ? "bg-white dark:bg-emerald-600 shadow-sm" : "bg-transparent"
           }`}
         >
           <Text className="text-sm">⏱️</Text>
           <Text
             className={`text-xs font-bold ${
-              viewMode === "timeline" ? "text-white" : "text-zinc-400"
+              viewMode === "timeline"
+                ? "text-slate-900 dark:text-white"
+                : "text-slate-600 dark:text-zinc-400"
             }`}
           >
             24h Slot Matrix
@@ -92,14 +94,16 @@ export default function BookingsScreen() {
 
         <Pressable
           onPress={() => setViewMode("list")}
-          className={`flex-1 py-2 rounded-lg items-center justify-center flex-row gap-1.5 ${
-            viewMode === "list" ? "bg-emerald-600 shadow-sm" : "bg-transparent"
+          className={`flex-1 py-2 rounded-xl items-center justify-center flex-row gap-1.5 ${
+            viewMode === "list" ? "bg-white dark:bg-emerald-600 shadow-sm" : "bg-transparent"
           }`}
         >
           <Text className="text-sm">📋</Text>
           <Text
             className={`text-xs font-bold ${
-              viewMode === "list" ? "text-white" : "text-zinc-400"
+              viewMode === "list"
+                ? "text-slate-900 dark:text-white"
+                : "text-slate-600 dark:text-zinc-400"
             }`}
           >
             Reservations List
@@ -111,16 +115,16 @@ export default function BookingsScreen() {
       {viewMode === "timeline" ? (
         <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
           {/* Date Selector Navigation Bar */}
-          <View className="bg-zinc-900 border border-zinc-800 rounded-2xl p-3 mb-3.5 flex-row items-center justify-between">
+          <View className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl p-3 mb-3.5 flex-row items-center justify-between shadow-sm shadow-slate-200/40 dark:shadow-none">
             <Pressable
               onPress={() => shiftDate(-1)}
-              className="w-8 h-8 rounded-full bg-zinc-950 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+              className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 items-center justify-center active:bg-slate-200 dark:active:bg-zinc-800"
             >
-              <Text className="text-white font-bold text-xs">◀</Text>
+              <Text className="text-slate-800 dark:text-white font-bold text-xs">◀</Text>
             </Pressable>
 
             <View className="items-center">
-              <Text className="text-white font-black text-sm">
+              <Text className="text-slate-900 dark:text-white font-black text-sm">
                 📅 {selectedDate}
               </Text>
               <View className="flex-row gap-2 mt-1">
@@ -128,13 +132,13 @@ export default function BookingsScreen() {
                   onPress={() => setSelectedDate(getTodayString())}
                   className={`px-2 py-0.5 rounded-md border ${
                     isToday
-                      ? "bg-emerald-500/20 border-emerald-500"
-                      : "bg-zinc-950 border-zinc-800"
+                      ? "bg-emerald-500/15 border-emerald-500"
+                      : "bg-slate-100 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                   }`}
                 >
                   <Text
                     className={`text-[10px] font-bold ${
-                      isToday ? "text-emerald-400" : "text-zinc-400"
+                      isToday ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-zinc-400"
                     }`}
                   >
                     Today
@@ -147,9 +151,9 @@ export default function BookingsScreen() {
                     tom.setDate(tom.getDate() + 1);
                     setSelectedDate(tom.toISOString().split("T")[0]);
                   }}
-                  className="px-2 py-0.5 rounded-md border bg-zinc-950 border-zinc-800"
+                  className="px-2 py-0.5 rounded-md border bg-slate-100 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 >
-                  <Text className="text-zinc-400 text-[10px] font-semibold">
+                  <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-semibold">
                     Tomorrow
                   </Text>
                 </Pressable>
@@ -158,9 +162,9 @@ export default function BookingsScreen() {
 
             <Pressable
               onPress={() => shiftDate(1)}
-              className="w-8 h-8 rounded-full bg-zinc-950 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+              className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 items-center justify-center active:bg-slate-200 dark:active:bg-zinc-800"
             >
-              <Text className="text-white font-bold text-xs">▶</Text>
+              <Text className="text-slate-800 dark:text-white font-bold text-xs">▶</Text>
             </Pressable>
           </View>
 
@@ -175,13 +179,13 @@ export default function BookingsScreen() {
                 onPress={() => setSelectedTurfId("all")}
                 className={`px-3 py-1.5 rounded-full border ${
                   selectedTurfId === "all"
-                    ? "bg-emerald-600 border-emerald-500"
-                    : "bg-zinc-900 border-zinc-800"
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
                 }`}
               >
                 <Text
                   className={`text-xs font-semibold ${
-                    selectedTurfId === "all" ? "text-white" : "text-zinc-400"
+                    selectedTurfId === "all" ? "text-white" : "text-slate-600 dark:text-zinc-400"
                   }`}
                 >
                   All Pitches
@@ -196,13 +200,13 @@ export default function BookingsScreen() {
                     onPress={() => setSelectedTurfId(t.id)}
                     className={`px-3 py-1.5 rounded-full border ${
                       isSelected
-                        ? "bg-emerald-600 border-emerald-500"
-                        : "bg-zinc-900 border-zinc-800"
+                        ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                        : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
                     }`}
                   >
                     <Text
                       className={`text-xs font-semibold ${
-                        isSelected ? "text-white" : "text-zinc-400"
+                        isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                       }`}
                     >
                       {t.name}
@@ -242,18 +246,18 @@ export default function BookingsScreen() {
         /* LIST VIEW */
         <View className="flex-1">
           {/* Search Input */}
-          <View className="flex-row items-center bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 mb-3">
-            <Text className="text-zinc-500 mr-2 text-sm">🔍</Text>
+          <View className="flex-row items-center bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+            <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-sm">🔍</Text>
             <TextInput
               placeholder="Search by customer, phone, or ground..."
-              placeholderTextColor="#71717a"
+              placeholderTextColor="#94a3b8"
               value={searchQuery}
               onChangeText={setSearchQuery}
-              className="flex-1 text-white text-xs"
+              className="flex-1 text-slate-900 dark:text-white text-xs"
             />
             {searchQuery.length > 0 && (
               <Pressable onPress={() => setSearchQuery("")}>
-                <Text className="text-zinc-500 text-xs font-bold px-1">✕</Text>
+                <Text className="text-slate-400 dark:text-zinc-500 text-xs font-bold px-1">✕</Text>
               </Pressable>
             )}
           </View>
@@ -266,15 +270,15 @@ export default function BookingsScreen() {
                 <Pressable
                   key={tab}
                   onPress={() => setActiveTab(tab)}
-                  className={`px-3 py-1.5 rounded-full border ${
+                  className={`px-3.5 py-1.5 rounded-full border ${
                     isSelected
-                      ? "bg-emerald-600 border-emerald-500"
-                      : "bg-zinc-900 border-zinc-800"
+                      ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                      : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
                   }`}
                 >
                   <Text
                     className={`text-xs font-semibold ${
-                      isSelected ? "text-white" : "text-zinc-400"
+                      isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                     }`}
                   >
                     {tab}
@@ -305,12 +309,15 @@ export default function BookingsScreen() {
               refreshing={isRefetching}
               onRefresh={refetch}
               ListEmptyComponent={
-                <Card className="items-center justify-center py-12 bg-zinc-900/60">
+                <Card
+                  variant="surface"
+                  className="items-center justify-center py-12 bg-white dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800"
+                >
                   <Text className="text-4xl mb-3">📅</Text>
-                  <Text className="text-white font-bold text-base">
+                  <Text className="text-slate-900 dark:text-white font-bold text-base">
                     No bookings found
                   </Text>
-                  <Text className="text-zinc-500 text-xs mt-1 text-center px-4">
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-1 text-center px-4">
                     {searchQuery
                       ? "No bookings match your search query."
                       : `No reservations under "${activeTab}".`}

@@ -20,14 +20,14 @@ export const AmenityList: React.FC<AmenityListProps> = ({
       {displayList.map((item, index) => (
         <View
           key={index}
-          className="bg-zinc-800/80 border border-zinc-700/60 rounded-lg px-2.5 py-1"
+          className="bg-slate-100 dark:bg-zinc-800/80 border border-slate-200 dark:border-zinc-700/60 rounded-lg px-2.5 py-1"
         >
-          <Text className="text-zinc-300 text-xs font-medium">{item}</Text>
+          <Text className="text-slate-700 dark:text-zinc-300 text-xs font-medium">{item}</Text>
         </View>
       ))}
       {remaining > 0 && (
-        <View className="bg-zinc-800/40 rounded-lg px-2 py-1">
-          <Text className="text-zinc-400 text-xs">+{remaining} more</Text>
+        <View className="bg-slate-100 dark:bg-zinc-800/40 rounded-lg px-2 py-1">
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs">+{remaining} more</Text>
         </View>
       )}
     </View>

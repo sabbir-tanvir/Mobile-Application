@@ -2,7 +2,7 @@ import React from "react";
 import { View, ViewProps } from "react-native";
 
 export interface CardProps extends ViewProps {
-  variant?: "default" | "elevated" | "outlined";
+  variant?: "default" | "elevated" | "outlined" | "surface";
   className?: string;
   children: React.ReactNode;
 }
@@ -16,12 +16,14 @@ export const Card: React.FC<CardProps> = ({
   const getVariantStyles = () => {
     switch (variant) {
       case "elevated":
-        return "bg-zinc-900/95 border border-zinc-800 shadow-lg shadow-black/50";
+        return "bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700/60 shadow-md shadow-slate-300/40 dark:shadow-lg dark:shadow-black/60";
       case "outlined":
-        return "bg-transparent border border-zinc-800";
+        return "bg-transparent border border-slate-200 dark:border-zinc-800";
+      case "surface":
+        return "bg-slate-100/90 dark:bg-zinc-950/80 border border-slate-200/60 dark:border-zinc-800/60";
       case "default":
       default:
-        return "bg-zinc-900 border border-zinc-800/80";
+        return "bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 shadow-sm shadow-slate-200/60 dark:shadow-none";
     }
   };
 

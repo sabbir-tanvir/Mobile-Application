@@ -3,6 +3,7 @@ import { Slot, useRouter, useSegments } from "expo-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/config/queryClient";
 import { useAuthStore, selectIsAuth, selectAuthLoading } from "@/stores/auth.store";
+import { useThemeStore } from "@/stores/theme.store";
 import { View, ActivityIndicator } from "react-native";
 import "../src/theme/global.css";
 
@@ -12,10 +13,12 @@ function RootNavigationLayout() {
   const isAuthenticated = useAuthStore(selectIsAuth);
   const isLoading = useAuthStore(selectAuthLoading);
   const initializeAuth = useAuthStore((state) => state.initializeAuth);
+  const initializeTheme = useThemeStore((state) => state.initializeTheme);
 
   useEffect(() => {
     initializeAuth();
-  }, [initializeAuth]);
+    initializeTheme();
+  }, [initializeAuth, initializeTheme]);
 
   useEffect(() => {
     if (isLoading) return;

@@ -9,6 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useThemeStore } from "@/stores/theme.store";
 
 export interface ScreenWrapperProps extends ViewProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export interface ScreenWrapperProps extends ViewProps {
   onRefresh?: () => void;
   withKeyboardAvoid?: boolean;
   className?: string;
+  edges?: ("top" | "right" | "bottom" | "left")[];
 }
 
 export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
@@ -26,8 +28,11 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   onRefresh,
   withKeyboardAvoid = true,
   className = "",
+  edges = ["top", "left", "right"],
   ...props
 }) => {
+  const isDark = useThemeStore((s) => s.isDark);
+
   const content = scrollable ? (
     <ScrollView
       className="flex-1"
@@ -55,8 +60,11 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-zinc-950">
-      <StatusBar barStyle="light-content" backgroundColor="#09090b" />
+    <SafeAreaView edges={edges} className="flex-1 bg-slate-50 dark:bg-zinc-950">
+      <StatusBar
+        barStyle={isDark ? "light-content" : "dark-content"}
+        backgroundColor={isDark ? "#09090b" : "#f8fafc"}
+      />
       {withKeyboardAvoid ? (
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}

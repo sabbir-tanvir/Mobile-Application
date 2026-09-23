@@ -62,53 +62,56 @@ export default function TournamentsScreen() {
 
     return (
       <Pressable onPress={() => router.push(`/tournament/${item.id}`)}>
-        <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4 rounded-2xl shadow-sm">
+        <Card
+          variant="elevated"
+          className="mb-4 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-300/40 dark:shadow-none"
+        >
           {/* Top row: Name + Status badge */}
           <View className="flex-row items-center justify-between mb-1.5">
-            <Text className="text-white font-black text-lg flex-1 mr-2" numberOfLines={1}>
+            <Text className="text-slate-900 dark:text-white font-black text-lg flex-1 mr-2" numberOfLines={1}>
               {item.name}
             </Text>
             <Badge label={badgeConfig.label} variant={badgeConfig.variant} size="sm" />
           </View>
 
           {/* Turf and Format */}
-          <Text className="text-emerald-400 text-xs font-semibold mb-3">
+          <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-3">
             🏟️ {item.turfName || "Turf Arena"} • ⚔️ {item.format?.replace("_", " ").toUpperCase()}
           </Text>
 
           {/* Date Range */}
           <View className="flex-row items-center gap-2 mb-3">
-            <Text className="text-zinc-400 text-xs">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">
               📅 {item.startDate ? formatDate(item.startDate) : "TBD"} to{" "}
               {item.endDate ? formatDate(item.endDate) : "TBD"}
             </Text>
           </View>
 
           {/* Prize and Entry Fee Box */}
-          <View className="bg-zinc-950/80 border border-zinc-800/80 rounded-xl p-3 flex-row justify-between items-center mb-3">
+          <View className="bg-slate-50 dark:bg-zinc-950/80 border border-slate-200/80 dark:border-zinc-800/80 rounded-xl p-3 flex-row justify-between items-center mb-3">
             <View>
-              <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">
                 Entry Fee
               </Text>
-              <Text className="text-white font-extrabold text-sm">
+              <Text className="text-slate-900 dark:text-white font-extrabold text-sm">
                 {formatTaka(item.entryFee)}
               </Text>
             </View>
 
             <View className="items-center">
-              <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">
                 Prize Pool
               </Text>
-              <Text className="text-amber-400 font-extrabold text-sm">
+              <Text className="text-amber-500 dark:text-amber-400 font-extrabold text-sm">
                 🏆 {formatTaka(item.prizePool)}
               </Text>
             </View>
 
             <View className="items-end">
-              <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">
                 Teams
               </Text>
-              <Text className="text-zinc-200 font-bold text-sm">
+              <Text className="text-slate-800 dark:text-zinc-200 font-bold text-sm">
                 {registeredCount} / {maxCapacity}
               </Text>
             </View>
@@ -117,14 +120,14 @@ export default function TournamentsScreen() {
           {/* Registration Capacity Progress Bar */}
           <View className="space-y-1">
             <View className="flex-row justify-between items-center">
-              <Text className="text-zinc-500 text-[10px] font-semibold">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] font-semibold">
                 Roster Spots
               </Text>
-              <Text className="text-zinc-400 text-[10px] font-bold">
+              <Text className="text-slate-600 dark:text-zinc-400 text-[10px] font-bold">
                 {percentFilled}% Filled
               </Text>
             </View>
-            <View className="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+            <View className="w-full bg-slate-200 dark:bg-zinc-800 h-1.5 rounded-full overflow-hidden">
               <View
                 className={`h-full rounded-full ${
                   percentFilled >= 100 ? "bg-amber-500" : "bg-emerald-500"
@@ -135,11 +138,11 @@ export default function TournamentsScreen() {
           </View>
 
           {/* View Details Hint */}
-          <View className="flex-row items-center justify-between mt-3 pt-3 border-t border-zinc-800/50">
-            <Text className="text-zinc-500 text-xs font-medium">
+          <View className="flex-row items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-zinc-800/50">
+            <Text className="text-slate-500 dark:text-zinc-500 text-xs font-medium">
               Tap to view registered squads & brackets
             </Text>
-            <Text className="text-emerald-400 text-xs font-bold">→</Text>
+            <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold">→</Text>
           </View>
         </Card>
       </Pressable>
@@ -151,8 +154,8 @@ export default function TournamentsScreen() {
       {/* Title & Create Action */}
       <View className="flex-row items-center justify-between my-3">
         <View>
-          <Text className="text-white text-2xl font-black">Tournaments</Text>
-          <Text className="text-zinc-400 text-xs mt-0.5">
+          <Text className="text-slate-900 dark:text-white text-2xl font-black">Tournaments</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
             Compete in championship leagues & cups
           </Text>
         </View>
@@ -168,18 +171,18 @@ export default function TournamentsScreen() {
       </View>
 
       {/* Search Input */}
-      <View className="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 flex-row items-center mb-3">
-        <Text className="text-zinc-500 mr-2">🔍</Text>
+      <View className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 flex-row items-center mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-sm">🔍</Text>
         <TextInput
           placeholder="Search tournament, venue, or format..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-xs"
+          className="flex-1 text-slate-900 dark:text-white text-xs"
         />
         {searchQuery ? (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-500 text-xs font-bold">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-xs font-bold">✕</Text>
           </Pressable>
         ) : null}
       </View>
@@ -199,13 +202,13 @@ export default function TournamentsScreen() {
               onPress={() => setSelectedStatus(f.value)}
               className={`px-3 py-1.5 rounded-full border ${
                 isSelected
-                  ? "bg-emerald-600 border-emerald-500"
-                  : "bg-zinc-900 border-zinc-800"
+                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
               }`}
             >
               <Text
                 className={`text-[11px] font-bold ${
-                  isSelected ? "text-white" : "text-zinc-400"
+                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                 }`}
               >
                 {f.label}
@@ -221,10 +224,13 @@ export default function TournamentsScreen() {
           <Skeleton height={180} borderRadius={16} />
         </View>
       ) : filteredTournaments.length === 0 ? (
-        <Card className="p-8 bg-zinc-900 border-zinc-800 items-center justify-center my-6 border-dashed">
+        <Card
+          variant="surface"
+          className="p-8 bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 items-center justify-center my-6 border-dashed"
+        >
           <Text className="text-4xl mb-2">🏆</Text>
-          <Text className="text-white font-bold text-sm">No Tournaments Found</Text>
-          <Text className="text-zinc-400 text-xs text-center mt-1 mb-4">
+          <Text className="text-slate-900 dark:text-white font-bold text-sm">No Tournaments Found</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mt-1 mb-4">
             {searchQuery
               ? "No tournaments match your search criteria."
               : "No tournaments are currently organized."}

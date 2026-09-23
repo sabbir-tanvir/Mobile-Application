@@ -32,7 +32,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
       {/* Player Action Banner */}
       <Pressable
         onPress={() => router.push("/(tabs)/explore")}
-        className="rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-800 p-5 shadow-lg shadow-emerald-950/40 active:opacity-95"
+        className="rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 p-5 shadow-lg shadow-emerald-900/30 dark:shadow-emerald-950/50 active:scale-[0.99] border border-emerald-500/30"
       >
         <View className="flex-row items-center justify-between">
           <View className="flex-1 mr-3">
@@ -40,11 +40,11 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             <Text className="text-white text-xl font-black mt-2">
               Reserve Your Turf Slot
             </Text>
-            <Text className="text-emerald-100/80 text-xs mt-1">
+            <Text className="text-emerald-100/90 text-xs mt-1">
               Top quality football, cricket & badminton venues
             </Text>
           </View>
-          <View className="w-12 h-12 rounded-xl bg-white/20 items-center justify-center">
+          <View className="w-12 h-12 rounded-2xl bg-white/20 items-center justify-center border border-white/20">
             <Text className="text-2xl">⚡</Text>
           </View>
         </View>
@@ -54,11 +54,11 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
       {upcomingBookings.length > 0 && (
         <View>
           <View className="flex-row items-center justify-between mb-2.5">
-            <Text className="text-white font-bold text-base">
+            <Text className="text-slate-900 dark:text-white font-bold text-base">
               My Next Upcoming Game
             </Text>
             <Pressable onPress={() => router.push("/(tabs)/bookings")}>
-              <Text className="text-emerald-400 text-xs font-semibold">
+              <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
                 All Matches ({upcomingBookings.length}) →
               </Text>
             </Pressable>
@@ -73,9 +73,9 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
       {/* Featured Turf Grounds */}
       <View>
         <View className="flex-row items-center justify-between mb-3">
-          <Text className="text-white font-bold text-lg">Featured Grounds</Text>
+          <Text className="text-slate-900 dark:text-white font-bold text-lg">Featured Grounds</Text>
           <Pressable onPress={() => router.push("/(tabs)/explore")}>
-            <Text className="text-emerald-400 text-xs font-semibold">
+            <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
               Explore All →
             </Text>
           </Pressable>
@@ -95,9 +95,12 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
             />
           ))
         ) : (
-          <Card className="items-center justify-center py-8">
+          <Card
+            variant="surface"
+            className="items-center justify-center py-10 bg-white dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800"
+          >
             <Text className="text-3xl mb-2">🏟️</Text>
-            <Text className="text-zinc-300 font-semibold text-sm">
+            <Text className="text-slate-700 dark:text-zinc-300 font-semibold text-sm">
               No turfs found
             </Text>
           </Card>

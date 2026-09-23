@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
+  darkMode: "class",
   content: [
     "./app/**/*.{js,jsx,ts,tsx}",
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -22,11 +23,21 @@ export default {
           900: "#14532d",
         },
         surface: {
-          dark: "#0a0a0a",
-          card: "#171717",
-          border: "#262626",
-          muted: "#737373",
+          light: "#ffffff",
+          "light-subtle": "#f8fafc",
+          "light-border": "#e2e8f0",
+          dark: "#09090b",
+          "dark-card": "#18181b",
+          "dark-border": "#27272a",
+          card: "#18181b",
+          border: "#27272a",
+          muted: "#71717a",
         },
+      },
+      boxShadow: {
+        soft: "0 2px 10px rgba(0, 0, 0, 0.05)",
+        medium: "0 4px 20px rgba(0, 0, 0, 0.08)",
+        glow: "0 0 20px rgba(34, 197, 94, 0.25)",
       },
     },
   },
