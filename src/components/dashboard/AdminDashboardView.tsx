@@ -118,12 +118,17 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           </Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-950/80 border-zinc-800/80 p-3">
-          <Text className="text-zinc-500 text-[10px] uppercase font-bold">Partners</Text>
-          <Text className="text-white text-lg font-black mt-0.5">
-            {report?.partnerCount ?? 1} Active
-          </Text>
-        </Card>
+        <Pressable
+          onPress={() => router.push("/partners" as any)}
+          className="flex-1 active:opacity-80"
+        >
+          <Card className="bg-zinc-950/80 border-zinc-800/80 p-3">
+            <Text className="text-zinc-500 text-[10px] uppercase font-bold">Partners</Text>
+            <Text className="text-purple-400 text-lg font-black mt-0.5">
+              {report?.partnerCount ?? 1} Active →
+            </Text>
+          </Card>
+        </Pressable>
       </View>
 
       {/* Quick Admin Actions */}
@@ -164,11 +169,43 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               className="flex-1"
             />
           </View>
+          <View className="flex-row gap-2.5">
+            <Button
+              title="📊 Accounting"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/accounting" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="🤝 Partners"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/partners" as any)}
+              className="flex-1"
+            />
+          </View>
+          <View className="flex-row gap-2.5">
+            <Button
+              title="🛍️ Retail POS"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/pos" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="🏆 Tournaments"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/(tabs)/tournaments" as any)}
+              className="flex-1"
+            />
+          </View>
           <Button
-            title="📊 Financial Accounting & Ledger"
+            title="👥 Team & User Access Control"
             variant="secondary"
             size="sm"
-            onPress={() => router.push("/accounting" as any)}
+            onPress={() => router.push("/users" as any)}
             className="w-full"
           />
         </View>

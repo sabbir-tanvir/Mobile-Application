@@ -1,17 +1,65 @@
-export interface Tournament {
-  id: string | number;
+export type TournamentStatus =
+  | "upcoming"
+  | "registration_open"
+  | "in_progress"
+  | "completed"
+  | "cancelled";
+
+export type TournamentFormat = "knockout" | "league" | "group_stage";
+
+export interface TournamentTeam {
   name: string;
-  turfId?: string | number;
+  captainName: string;
+  captainPhone: string;
+  paid: boolean;
+}
+
+export interface Tournament {
+  id: string;
+  name: string;
+  turfId: string;
   turfName?: string;
-  startDate: string;
-  endDate: string;
-  maxTeams?: number;
+  startDate?: string;
+  endDate?: string;
+  maxTeams: number;
   entryFee: number;
-  prizePool?: number;
-  status: "upcoming" | "ongoing" | "completed";
-  format?: string;
+  prizePool: number;
+  status: TournamentStatus;
+  format: TournamentFormat;
   description?: string;
   rules?: string;
-  teams?: any[];
+  teams?: TournamentTeam[] | string;
   createdAt?: string;
+}
+
+export interface CreateTournamentPayload {
+  name: string;
+  turfId: string;
+  turfName?: string;
+  startDate?: string;
+  endDate?: string;
+  maxTeams?: number;
+  entryFee?: number;
+  prizePool?: number;
+  status?: TournamentStatus;
+  format?: TournamentFormat;
+  description?: string;
+  rules?: string;
+  teams?: TournamentTeam[] | string;
+}
+
+export interface UpdateTournamentPayload {
+  name?: string;
+  turfId?: string;
+  turfName?: string;
+  startDate?: string;
+  endDate?: string;
+  maxTeams?: number;
+  entryFee?: number;
+  prizePool?: number;
+  status?: TournamentStatus;
+  format?: TournamentFormat;
+  description?: string;
+  rules?: string;
+  teams?: TournamentTeam[] | string;
 }

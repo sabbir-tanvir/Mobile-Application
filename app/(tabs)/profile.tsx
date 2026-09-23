@@ -227,6 +227,66 @@ export default function ProfileScreen() {
               </Pressable>
             )}
 
+            {role === "admin" && (
+              <Pressable
+                onPress={() => router.push("/partners" as any)}
+                className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+              >
+                <View className="flex-row items-center gap-2.5">
+                  <Text className="text-base">🤝</Text>
+                  <View>
+                    <Text className="text-white font-medium text-sm">Partner Management</Text>
+                    <Text className="text-zinc-500 text-xs">Equity shares, basis points & dividend payouts</Text>
+                  </View>
+                </View>
+                <Text className="text-zinc-500 text-sm">›</Text>
+              </Pressable>
+            )}
+
+            {role === "admin" && (
+              <Pressable
+                onPress={() => router.push("/users" as any)}
+                className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+              >
+                <View className="flex-row items-center gap-2.5">
+                  <Text className="text-base">👥</Text>
+                  <View>
+                    <Text className="text-white font-medium text-sm">User Access & Roles</Text>
+                    <Text className="text-zinc-500 text-xs">Manage staff, partners & system accounts</Text>
+                  </View>
+                </View>
+                <Text className="text-zinc-500 text-sm">›</Text>
+              </Pressable>
+            )}
+
+            <Pressable
+              onPress={() => router.push("/pos" as any)}
+              className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+            >
+              <View className="flex-row items-center gap-2.5">
+                <Text className="text-base">🛍️</Text>
+                <View>
+                  <Text className="text-white font-medium text-sm">Retail POS & Inventory</Text>
+                  <Text className="text-zinc-500 text-xs">Fast-checkout counter, drinks & gear stock</Text>
+                </View>
+              </View>
+              <Text className="text-zinc-500 text-sm">›</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => router.push("/(tabs)/tournaments" as any)}
+              className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+            >
+              <View className="flex-row items-center gap-2.5">
+                <Text className="text-base">🏆</Text>
+                <View>
+                  <Text className="text-white font-medium text-sm">Tournaments & Cups</Text>
+                  <Text className="text-zinc-500 text-xs">Championships, registered teams & brackets</Text>
+                </View>
+              </View>
+              <Text className="text-zinc-500 text-sm">›</Text>
+            </Pressable>
+
             <Pressable
               onPress={() => router.push("/(tabs)/bookings")}
               className="py-2.5 flex-row items-center justify-between"

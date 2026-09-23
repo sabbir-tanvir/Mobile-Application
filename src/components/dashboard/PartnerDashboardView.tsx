@@ -88,6 +88,15 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
             </View>
           </View>
         )}
+
+        <Pressable
+          onPress={() => router.push("/partners/history" as any)}
+          className="mt-3.5 py-2.5 rounded-xl bg-blue-600/20 border border-blue-500/40 items-center justify-center active:bg-blue-600/30"
+        >
+          <Text className="text-blue-400 font-bold text-xs">
+            📜 View Dividend & Payout History →
+          </Text>
+        </Pressable>
       </Card>
 
       {/* Venue Overall Performance */}

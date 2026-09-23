@@ -89,13 +89,22 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
               className="flex-1"
             />
           </View>
-          <Button
-            title="👥 Player CRM Directory"
-            variant="secondary"
-            size="sm"
-            onPress={() => router.push("/customers" as any)}
-            className="w-full"
-          />
+          <View className="flex-row gap-2.5">
+            <Button
+              title="👥 Players"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/customers" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="🛍️ Sales POS"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/pos" as any)}
+              className="flex-1"
+            />
+          </View>
         </View>
       </Card>
 
