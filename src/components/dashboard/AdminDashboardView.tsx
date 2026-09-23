@@ -201,13 +201,22 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               className="flex-1"
             />
           </View>
-          <Button
-            title="👥 Team & User Access Control"
-            variant="secondary"
-            size="sm"
-            onPress={() => router.push("/users" as any)}
-            className="w-full"
-          />
+          <View className="flex-row gap-2.5">
+            <Button
+              title="👥 User Access"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/users" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="📊 Reports"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/reports" as any)}
+              className="flex-1"
+            />
+          </View>
         </View>
       </Card>
 

@@ -287,6 +287,22 @@ export default function ProfileScreen() {
               <Text className="text-zinc-500 text-sm">›</Text>
             </Pressable>
 
+            {(role === "admin" || role === "partner") && (
+              <Pressable
+                onPress={() => router.push("/reports" as any)}
+                className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+              >
+                <View className="flex-row items-center gap-2.5">
+                  <Text className="text-base">📊</Text>
+                  <View>
+                    <Text className="text-white font-medium text-sm">Financial Reports & P&L</Text>
+                    <Text className="text-zinc-500 text-xs">Statements, liquidity & receivables</Text>
+                  </View>
+                </View>
+                <Text className="text-zinc-500 text-sm">›</Text>
+              </Pressable>
+            )}
+
             <Pressable
               onPress={() => router.push("/(tabs)/bookings")}
               className="py-2.5 flex-row items-center justify-between"

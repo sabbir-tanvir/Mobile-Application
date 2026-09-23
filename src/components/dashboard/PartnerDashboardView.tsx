@@ -121,6 +121,15 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
             <Text className="text-zinc-500 text-[10px] mt-0.5">Before Distributions</Text>
           </Card>
         </View>
+
+        <Pressable
+          onPress={() => router.push("/reports" as any)}
+          className="mt-2.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+        >
+          <Text className="text-zinc-300 font-bold text-xs">
+            📊 View Complete P&L & Financial Statements →
+          </Text>
+        </Pressable>
       </View>
 
       {/* Bookings Activity */}
