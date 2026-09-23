@@ -4,11 +4,14 @@ import { useRouter } from "expo-router";
 import { ScreenWrapper, Skeleton, Card } from "@/components/ui";
 import { TurfCard } from "@/components/turf/TurfCard";
 import { useTurfs } from "@/hooks/queries/useTurfs";
+import { useAuthStore, selectUser } from "@/stores/auth.store";
 
 const CATEGORIES = ["All", "Football", "Cricket", "Badminton", "Futsal"];
 
 export default function ExploreScreen() {
   const router = useRouter();
+  const user = useAuthStore(selectUser);
+  const isAdmin = user?.role === "admin";
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -32,11 +35,21 @@ export default function ExploreScreen() {
   return (
     <ScreenWrapper className="pb-4">
       {/* Header */}
-      <View className="my-3">
-        <Text className="text-white text-2xl font-black">Explore Turfs</Text>
-        <Text className="text-zinc-400 text-xs mt-0.5">
-          Find and reserve sports grounds
-        </Text>
+      <View className="flex-row items-center justify-between my-3">
+        <View>
+          <Text className="text-white text-2xl font-black">Explore Turfs</Text>
+          <Text className="text-zinc-400 text-xs mt-0.5">
+            Find and reserve sports grounds
+          </Text>
+        </View>
+        {isAdmin && (
+          <Pressable
+            onPress={() => router.push("/turf/manage" as any)}
+            className="flex-row items-center px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950"
+          >
+            <Text className="text-white font-bold text-xs">+ Add Pitch</Text>
+          </Pressable>
+        )}
       </View>
 
       {/* Search Input Bar */}

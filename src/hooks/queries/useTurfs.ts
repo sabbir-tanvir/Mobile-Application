@@ -34,3 +34,31 @@ export function useCreateTurf() {
     },
   });
 }
+
+export function useUpdateTurf() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: string | number;
+      payload: Partial<Turf>;
+    }) => turfsApi.update(id, payload),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: turfKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: turfKeys.detail(variables.id) });
+    },
+  });
+}
+
+export function useDeleteTurf() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string | number) => turfsApi.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: turfKeys.lists() });
+    },
+  });
+}
+

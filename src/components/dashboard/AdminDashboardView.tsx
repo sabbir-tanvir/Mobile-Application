@@ -135,10 +135,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             className="flex-1"
           />
           <Button
-            title="Explore Turfs"
+            title="+ Add Pitch"
             variant="secondary"
             size="sm"
-            onPress={() => router.push("/(tabs)/explore")}
+            onPress={() => router.push("/turf/manage" as any)}
             className="flex-1"
           />
         </View>

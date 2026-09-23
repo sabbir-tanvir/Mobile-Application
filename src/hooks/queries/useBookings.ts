@@ -69,3 +69,24 @@ export function useCancelBooking() {
     },
   });
 }
+
+export function useUpdateBookingStatus() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      id,
+      status,
+    }: {
+      id: string | number;
+      status: Booking["status"];
+    }) => bookingsApi.update(id, { status }),
+    onSuccess: (updatedBooking) => {
+      queryClient.invalidateQueries({ queryKey: bookingKeys.lists() });
+      queryClient.setQueryData(
+        bookingKeys.detail(updatedBooking.id),
+        updatedBooking
+      );
+    },
+  });
+}
+

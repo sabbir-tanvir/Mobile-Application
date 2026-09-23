@@ -14,7 +14,9 @@ import {
   useBooking,
   useRecordPayment,
   useCancelBooking,
+  useUpdateBookingStatus,
 } from "@/hooks/queries/useBookings";
+import { useAuthStore, selectUser } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
 import type { PaymentMethod } from "@/api/types/booking.types";
@@ -30,10 +32,13 @@ const PAYMENT_METHODS: { id: PaymentMethod; label: string; icon: string }[] = [
 export default function BookingDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const user = useAuthStore(selectUser);
+  const isStaffOrAdmin = user?.role === "admin" || user?.role === "staff";
 
   const { data: booking, isLoading, error, refetch } = useBooking(id!);
   const recordPaymentMutation = useRecordPayment();
   const cancelBookingMutation = useCancelBooking();
+  const updateStatusMutation = useUpdateBookingStatus();
 
   // Payment form state
   const [showPaymentForm, setShowPaymentForm] = useState(false);
@@ -324,6 +329,31 @@ export default function BookingDetailScreen() {
         </Text>
         <PaymentHistory history={booking.paymentHistory || []} />
       </Card>
+
+      {/* Status Management Actions for Staff & Admin */}
+      {isStaffOrAdmin && booking.status === "confirmed" && (
+        <Button
+          title="⚽ Mark Match Completed"
+          variant="secondary"
+          loading={updateStatusMutation.isPending}
+          onPress={() =>
+            updateStatusMutation.mutate({ id: booking.id, status: "completed" })
+          }
+          className="mb-3"
+        />
+      )}
+
+      {isStaffOrAdmin && booking.status === "pending" && (
+        <Button
+          title="✓ Confirm Reservation"
+          variant="primary"
+          loading={updateStatusMutation.isPending}
+          onPress={() =>
+            updateStatusMutation.mutate({ id: booking.id, status: "confirmed" })
+          }
+          className="mb-3"
+        />
+      )}
 
       {/* Cancel Action */}
       {booking.status !== "cancelled" && booking.status !== "completed" && (

@@ -4,11 +4,14 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button, Skeleton } from "@/components/ui";
 import { AmenityList } from "@/components/turf/AmenityList";
 import { useTurf } from "@/hooks/queries/useTurfs";
+import { useAuthStore, selectUser } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 
 export default function TurfDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const user = useAuthStore(selectUser);
+  const isAdmin = user?.role === "admin";
 
   const { data: turf, isLoading, error } = useTurf(id!);
 
@@ -47,7 +50,16 @@ export default function TurfDetailScreen() {
           <Text className="text-white text-base font-bold">←</Text>
         </Pressable>
         <Text className="text-white font-bold text-base">Ground Details</Text>
-        <View className="w-10" />
+        {isAdmin ? (
+          <Pressable
+            onPress={() => router.push(`/turf/manage?id=${turf.id}` as any)}
+            className="px-3 py-1.5 rounded-full bg-zinc-900 border border-emerald-500/40 items-center justify-center"
+          >
+            <Text className="text-emerald-400 font-semibold text-xs">Edit ⚙️</Text>
+          </Pressable>
+        ) : (
+          <View className="w-10" />
+        )}
       </View>
 
       {/* Hero Image */}

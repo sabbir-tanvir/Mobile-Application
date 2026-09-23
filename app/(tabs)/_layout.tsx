@@ -1,28 +1,66 @@
 import React from "react";
 import { Tabs } from "expo-router";
+import { View, Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Home, Compass, CalendarDays, Trophy, User } from "lucide-react-native";
 
+interface TabItemProps {
+  icon: React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>;
+  focused: boolean;
+}
+
+function TabItem({ icon: Icon, focused }: TabItemProps) {
+  return (
+    <View className="items-center justify-center">
+      <View
+        className={`w-12 h-10 rounded-2xl items-center justify-center ${
+          focused
+            ? "bg-emerald-500/15 border border-emerald-500/40"
+            : "bg-transparent"
+        }`}
+      >
+        <Icon
+          size={22}
+          color={focused ? "#10b981" : "#71717a"}
+          strokeWidth={focused ? 2.4 : 1.8}
+        />
+      </View>
+      <View
+        className={`w-1 h-1 rounded-full mt-1 ${
+          focused ? "bg-emerald-400" : "bg-transparent"
+        }`}
+      />
+    </View>
+  );
+}
+
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+  const bottomPadding = insets.bottom > 0 ? insets.bottom : 8;
+  const barHeight =
+    Platform.OS === "ios"
+      ? 64 + insets.bottom
+      : 66 + (insets.bottom > 0 ? insets.bottom - 4 : 4);
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: true,
+        tabBarShowLabel: false,
         tabBarActiveTintColor: "#10b981",
         tabBarInactiveTintColor: "#71717a",
         tabBarStyle: {
           backgroundColor: "#09090b",
           borderTopColor: "#27272a",
           borderTopWidth: 1,
-          height: 60,
-          paddingTop: 6,
-          paddingBottom: 8,
-        },
-        tabBarLabelStyle: {
-          fontSize: 10,
-          fontWeight: "600",
-          letterSpacing: 0.1,
-          marginTop: 2,
+          height: barHeight,
+          paddingTop: 8,
+          paddingBottom: bottomPadding,
+          elevation: 10,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: -4 },
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
         },
         tabBarItemStyle: {
           justifyContent: "center",
@@ -34,9 +72,8 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarLabel: "Home",
-          tabBarIcon: ({ color, focused }) => (
-            <Home size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
+          tabBarIcon: ({ focused }) => (
+            <TabItem icon={Home} focused={focused} />
           ),
         }}
       />
@@ -44,9 +81,8 @@ export default function TabsLayout() {
         name="explore"
         options={{
           title: "Explore",
-          tabBarLabel: "Explore",
-          tabBarIcon: ({ color, focused }) => (
-            <Compass size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
+          tabBarIcon: ({ focused }) => (
+            <TabItem icon={Compass} focused={focused} />
           ),
         }}
       />
@@ -54,9 +90,8 @@ export default function TabsLayout() {
         name="bookings"
         options={{
           title: "Bookings",
-          tabBarLabel: "Bookings",
-          tabBarIcon: ({ color, focused }) => (
-            <CalendarDays size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
+          tabBarIcon: ({ focused }) => (
+            <TabItem icon={CalendarDays} focused={focused} />
           ),
         }}
       />
@@ -64,9 +99,8 @@ export default function TabsLayout() {
         name="tournaments"
         options={{
           title: "Events",
-          tabBarLabel: "Events",
-          tabBarIcon: ({ color, focused }) => (
-            <Trophy size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
+          tabBarIcon: ({ focused }) => (
+            <TabItem icon={Trophy} focused={focused} />
           ),
         }}
       />
@@ -74,9 +108,8 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color, focused }) => (
-            <User size={21} color={color} strokeWidth={focused ? 2.5 : 2} />
+          tabBarIcon: ({ focused }) => (
+            <TabItem icon={User} focused={focused} />
           ),
         }}
       />
