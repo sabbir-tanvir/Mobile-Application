@@ -88,13 +88,13 @@ export default function ReallocateSharesScreen() {
           <View className="flex-row items-center gap-3">
             <Pressable
               onPress={() => router.back()}
-              className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+              className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
             >
-              <Text className="text-white text-base font-bold">←</Text>
+              <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
             </Pressable>
             <View>
-              <Text className="text-white text-xl font-black">Reallocate Shares</Text>
-              <Text className="text-zinc-400 text-xs">
+              <Text className="text-slate-900 dark:text-white text-xl font-black">Reallocate Shares</Text>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs">
                 Recalibrate partner equity distribution
               </Text>
             </View>
@@ -103,22 +103,22 @@ export default function ReallocateSharesScreen() {
 
         {/* Live Balance Status Banner */}
         <Card
-          className={`p-4 mb-4 border ${
+          className={`p-4 mb-4 border rounded-2xl ${
             isBalanced
-              ? "bg-emerald-950/30 border-emerald-500/40"
-              : "bg-amber-950/30 border-amber-500/40"
+              ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 shadow-sm shadow-emerald-500/10 dark:shadow-none"
+              : "bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-500/40 shadow-sm shadow-amber-500/10 dark:shadow-none"
           }`}
         >
           <View className="flex-row items-center justify-between">
             <View className="flex-1 mr-2">
               <Text
                 className={`font-black text-sm uppercase tracking-wider ${
-                  isBalanced ? "text-emerald-400" : "text-amber-400"
+                  isBalanced ? "text-emerald-700 dark:text-emerald-400" : "text-amber-700 dark:text-amber-400"
                 }`}
               >
                 {isBalanced ? "✓ Equity Perfectly Balanced (100%)" : "⚠️ Reallocation Incomplete"}
               </Text>
-              <Text className="text-zinc-400 text-xs mt-0.5">
+              <Text className="text-slate-600 dark:text-zinc-400 text-xs mt-0.5">
                 Total shares must equal exactly 10,000 Base Points (BP).
               </Text>
             </View>
@@ -126,24 +126,24 @@ export default function ReallocateSharesScreen() {
             <View className="items-end">
               <Text
                 className={`font-black text-xl ${
-                  isBalanced ? "text-emerald-400" : "text-amber-400"
+                  isBalanced ? "text-emerald-700 dark:text-emerald-400" : "text-amber-700 dark:text-amber-400"
                 }`}
               >
                 {(totalBP / 100).toFixed(2)}%
               </Text>
-              <Text className="text-zinc-500 text-[10px] font-mono">{totalBP} / 10,000 BP</Text>
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] font-mono">{totalBP} / 10,000 BP</Text>
             </View>
           </View>
         </Card>
 
         {errorMsg ? (
           <View className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl mb-4">
-            <Text className="text-red-400 text-xs font-semibold">{errorMsg}</Text>
+            <Text className="text-red-500 dark:text-red-400 text-xs font-semibold">{errorMsg}</Text>
           </View>
         ) : null}
 
         {/* Partners Share Steppers List */}
-        <Text className="text-zinc-300 font-bold text-xs uppercase tracking-wider mb-2.5">
+        <Text className="text-slate-700 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-2.5">
           Partner Allocations
         </Text>
 
@@ -161,66 +161,66 @@ export default function ReallocateSharesScreen() {
               const initial = partner.fullName ? partner.fullName[0].toUpperCase() : "?";
 
               return (
-                <Card key={partner.id} className="bg-zinc-900 border-zinc-800 p-3.5">
+                <Card key={partner.id} className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-2xl p-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none">
                   <View className="flex-row items-center justify-between mb-3">
                     <View className="flex-row items-center gap-2.5 flex-1 mr-2">
-                      <View className="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 items-center justify-center">
-                        <Text className="text-purple-400 font-bold text-base">{initial}</Text>
+                      <View className="w-10 h-10 rounded-xl bg-purple-500/10 dark:bg-purple-500/15 border border-purple-500/20 dark:border-purple-500/30 items-center justify-center">
+                        <Text className="text-purple-600 dark:text-purple-400 font-bold text-base">{initial}</Text>
                       </View>
                       <View className="flex-1">
-                        <Text className="text-white font-bold text-sm" numberOfLines={1}>
+                        <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>
                           {partner.fullName}
                         </Text>
-                        <Text className="text-zinc-500 text-xs">{partner.email}</Text>
+                        <Text className="text-slate-500 dark:text-zinc-500 text-xs">{partner.email}</Text>
                       </View>
                     </View>
 
                     {/* Live % Pill */}
-                    <View className="bg-purple-500/15 border border-purple-500/30 px-3 py-1 rounded-xl items-end">
-                      <Text className="text-purple-300 font-black text-sm">{percentage}%</Text>
+                    <View className="bg-purple-50 dark:bg-purple-500/15 border border-purple-200 dark:border-purple-500/30 px-3 py-1 rounded-xl items-end">
+                      <Text className="text-purple-700 dark:text-purple-300 font-black text-sm">{percentage}%</Text>
                     </View>
                   </View>
 
                   {/* Stepper Controls and Numeric Input */}
-                  <View className="flex-row items-center justify-between pt-2 border-t border-zinc-800">
+                  <View className="flex-row items-center justify-between pt-2 border-t border-slate-100 dark:border-zinc-800">
                     <View className="flex-row items-center gap-1.5">
                       <Pressable
                         onPress={() => handleStep(partner.id, -500)}
-                        className="px-2.5 py-1.5 rounded-lg bg-zinc-800 active:bg-zinc-700"
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-zinc-300 text-xs font-bold">-500</Text>
+                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">-500</Text>
                       </Pressable>
                       <Pressable
                         onPress={() => handleStep(partner.id, -100)}
-                        className="px-2.5 py-1.5 rounded-lg bg-zinc-800 active:bg-zinc-700"
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-zinc-300 text-xs font-bold">-100</Text>
+                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">-100</Text>
                       </Pressable>
                     </View>
 
                     {/* Numeric Input */}
-                    <View className="flex-row items-center gap-1.5 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-1">
+                    <View className="flex-row items-center gap-1.5 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-3 py-1">
                       <TextInput
                         value={String(currentBp)}
                         onChangeText={(v) => handleShareChange(partner.id, v)}
                         keyboardType="numeric"
-                        className="text-white font-mono font-bold text-sm w-16 text-center"
+                        className="text-slate-900 dark:text-white font-mono font-bold text-sm w-16 text-center"
                       />
-                      <Text className="text-zinc-500 text-xs font-mono">BP</Text>
+                      <Text className="text-slate-500 dark:text-zinc-500 text-xs font-mono">BP</Text>
                     </View>
 
                     <View className="flex-row items-center gap-1.5">
                       <Pressable
                         onPress={() => handleStep(partner.id, 100)}
-                        className="px-2.5 py-1.5 rounded-lg bg-zinc-800 active:bg-zinc-700"
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-zinc-300 text-xs font-bold">+100</Text>
+                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">+100</Text>
                       </Pressable>
                       <Pressable
                         onPress={() => handleStep(partner.id, 500)}
-                        className="px-2.5 py-1.5 rounded-lg bg-zinc-800 active:bg-zinc-700"
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-zinc-300 text-xs font-bold">+500</Text>
+                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">+500</Text>
                       </Pressable>
                     </View>
                   </View>

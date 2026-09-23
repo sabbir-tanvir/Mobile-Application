@@ -137,36 +137,36 @@ export default function TournamentDetailScreen() {
         <View className="flex-row items-center justify-between my-2">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
 
           <View className="flex-row items-center gap-2">
             <Pressable
               onPress={handleShare}
-              className="px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 flex-row items-center"
+              className="px-3.5 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 flex-row items-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
             >
-              <Text className="text-zinc-300 text-xs font-semibold">🔗 Share</Text>
+              <Text className="text-slate-700 dark:text-zinc-300 text-xs font-semibold">🔗 Share</Text>
             </Pressable>
 
             {isAdmin ? (
               <Pressable
                 onPress={handleDelete}
-                className="w-10 h-10 rounded-full bg-red-950/50 border border-red-900/60 items-center justify-center"
+                className="w-10 h-10 rounded-full bg-rose-50 dark:bg-red-950/50 border border-rose-200 dark:border-red-900/60 items-center justify-center shadow-sm active:scale-95"
               >
-                <Text className="text-red-400 text-sm">🗑️</Text>
+                <Text className="text-rose-600 dark:text-red-400 text-sm">🗑️</Text>
               </Pressable>
             ) : null}
           </View>
         </View>
 
         {/* Hero Card */}
-        <Card className="bg-gradient-to-b from-zinc-850 to-zinc-900 border-zinc-800 p-4 rounded-2xl">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-3xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <View className="flex-row items-start justify-between mb-2">
             <View className="flex-1 mr-2">
-              <Text className="text-white text-2xl font-black">{tournament.name}</Text>
-              <Text className="text-emerald-400 text-xs font-semibold mt-0.5">
+              <Text className="text-slate-900 dark:text-white text-2xl font-black">{tournament.name}</Text>
+              <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold mt-0.5">
                 🏟️ {tournament.turfName || "Turf Arena"} • {tournament.format?.replace("_", " ").toUpperCase()}
               </Text>
             </View>
@@ -185,21 +185,21 @@ export default function TournamentDetailScreen() {
 
           {/* Admin Status Dropdown */}
           {showStatusMenu && isAdmin ? (
-            <View className="bg-zinc-950 border border-zinc-800 rounded-xl p-2 my-2 space-y-1">
-              <Text className="text-zinc-500 text-[10px] uppercase font-bold px-2 py-1">
+            <View className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-2xl p-2 my-2 space-y-1">
+              <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold px-2 py-1">
                 Change Status
               </Text>
               {ALL_STATUSES.map((st) => (
                 <Pressable
                   key={st}
                   onPress={() => handleStatusChange(st)}
-                  className={`px-3 py-2 rounded-lg ${
-                    tournament.status === st ? "bg-emerald-950 border border-emerald-800" : ""
+                  className={`px-3 py-2 rounded-xl ${
+                    tournament.status === st ? "bg-emerald-50 dark:bg-emerald-950 border border-emerald-300 dark:border-emerald-800" : ""
                   }`}
                 >
                   <Text
                     className={`text-xs font-bold ${
-                      tournament.status === st ? "text-emerald-400" : "text-zinc-300"
+                      tournament.status === st ? "text-emerald-700 dark:text-emerald-400" : "text-slate-700 dark:text-zinc-300"
                     }`}
                   >
                     {STATUS_BADGE_MAP[st]?.label || st}
@@ -210,8 +210,8 @@ export default function TournamentDetailScreen() {
           ) : null}
 
           {/* Dates Bar */}
-          <View className="flex-row items-center gap-2 mt-2 pt-2 border-t border-zinc-800/60">
-            <Text className="text-zinc-400 text-xs">
+          <View className="flex-row items-center gap-2 mt-2 pt-2 border-t border-slate-100 dark:border-zinc-800/60">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">
               📅 {tournament.startDate ? formatDate(tournament.startDate) : "TBD"} -{" "}
               {tournament.endDate ? formatDate(tournament.endDate) : "TBD"}
             </Text>
@@ -220,17 +220,17 @@ export default function TournamentDetailScreen() {
 
         {/* 4 Stat Counters */}
         <View className="grid grid-cols-2 gap-2.5">
-          <Card className="bg-zinc-900 border-zinc-800 p-3">
-            <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Registered Teams
             </Text>
-            <Text className="text-white text-lg font-black mt-0.5">
+            <Text className="text-slate-900 dark:text-white text-lg font-black mt-0.5">
               {teams.length}{" "}
-              <Text className="text-zinc-500 text-xs font-normal">
+              <Text className="text-slate-400 dark:text-zinc-500 text-xs font-normal">
                 / {tournament.maxTeams}
               </Text>
             </Text>
-            <View className="w-full bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden">
+            <View className="w-full bg-slate-100 dark:bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden">
               <View
                 className="bg-emerald-500 h-full rounded-full"
                 style={{
@@ -243,54 +243,54 @@ export default function TournamentDetailScreen() {
             </View>
           </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800 p-3">
-            <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Prize Pool
             </Text>
-            <Text className="text-amber-400 text-lg font-black mt-0.5">
+            <Text className="text-amber-600 dark:text-amber-400 text-lg font-black mt-0.5">
               🏆 {formatTaka(tournament.prizePool)}
             </Text>
-            <Text className="text-zinc-500 text-[10px] mt-2">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-2">
               Entry: {formatTaka(tournament.entryFee)}/team
             </Text>
           </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800 p-3">
-            <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Fees Collected
             </Text>
-            <Text className="text-emerald-400 text-lg font-black mt-0.5">
+            <Text className="text-emerald-600 dark:text-emerald-400 text-lg font-black mt-0.5">
               ৳{totalCollected.toLocaleString()}
             </Text>
-            <Text className="text-zinc-500 text-[10px] mt-2">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-2">
               {teams.filter((t) => t.paid).length} of {teams.length} paid
             </Text>
           </Card>
 
-          <Card className="bg-zinc-900 border-zinc-800 p-3">
-            <Text className="text-zinc-500 text-[10px] uppercase font-bold">
+          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Format
             </Text>
-            <Text className="text-white text-base font-bold mt-0.5 capitalize">
+            <Text className="text-slate-900 dark:text-white text-base font-bold mt-0.5 capitalize">
               {tournament.format?.replace("_", " ")}
             </Text>
-            <Text className="text-zinc-500 text-[10px] mt-2">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-2">
               Max {tournament.maxTeams} teams
             </Text>
           </Card>
         </View>
 
         {/* Tab Switcher */}
-        <View className="flex-row bg-zinc-900/90 p-1 rounded-xl border border-zinc-800 mt-2">
+        <View className="flex-row bg-slate-100 dark:bg-zinc-900/90 p-1.5 rounded-2xl border border-slate-200 dark:border-zinc-800 mt-2">
           <Pressable
             onPress={() => setActiveTab("teams")}
-            className={`flex-1 py-2.5 rounded-lg items-center ${
-              activeTab === "teams" ? "bg-emerald-600" : ""
+            className={`flex-1 py-2.5 rounded-xl items-center ${
+              activeTab === "teams" ? "bg-white dark:bg-emerald-600 shadow-sm shadow-slate-200 dark:shadow-none" : ""
             }`}
           >
             <Text
               className={`text-xs font-bold ${
-                activeTab === "teams" ? "text-white" : "text-zinc-400"
+                activeTab === "teams" ? "text-emerald-700 dark:text-white" : "text-slate-500 dark:text-zinc-400"
               }`}
             >
               🛡️ Teams ({teams.length})
@@ -299,13 +299,13 @@ export default function TournamentDetailScreen() {
 
           <Pressable
             onPress={() => setActiveTab("brackets")}
-            className={`flex-1 py-2.5 rounded-lg items-center ${
-              activeTab === "brackets" ? "bg-emerald-600" : ""
+            className={`flex-1 py-2.5 rounded-xl items-center ${
+              activeTab === "brackets" ? "bg-white dark:bg-emerald-600 shadow-sm shadow-slate-200 dark:shadow-none" : ""
             }`}
           >
             <Text
               className={`text-xs font-bold ${
-                activeTab === "brackets" ? "text-white" : "text-zinc-400"
+                activeTab === "brackets" ? "text-emerald-700 dark:text-white" : "text-slate-500 dark:text-zinc-400"
               }`}
             >
               ⚔️ Brackets
@@ -314,13 +314,13 @@ export default function TournamentDetailScreen() {
 
           <Pressable
             onPress={() => setActiveTab("info")}
-            className={`flex-1 py-2.5 rounded-lg items-center ${
-              activeTab === "info" ? "bg-emerald-600" : ""
+            className={`flex-1 py-2.5 rounded-xl items-center ${
+              activeTab === "info" ? "bg-white dark:bg-emerald-600 shadow-sm shadow-slate-200 dark:shadow-none" : ""
             }`}
           >
             <Text
               className={`text-xs font-bold ${
-                activeTab === "info" ? "text-white" : "text-zinc-400"
+                activeTab === "info" ? "text-emerald-700 dark:text-white" : "text-slate-500 dark:text-zinc-400"
               }`}
             >
               📜 Rules & Info
@@ -342,25 +342,25 @@ export default function TournamentDetailScreen() {
         {activeTab === "info" && (
           <View className="space-y-3">
             {tournament.description ? (
-              <Card className="bg-zinc-900 border-zinc-800 p-4">
-                <Text className="text-white font-bold text-sm mb-1">About Tournament</Text>
-                <Text className="text-zinc-400 text-xs leading-relaxed">
+              <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+                <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">About Tournament</Text>
+                <Text className="text-slate-600 dark:text-zinc-400 text-xs leading-relaxed">
                   {tournament.description}
                 </Text>
               </Card>
             ) : null}
 
             {tournament.rules ? (
-              <Card className="bg-zinc-900 border-zinc-800 p-4">
-                <Text className="text-white font-bold text-sm mb-1">Tournament Rules</Text>
-                <Text className="text-zinc-400 text-xs leading-relaxed">
+              <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+                <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">Tournament Rules</Text>
+                <Text className="text-slate-600 dark:text-zinc-400 text-xs leading-relaxed">
                   {tournament.rules}
                 </Text>
               </Card>
             ) : (
-              <Card className="bg-zinc-900 border-zinc-800 p-4">
-                <Text className="text-white font-bold text-sm mb-1">Standard Regulations</Text>
-                <Text className="text-zinc-400 text-xs leading-relaxed">
+              <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+                <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">Standard Regulations</Text>
+                <Text className="text-slate-600 dark:text-zinc-400 text-xs leading-relaxed">
                   • 20-minute halves with a 5-minute break.{"\n"}
                   • Maximum of 7 active players and 3 substitutes per match.{"\n"}
                   • Studs must be rubber-turf compliant. Metal spikes strictly prohibited.{"\n"}
@@ -370,10 +370,10 @@ export default function TournamentDetailScreen() {
             )}
 
             {/* Quick Venue Info */}
-            <Card className="bg-zinc-900 border-zinc-800 p-4 flex-row items-center justify-between">
+            <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none flex-row items-center justify-between">
               <View>
-                <Text className="text-white font-bold text-sm">Venue Location</Text>
-                <Text className="text-zinc-400 text-xs mt-0.5">
+                <Text className="text-slate-900 dark:text-white font-bold text-sm">Venue Location</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
                   {tournament.turfName || "Main Arena Pitch"}
                 </Text>
               </View>

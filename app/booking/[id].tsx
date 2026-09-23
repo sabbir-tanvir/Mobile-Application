@@ -122,7 +122,7 @@ export default function BookingDetailScreen() {
     return (
       <ScreenWrapper className="items-center justify-center p-6">
         <Text className="text-4xl mb-3">⚠️</Text>
-        <Text className="text-white text-lg font-bold">Booking Not Found</Text>
+        <Text className="text-slate-900 dark:text-white text-lg font-black">Booking Not Found</Text>
         <Button
           title="Back to Bookings"
           onPress={() => router.back()}
@@ -138,18 +138,18 @@ export default function BookingDetailScreen() {
       <View className="flex-row items-center justify-between my-3">
         <Pressable
           onPress={() => router.back()}
-          className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+          className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
         >
-          <Text className="text-white text-base font-bold">←</Text>
+          <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
         </Pressable>
-        <Text className="text-white font-bold text-base">Booking #{booking.id}</Text>
+        <Text className="text-slate-900 dark:text-white font-black text-base">Booking #{booking.id}</Text>
         <View className="w-10" />
       </View>
 
       {/* Main Status & Schedule Card */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
         <View className="flex-row items-center justify-between mb-3">
-          <Text className="text-white text-xl font-black flex-1 mr-2" numberOfLines={1}>
+          <Text className="text-slate-900 dark:text-white text-xl font-black flex-1 mr-2" numberOfLines={1}>
             {booking.turfName || "Turf Ground"}
           </Text>
           <Badge
@@ -165,21 +165,21 @@ export default function BookingDetailScreen() {
         </View>
 
         <View className="space-y-1.5 mb-3">
-          <Text className="text-zinc-400 text-xs">
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs">
             📅 Date:{" "}
-            <Text className="text-zinc-200 font-semibold">
+            <Text className="text-slate-800 dark:text-zinc-200 font-semibold">
               {formatDate(booking.date)}
             </Text>
           </Text>
-          <Text className="text-zinc-400 text-xs">
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs">
             ⏰ Time Slot:{" "}
-            <Text className="text-zinc-200 font-semibold">
+            <Text className="text-slate-800 dark:text-zinc-200 font-semibold">
               {booking.startHour}:00 - {booking.endHour}:00
             </Text>
           </Text>
-          <Text className="text-zinc-400 text-xs">
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs">
             👤 Customer:{" "}
-            <Text className="text-zinc-200 font-semibold">
+            <Text className="text-slate-800 dark:text-zinc-200 font-semibold">
               {booking.customerName} ({booking.customerPhone})
             </Text>
           </Text>
@@ -187,9 +187,9 @@ export default function BookingDetailScreen() {
       </Card>
 
       {/* Financial Breakdown Card */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
         <View className="flex-row items-center justify-between mb-3">
-          <Text className="text-zinc-400 text-xs uppercase font-bold tracking-wider">
+          <Text className="text-slate-400 dark:text-zinc-400 text-xs uppercase font-bold tracking-wider">
             Payment Summary
           </Text>
           <Badge
@@ -204,28 +204,28 @@ export default function BookingDetailScreen() {
           />
         </View>
 
-        <View className="bg-zinc-950/80 rounded-xl p-3.5 border border-zinc-800/80 mb-3">
-          <View className="flex-row justify-between py-1.5 border-b border-zinc-800/60">
-            <Text className="text-zinc-400 text-sm">Total Booking Cost</Text>
-            <Text className="text-white font-bold text-sm">
+        <View className="bg-slate-50 dark:bg-zinc-950/80 rounded-xl p-3.5 border border-slate-200/80 dark:border-zinc-800/80 mb-3">
+          <View className="flex-row justify-between py-1.5 border-b border-slate-200/60 dark:border-zinc-800/60">
+            <Text className="text-slate-500 dark:text-zinc-400 text-sm">Total Booking Cost</Text>
+            <Text className="text-slate-900 dark:text-white font-bold text-sm">
               {formatTaka(booking.totalPrice)}
             </Text>
           </View>
 
-          <View className="flex-row justify-between py-1.5 border-b border-zinc-800/60">
-            <Text className="text-zinc-400 text-sm">Total Paid So Far</Text>
-            <Text className="text-emerald-400 font-bold text-sm">
+          <View className="flex-row justify-between py-1.5 border-b border-slate-200/60 dark:border-zinc-800/60">
+            <Text className="text-slate-500 dark:text-zinc-400 text-sm">Total Paid So Far</Text>
+            <Text className="text-emerald-600 dark:text-emerald-400 font-bold text-sm">
               {formatTaka(booking.paidAmount)}
             </Text>
           </View>
 
           <View className="flex-row justify-between py-1.5">
-            <Text className="text-zinc-400 text-sm font-semibold">
+            <Text className="text-slate-700 dark:text-zinc-400 text-sm font-semibold">
               Remaining Balance Due
             </Text>
             <Text
               className={`font-extrabold text-base ${
-                remainingBalance > 0 ? "text-amber-400" : "text-emerald-400"
+                remainingBalance > 0 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"
               }`}
             >
               {formatTaka(remainingBalance)}
@@ -245,19 +245,19 @@ export default function BookingDetailScreen() {
 
       {/* Interactive Partial Payment Form */}
       {showPaymentForm && (
-        <Card className="mb-4 bg-zinc-900 border-emerald-500/50 p-4">
+        <Card className="mb-4 bg-white dark:bg-zinc-900 border border-emerald-500/50 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <View className="flex-row justify-between items-center mb-3">
-            <Text className="text-white font-bold text-base">
+            <Text className="text-slate-900 dark:text-white font-bold text-base">
               Record Installment / Payment
             </Text>
             <Pressable onPress={() => setShowPaymentForm(false)}>
-              <Text className="text-zinc-400 text-xs font-bold">Cancel ✕</Text>
+              <Text className="text-slate-400 dark:text-zinc-400 text-xs font-bold">Cancel ✕</Text>
             </Pressable>
           </View>
 
           {errorMessage ? (
-            <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-2.5 mb-3">
-              <Text className="text-red-400 text-xs font-medium">
+            <View className="bg-rose-50 dark:bg-red-500/15 border border-rose-200 dark:border-red-500/30 rounded-xl p-2.5 mb-3">
+              <Text className="text-rose-600 dark:text-red-400 text-xs font-medium">
                 {errorMessage}
               </Text>
             </View>
@@ -270,7 +270,7 @@ export default function BookingDetailScreen() {
             keyboardType="numeric"
           />
 
-          <Text className="text-zinc-400 text-xs mb-2">Payment Method</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Payment Method</Text>
           <View className="flex-row flex-wrap gap-2 mb-3">
             {PAYMENT_METHODS.map((method) => {
               const isSelected = payMethod === method.id;
@@ -278,16 +278,16 @@ export default function BookingDetailScreen() {
                 <Pressable
                   key={method.id}
                   onPress={() => setPayMethod(method.id)}
-                  className={`flex-row items-center px-3 py-1.5 rounded-xl border ${
+                  className={`flex-row items-center px-3.5 py-2 rounded-xl border ${
                     isSelected
-                      ? "bg-emerald-600 border-emerald-500"
-                      : "bg-zinc-950 border-zinc-800"
+                      ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                      : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                   }`}
                 >
-                  <Text className="mr-1 text-xs">{method.icon}</Text>
+                  <Text className="mr-1.5 text-xs">{method.icon}</Text>
                   <Text
                     className={`text-xs font-semibold ${
-                      isSelected ? "text-white" : "text-zinc-400"
+                      isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                     }`}
                   >
                     {method.label}
@@ -323,8 +323,8 @@ export default function BookingDetailScreen() {
       )}
 
       {/* Payment History Log */}
-      <Card className="mb-6 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-zinc-400 text-xs uppercase font-bold tracking-wider mb-3">
+      <Card className="mb-6 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-400 text-xs uppercase font-bold tracking-wider mb-3">
           Payment Transactions
         </Text>
         <PaymentHistory history={booking.paymentHistory || []} />

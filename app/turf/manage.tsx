@@ -174,25 +174,25 @@ export default function ManageTurfScreen() {
       <View className="flex-row items-center justify-between my-3">
         <Pressable
           onPress={() => router.back()}
-          className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+          className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
         >
-          <Text className="text-white text-base font-bold">←</Text>
+          <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
         </Pressable>
-        <Text className="text-white font-bold text-lg">
+        <Text className="text-slate-900 dark:text-white font-black text-lg">
           {isEdit ? "Edit Turf Ground" : "Add New Turf"}
         </Text>
         <View className="w-10" />
       </View>
 
       {errorMessage ? (
-        <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 mb-4">
-          <Text className="text-red-400 text-xs font-medium">{errorMessage}</Text>
+        <View className="bg-rose-50 dark:bg-red-500/15 border border-rose-200 dark:border-red-500/30 rounded-2xl p-3 mb-4">
+          <Text className="text-rose-600 dark:text-red-400 text-xs font-medium">{errorMessage}</Text>
         </View>
       ) : null}
 
       {/* Basic Info Section */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-3">Pitch Details</Text>
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-3">Pitch Details</Text>
 
         <Input
           label="Turf / Pitch Name *"
@@ -201,7 +201,7 @@ export default function ManageTurfScreen() {
           onChangeText={setName}
         />
 
-        <Text className="text-zinc-400 text-xs mb-2">Pitch Sport / Type</Text>
+        <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Pitch Sport / Type</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-2 mb-4">
           {PITCH_TYPES.map((t) => {
             const isSelected = type === t;
@@ -211,13 +211,13 @@ export default function ManageTurfScreen() {
                 onPress={() => setType(t)}
                 className={`px-3.5 py-2 rounded-xl border ${
                   isSelected
-                    ? "bg-emerald-600 border-emerald-500"
-                    : "bg-zinc-950 border-zinc-800"
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 }`}
               >
                 <Text
                   className={`text-xs font-semibold uppercase ${
-                    isSelected ? "text-white" : "text-zinc-400"
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                   }`}
                 >
                   {t.replace(/-/g, " ")}
@@ -255,7 +255,7 @@ export default function ManageTurfScreen() {
         />
 
         {/* Status Selector */}
-        <Text className="text-zinc-400 text-xs mb-2">Operating Status</Text>
+        <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Operating Status</Text>
         <View className="flex-row gap-2 mb-2">
           {(["active", "maintenance", "inactive"] as const).map((s) => {
             const isSelected = status === s;
@@ -266,22 +266,22 @@ export default function ManageTurfScreen() {
                 className={`flex-1 py-2 rounded-xl border items-center justify-center ${
                   isSelected
                     ? s === "active"
-                      ? "bg-emerald-500/20 border-emerald-500"
+                      ? "bg-emerald-50 dark:bg-emerald-500/20 border-emerald-300 dark:border-emerald-500 shadow-sm shadow-emerald-500/10"
                       : s === "maintenance"
-                      ? "bg-amber-500/20 border-amber-500"
-                      : "bg-zinc-800 border-zinc-700"
-                    : "bg-zinc-950 border-zinc-800"
+                      ? "bg-amber-50 dark:bg-amber-500/20 border-amber-300 dark:border-amber-500 shadow-sm shadow-amber-500/10"
+                      : "bg-slate-200 dark:bg-zinc-800 border-slate-300 dark:border-zinc-700"
+                    : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 }`}
               >
                 <Text
                   className={`text-xs font-bold capitalize ${
                     isSelected
                       ? s === "active"
-                        ? "text-emerald-400"
+                        ? "text-emerald-700 dark:text-emerald-400"
                         : s === "maintenance"
-                        ? "text-amber-400"
-                        : "text-zinc-300"
-                      : "text-zinc-500"
+                        ? "text-amber-700 dark:text-amber-400"
+                        : "text-slate-800 dark:text-zinc-300"
+                      : "text-slate-400 dark:text-zinc-500"
                   }`}
                 >
                   {s}
@@ -293,8 +293,8 @@ export default function ManageTurfScreen() {
       </Card>
 
       {/* Hourly Pricing Section */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-3">Hourly Rates (BDT ৳)</Text>
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-3">Hourly Rates (BDT ৳)</Text>
         <View className="flex-row gap-3">
           <View className="flex-1">
             <Input
@@ -327,8 +327,8 @@ export default function ManageTurfScreen() {
       </Card>
 
       {/* Operating Schedule Section */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-3">Operating Hours (24h format)</Text>
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-3">Operating Hours (24h format)</Text>
         <View className="flex-row gap-3">
           <View className="flex-1">
             <Input
@@ -373,9 +373,9 @@ export default function ManageTurfScreen() {
       </Card>
 
       {/* Amenities Section */}
-      <Card className="mb-6 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-1">Available Amenities</Text>
-        <Text className="text-zinc-400 text-xs mb-3">Tap to toggle features included at this pitch</Text>
+      <Card className="mb-6 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-1">Available Amenities</Text>
+        <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-3">Tap to toggle features included at this pitch</Text>
 
         <View className="flex-row flex-wrap gap-2">
           {AVAILABLE_AMENITIES.map((amenity) => {
@@ -384,15 +384,15 @@ export default function ManageTurfScreen() {
               <Pressable
                 key={amenity}
                 onPress={() => toggleAmenity(amenity)}
-                className={`px-3 py-1.5 rounded-full border ${
+                className={`px-3.5 py-1.5 rounded-full border ${
                   isSelected
-                    ? "bg-emerald-500/20 border-emerald-500"
-                    : "bg-zinc-950 border-zinc-800"
+                    ? "bg-emerald-50 dark:bg-emerald-500/20 border-emerald-300 dark:border-emerald-500 shadow-sm shadow-emerald-500/10"
+                    : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 }`}
               >
                 <Text
-                  className={`text-xs font-medium ${
-                    isSelected ? "text-emerald-400 font-bold" : "text-zinc-400"
+                  className={`text-xs ${
+                    isSelected ? "text-emerald-700 dark:text-emerald-400 font-bold" : "text-slate-600 dark:text-zinc-400 font-medium"
                   }`}
                 >
                   {isSelected ? "✓ " : "+ "}

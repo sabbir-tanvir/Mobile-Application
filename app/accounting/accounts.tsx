@@ -113,13 +113,13 @@ export default function AccountsScreen() {
         <View className="flex-row items-center gap-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-white text-xl font-black">Chart of Accounts</Text>
-            <Text className="text-zinc-400 text-xs">
+            <Text className="text-slate-900 dark:text-white text-xl font-black">Chart of Accounts</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">
               {accounts.length} general ledger accounts
             </Text>
           </View>
@@ -127,25 +127,25 @@ export default function AccountsScreen() {
 
         <Pressable
           onPress={handleOpenAdd}
-          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950 flex-row items-center"
+          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-950/20 flex-row items-center"
         >
           <Text className="text-white font-bold text-xs">+ Add Account</Text>
         </Pressable>
       </View>
 
       {/* Search Bar */}
-      <View className="flex-row items-center bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 mb-3">
-        <Text className="text-zinc-500 mr-2 text-sm">🔍</Text>
+      <View className="flex-row items-center bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-sm">🔍</Text>
         <TextInput
           placeholder="Search account by code or name..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-xs"
+          className="flex-1 text-slate-900 dark:text-white text-xs"
         />
         {searchQuery.length > 0 && (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-400 text-xs px-1">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-xs px-1 font-bold">✕</Text>
           </Pressable>
         )}
       </View>
@@ -160,13 +160,13 @@ export default function AccountsScreen() {
               onPress={() => setSelectedType(t)}
               className={`px-3 py-1.5 rounded-full border ${
                 isSelected
-                  ? "bg-emerald-600 border-emerald-500"
-                  : "bg-zinc-900 border-zinc-800"
+                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
               }`}
             >
               <Text
                 className={`text-xs font-semibold capitalize ${
-                  isSelected ? "text-white" : "text-zinc-400"
+                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                 }`}
               >
                 {t}
@@ -191,10 +191,13 @@ export default function AccountsScreen() {
           refreshing={isRefetching}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
-            <Card className="bg-zinc-900/60 border-zinc-800 p-8 items-center justify-center my-6">
+            <Card
+              variant="surface"
+              className="bg-white dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800 p-8 items-center justify-center my-6"
+            >
               <Text className="text-3xl mb-2">📑</Text>
-              <Text className="text-zinc-300 font-bold text-sm">No accounts found</Text>
-              <Text className="text-zinc-500 text-xs text-center mt-1">
+              <Text className="text-slate-900 dark:text-zinc-300 font-bold text-sm">No accounts found</Text>
+              <Text className="text-slate-500 dark:text-zinc-500 text-xs text-center mt-1">
                 {searchQuery
                   ? "Try searching with a different keyword"
                   : "No accounts match this filter"}
@@ -202,18 +205,21 @@ export default function AccountsScreen() {
             </Card>
           }
           renderItem={({ item }) => (
-            <Card className="bg-zinc-900 border-zinc-800 p-3 mb-2 flex-row items-center justify-between">
+            <Card
+              variant="elevated"
+              className="bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 mb-2.5 flex-row items-center justify-between rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none"
+            >
               <View className="flex-1 mr-2">
                 <View className="flex-row items-center gap-2">
-                  <Text className="text-emerald-400 font-mono font-bold text-xs bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                  <Text className="text-emerald-700 dark:text-emerald-400 font-mono font-bold text-xs bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-lg border border-emerald-200 dark:border-emerald-500/30">
                     {item.code}
                   </Text>
-                  <Text className="text-white font-bold text-sm" numberOfLines={1}>
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>
                     {item.name}
                   </Text>
                 </View>
                 {item.description ? (
-                  <Text className="text-zinc-400 text-xs mt-1" numberOfLines={1}>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-1" numberOfLines={1}>
                     {item.description}
                   </Text>
                 ) : null}
@@ -233,7 +239,7 @@ export default function AccountsScreen() {
                   }
                   size="sm"
                 />
-                <Text className="text-zinc-500 text-[10px] capitalize font-mono">
+                <Text className="text-slate-400 dark:text-zinc-500 text-[10px] capitalize font-mono">
                   {item.normalSide} normal
                 </Text>
               </View>
@@ -244,26 +250,26 @@ export default function AccountsScreen() {
 
       {/* Add Account Modal */}
       <Modal visible={showAddModal} transparent animationType="slide">
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-5 max-h-[90%]">
+        <View className="flex-1 bg-black/70 justify-end">
+          <View className="bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 rounded-t-3xl p-5 max-h-[90%] shadow-2xl">
             <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-white font-black text-lg">Add New Account</Text>
+              <Text className="text-slate-900 dark:text-white font-black text-lg">Add New Account</Text>
               <Pressable
                 onPress={() => setShowAddModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center active:scale-95"
               >
-                <Text className="text-zinc-400 font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 font-bold">✕</Text>
               </Pressable>
             </View>
 
             {errorMsg ? (
-              <View className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl mb-3">
-                <Text className="text-red-400 text-xs font-semibold">{errorMsg}</Text>
+              <View className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl mb-3">
+                <Text className="text-red-600 dark:text-red-400 text-xs font-semibold">{errorMsg}</Text>
               </View>
             ) : null}
 
             {/* Type Picker */}
-            <Text className="text-zinc-400 text-xs mb-1.5">Account Type *</Text>
+            <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Account Type *</Text>
             <View className="flex-row flex-wrap gap-1.5 mb-3.5">
               {ACCOUNT_TYPES.filter((t) => t !== "all").map((t) => {
                 const isSelected = type === t;
@@ -273,13 +279,13 @@ export default function AccountsScreen() {
                     onPress={() => handleTypeSelect(t as AccountType)}
                     className={`px-3 py-1.5 rounded-xl border capitalize ${
                       isSelected
-                        ? "bg-emerald-600 border-emerald-500"
-                        : "bg-zinc-950 border-zinc-800"
+                        ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                        : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                     }`}
                   >
                     <Text
                       className={`text-xs font-semibold ${
-                        isSelected ? "text-white" : "text-zinc-400"
+                        isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                       }`}
                     >
                       {t}
@@ -305,7 +311,7 @@ export default function AccountsScreen() {
             />
 
             {/* Normal Side Picker */}
-            <Text className="text-zinc-400 text-xs mb-1.5">Normal Side *</Text>
+            <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Normal Side *</Text>
             <View className="flex-row gap-2 mb-3.5">
               {(["debit", "credit"] as NormalSide[]).map((side) => {
                 const isSelected = normalSide === side;
@@ -315,13 +321,13 @@ export default function AccountsScreen() {
                     onPress={() => setNormalSide(side)}
                     className={`flex-1 py-2 rounded-xl border items-center capitalize ${
                       isSelected
-                        ? "bg-emerald-600 border-emerald-500"
-                        : "bg-zinc-950 border-zinc-800"
+                        ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                        : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                     }`}
                   >
                     <Text
                       className={`text-xs font-bold ${
-                        isSelected ? "text-white" : "text-zinc-400"
+                        isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                       }`}
                     >
                       {side}

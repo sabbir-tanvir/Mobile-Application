@@ -120,13 +120,13 @@ export default function PaymentsScreen() {
         <View className="flex-row items-center gap-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-white text-xl font-black">Payments Hub</Text>
-            <Text className="text-zinc-400 text-xs">
+            <Text className="text-slate-900 dark:text-white text-xl font-black">Payments Hub</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">
               {payments.length} transactions recorded
             </Text>
           </View>
@@ -134,7 +134,7 @@ export default function PaymentsScreen() {
 
         <Pressable
           onPress={handleOpenRecordModal}
-          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950 flex-row items-center"
+          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-950/20 flex-row items-center"
         >
           <Text className="text-white font-bold text-xs">+ Record</Text>
         </Pressable>
@@ -142,44 +142,50 @@ export default function PaymentsScreen() {
 
       {/* Financial KPI Summary Cards */}
       <View className="flex-row gap-3 mb-4">
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3.5">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card
+          variant="elevated"
+          className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none rounded-2xl"
+        >
+          <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
             Total Collected
           </Text>
-          <Text className="text-emerald-400 font-black text-lg mt-1" numberOfLines={1}>
+          <Text className="text-emerald-600 dark:text-emerald-400 font-black text-lg mt-1" numberOfLines={1}>
             {formatTaka(totalCollected)}
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">
             {completedPayments.length} paid txns
           </Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3.5">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card
+          variant="elevated"
+          className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none rounded-2xl"
+        >
+          <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
             Pending Dues
           </Text>
-          <Text className="text-amber-400 font-black text-lg mt-1" numberOfLines={1}>
+          <Text className="text-amber-500 dark:text-amber-400 font-black text-lg mt-1" numberOfLines={1}>
             {formatTaka(totalPending)}
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">
             {pendingPayments.length} pending
           </Text>
         </Card>
       </View>
 
       {/* Search Input */}
-      <View className="flex-row items-center bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 mb-3">
-        <Text className="text-zinc-500 mr-2 text-sm">🔍</Text>
+      <View className="flex-row items-center bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-sm">🔍</Text>
         <TextInput
           placeholder="Search customer, phone, or transaction ID..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-xs"
+          className="flex-1 text-slate-900 dark:text-white text-xs"
         />
         {searchQuery.length > 0 && (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-500 text-xs font-bold px-1">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-xs font-bold px-1">✕</Text>
           </Pressable>
         )}
       </View>
@@ -195,14 +201,14 @@ export default function PaymentsScreen() {
               onPress={() => setSelectedChannel(ch)}
               className={`px-3 py-1.5 rounded-full border flex-row items-center ${
                 isSelected
-                  ? "bg-emerald-600 border-emerald-500"
-                  : "bg-zinc-900 border-zinc-800"
+                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
               }`}
             >
               {badge?.icon && <Text className="mr-1 text-xs">{badge.icon}</Text>}
               <Text
                 className={`text-xs font-semibold uppercase ${
-                  isSelected ? "text-white" : "text-zinc-400"
+                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                 }`}
               >
                 {ch}
@@ -222,13 +228,13 @@ export default function PaymentsScreen() {
               onPress={() => setSelectedStatus(st)}
               className={`px-3 py-1 rounded-lg border ${
                 isSelected
-                  ? "bg-zinc-800 border-zinc-700"
-                  : "bg-zinc-950 border-zinc-900"
+                  ? "bg-slate-200 dark:bg-zinc-800 border-slate-300 dark:border-zinc-700"
+                  : "bg-slate-100 dark:bg-zinc-950 border-slate-200 dark:border-zinc-900"
               }`}
             >
               <Text
                 className={`text-xs capitalize font-medium ${
-                  isSelected ? "text-emerald-400 font-bold" : "text-zinc-500"
+                  isSelected ? "text-emerald-700 dark:text-emerald-400 font-bold" : "text-slate-500 dark:text-zinc-500"
                 }`}
               >
                 {st}
@@ -260,39 +266,42 @@ export default function PaymentsScreen() {
                 onPress={() => setSelectedPayment(item)}
                 className="mb-3 active:scale-[0.99] transition-transform"
               >
-                <Card className="bg-zinc-900 border-zinc-800 p-3.5">
+                <Card
+                  variant="elevated"
+                  className="bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none"
+                >
                   <View className="flex-row items-center justify-between mb-1.5">
                     <View className="flex-1 mr-2">
-                      <Text className="text-white font-bold text-sm" numberOfLines={1}>
+                      <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>
                         {item.customerName || "Customer Payment"}
                       </Text>
                       {item.customerPhone ? (
-                        <Text className="text-zinc-400 text-xs mt-0.5">
+                        <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
                           {item.customerPhone}
                         </Text>
                       ) : null}
                     </View>
 
                     {/* Amount */}
-                    <Text className="text-emerald-400 font-black text-base">
+                    <Text className="text-emerald-600 dark:text-emerald-400 font-black text-base">
                       {formatTaka(item.amount)}
                     </Text>
                   </View>
 
-                  <View className="flex-row items-center justify-between pt-2 border-t border-zinc-800/80">
+                  <View className="flex-row items-center justify-between pt-2 border-t border-slate-100 dark:border-zinc-800/80">
                     <View className="flex-row items-center gap-1.5">
                       <Text className="text-xs">{badge.icon}</Text>
-                      <Text className="text-zinc-300 text-xs font-semibold capitalize">
+                      <Text className="text-slate-700 dark:text-zinc-300 text-xs font-semibold capitalize">
                         {badge.label}
                       </Text>
                       {item.transactionId && (
-                        <Text className="text-zinc-500 text-[10px] font-mono">
+                        <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-mono">
                           • {item.transactionId}
                         </Text>
                       )}
                     </View>
 
-                    <Text className="text-zinc-500 text-[10px]">
+                    <Text className="text-slate-400 dark:text-zinc-500 text-[10px]">
                       {formatDate(item.createdAt)}
                     </Text>
                   </View>
@@ -301,12 +310,15 @@ export default function PaymentsScreen() {
             );
           }}
           ListEmptyComponent={
-            <Card className="items-center justify-center py-12 bg-zinc-900/60">
+            <Card
+              variant="surface"
+              className="items-center justify-center py-12 bg-white dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800"
+            >
               <Text className="text-4xl mb-3">💳</Text>
-              <Text className="text-white font-bold text-base">
+              <Text className="text-slate-900 dark:text-white font-bold text-base">
                 No payments found
               </Text>
-              <Text className="text-zinc-500 text-xs mt-1 text-center px-4">
+              <Text className="text-slate-500 dark:text-zinc-500 text-xs mt-1 text-center px-4">
                 No transactions matching your search criteria.
               </Text>
             </Card>
@@ -328,26 +340,29 @@ export default function PaymentsScreen() {
         animationType="slide"
         onRequestClose={() => setShowRecordModal(false)}
       >
-        <View className="flex-1 bg-black/80 items-center justify-center p-4">
+        <View className="flex-1 bg-black/70 items-center justify-center p-4">
           <View className="w-full max-w-sm">
-            <Card className="bg-zinc-900 border-zinc-700 p-5 shadow-2xl">
-              <Text className="text-white font-black text-lg mb-1">
+            <Card
+              variant="elevated"
+              className="bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-700 p-5 shadow-2xl rounded-3xl"
+            >
+              <Text className="text-slate-900 dark:text-white font-black text-lg mb-1">
                 Record Payment
               </Text>
-              <Text className="text-zinc-400 text-xs mb-4">
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-4">
                 Log a walk-in, cash, or mobile banking transaction
               </Text>
 
               {recordError ? (
-                <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-2.5 mb-3">
-                  <Text className="text-red-400 text-xs font-medium">{recordError}</Text>
+                <View className="bg-red-500/10 border border-red-500/30 rounded-xl p-2.5 mb-3">
+                  <Text className="text-red-600 dark:text-red-400 text-xs font-medium">{recordError}</Text>
                 </View>
               ) : null}
 
               {/* Optional Link to Booking */}
               {bookings.filter((b) => b.paymentStatus !== "paid").length > 0 && (
                 <View className="mb-3">
-                  <Text className="text-zinc-400 text-xs mb-1">Link to Unpaid Booking (Optional)</Text>
+                  <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1 font-medium">Link to Unpaid Booking (Optional)</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-1.5">
                     {bookings
                       .filter((b) => b.paymentStatus !== "paid")
@@ -370,10 +385,14 @@ export default function PaymentsScreen() {
                             className={`px-2.5 py-1 rounded-lg border ${
                               isSelected
                                 ? "bg-emerald-600 border-emerald-500"
-                                : "bg-zinc-950 border-zinc-800"
+                                : "bg-slate-100 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                             }`}
                           >
-                            <Text className="text-[10px] text-white font-medium">
+                            <Text
+                              className={`text-[10px] font-medium ${
+                                isSelected ? "text-white" : "text-slate-700 dark:text-zinc-300"
+                              }`}
+                            >
                               #{bk.id} {bk.customerName}
                             </Text>
                           </Pressable>
@@ -407,7 +426,7 @@ export default function PaymentsScreen() {
               />
 
               {/* Payment Method Selector */}
-              <Text className="text-zinc-400 text-xs mb-1.5">Payment Method</Text>
+              <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Payment Method</Text>
               <View className="flex-row flex-wrap gap-1.5 mb-3">
                 {PAYMENT_CHANNELS.filter((c) => c !== "All").map((ch) => {
                   const isSelected = recordMethod === ch;
@@ -418,14 +437,14 @@ export default function PaymentsScreen() {
                       onPress={() => setRecordMethod(ch as PaymentMethod)}
                       className={`px-3 py-1.5 rounded-xl border flex-row items-center ${
                         isSelected
-                          ? "bg-emerald-600 border-emerald-500"
-                          : "bg-zinc-950 border-zinc-800"
+                          ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                          : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                       }`}
                     >
                       <Text className="mr-1 text-xs">{badge.icon}</Text>
                       <Text
                         className={`text-xs font-semibold uppercase ${
-                          isSelected ? "text-white" : "text-zinc-400"
+                          isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                         }`}
                       >
                         {ch}

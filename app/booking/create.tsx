@@ -176,24 +176,24 @@ export default function CreateBookingScreen() {
       <View className="flex-row items-center justify-between my-3">
         <Pressable
           onPress={() => router.back()}
-          className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+          className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
         >
-          <Text className="text-white text-base font-bold">←</Text>
+          <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
         </Pressable>
-        <Text className="text-white font-bold text-base">New Slot Reservation</Text>
+        <Text className="text-slate-900 dark:text-white font-black text-base">New Slot Reservation</Text>
         <View className="w-10" />
       </View>
 
       {errorMessage ? (
-        <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 mb-4">
-          <Text className="text-red-400 text-xs font-medium">{errorMessage}</Text>
+        <View className="bg-rose-50 dark:bg-red-500/15 border border-rose-200 dark:border-red-500/30 rounded-2xl p-3 mb-4">
+          <Text className="text-rose-600 dark:text-red-400 text-xs font-medium">{errorMessage}</Text>
         </View>
       ) : null}
 
       {/* Turf Selector if multiple turfs available */}
       {allTurfs.length > 1 && (
-        <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-          <Text className="text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">
+        <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">
             Select Pitch / Ground
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-2">
@@ -205,13 +205,13 @@ export default function CreateBookingScreen() {
                   onPress={() => setSelectedTurfId(t.id)}
                   className={`px-3.5 py-2 rounded-xl border ${
                     isSelected
-                      ? "bg-emerald-600 border-emerald-500"
-                      : "bg-zinc-950 border-zinc-800"
+                      ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                      : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                   }`}
                 >
                   <Text
                     className={`text-xs font-semibold ${
-                      isSelected ? "text-white" : "text-zinc-400"
+                      isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                     }`}
                   >
                     {t.name}
@@ -225,11 +225,11 @@ export default function CreateBookingScreen() {
 
       {/* Pitch Summary Card */}
       {currentTurf && (
-        <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
+        <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <View className="flex-row items-start justify-between">
             <View>
-              <Text className="text-white font-black text-lg">{currentTurf.name}</Text>
-              <Text className="text-zinc-400 text-xs mt-0.5">
+              <Text className="text-slate-900 dark:text-white font-black text-lg">{currentTurf.name}</Text>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
                 📍 {currentTurf.location || "Pitch Ground"} • {currentTurf.type}
               </Text>
             </View>
@@ -239,8 +239,8 @@ export default function CreateBookingScreen() {
       )}
 
       {/* Schedule & Slot Selector */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-3">Schedule Slot</Text>
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-3">Schedule Slot</Text>
 
         <Input
           label="Match Date (YYYY-MM-DD)"
@@ -250,7 +250,7 @@ export default function CreateBookingScreen() {
         />
 
         {/* Start Hour Selector Chips */}
-        <Text className="text-zinc-400 text-xs mb-2">Start Time Slot</Text>
+        <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Start Time Slot</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-2 mb-3">
           {availableHours.map((hour) => {
             const isSelected = startHour === hour;
@@ -265,25 +265,25 @@ export default function CreateBookingScreen() {
                 onPress={() => setStartHour(hour)}
                 className={`px-3 py-2 rounded-xl border items-center justify-center ${
                   isBooked
-                    ? "bg-zinc-950/80 border-red-950 opacity-40"
+                    ? "bg-slate-100 dark:bg-zinc-950/80 border-rose-200 dark:border-red-950 opacity-50"
                     : isSelected
-                    ? "bg-emerald-600 border-emerald-500"
-                    : "bg-zinc-950 border-zinc-800"
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 }`}
               >
                 <Text
                   className={`text-xs font-bold ${
                     isBooked
-                      ? "text-red-400 line-through"
+                      ? "text-rose-500 dark:text-red-400 line-through"
                       : isSelected
                       ? "text-white"
-                      : "text-zinc-300"
+                      : "text-slate-700 dark:text-zinc-300"
                   }`}
                 >
                   {hour >= 12 ? `${hour % 12 || 12}:00 PM` : `${hour}:00 AM`}
                 </Text>
                 {isBooked && (
-                  <Text className="text-[9px] text-red-400 font-semibold mt-0.5">
+                  <Text className="text-[9px] text-rose-500 dark:text-red-400 font-semibold mt-0.5">
                     Booked
                   </Text>
                 )}
@@ -293,7 +293,7 @@ export default function CreateBookingScreen() {
         </ScrollView>
 
         {/* Duration Selector */}
-        <Text className="text-zinc-400 text-xs mb-2">Duration</Text>
+        <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Duration</Text>
         <View className="flex-row gap-2 mb-2">
           {[1, 1.5, 2, 3].map((hours) => {
             const isSelected = durationHours === hours;
@@ -303,13 +303,13 @@ export default function CreateBookingScreen() {
                 onPress={() => setDurationHours(hours)}
                 className={`flex-1 py-2 rounded-xl border items-center justify-center ${
                   isSelected
-                    ? "bg-emerald-600 border-emerald-500"
-                    : "bg-zinc-950 border-zinc-800"
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 }`}
               >
                 <Text
                   className={`text-xs font-semibold ${
-                    isSelected ? "text-white" : "text-zinc-400"
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                   }`}
                 >
                   {hours} {hours === 1 ? "Hour" : "Hours"}
@@ -321,9 +321,9 @@ export default function CreateBookingScreen() {
 
         {/* Conflict Warning Banner if slot overlaps */}
         {conflictingBooking && (
-          <View className="mt-2 bg-red-500/15 border border-red-500/40 rounded-xl p-3 flex-row items-center gap-2">
+          <View className="mt-2 bg-rose-50 dark:bg-red-500/15 border border-rose-200 dark:border-red-500/40 rounded-xl p-3 flex-row items-center gap-2">
             <Text className="text-base">⚠️</Text>
-            <Text className="text-red-400 text-xs flex-1 font-medium">
+            <Text className="text-rose-600 dark:text-red-400 text-xs flex-1 font-medium">
               Overlaps with an existing reservation by {conflictingBooking.customerName} (
               {conflictingBooking.startHour}:00 - {conflictingBooking.endHour}:00).
             </Text>
@@ -332,8 +332,8 @@ export default function CreateBookingScreen() {
       </Card>
 
       {/* Customer Info Card */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-3">Player / Customer Details</Text>
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-3">Player / Customer Details</Text>
 
         <Input
           label="Customer Full Name *"
@@ -352,19 +352,19 @@ export default function CreateBookingScreen() {
       </Card>
 
       {/* Payment & Advance Amount Card */}
-      <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
-        <Text className="text-white font-bold text-base mb-3">Payment Summary</Text>
+      <Card className="mb-4 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Text className="text-slate-900 dark:text-white font-bold text-base mb-3">Payment Summary</Text>
 
-        <View className="bg-zinc-950/80 rounded-xl p-3 border border-zinc-800/80 mb-3">
+        <View className="bg-slate-50 dark:bg-zinc-950/80 rounded-xl p-3.5 border border-slate-200/80 dark:border-zinc-800/80 mb-3">
           <View className="flex-row justify-between py-1">
-            <Text className="text-zinc-400 text-xs">Slot Window</Text>
-            <Text className="text-zinc-200 font-semibold text-xs">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">Slot Window</Text>
+            <Text className="text-slate-800 dark:text-zinc-200 font-semibold text-xs">
               {startHour}:00 - {endHour}:00 ({durationHours}h)
             </Text>
           </View>
-          <View className="flex-row justify-between py-1 border-t border-zinc-800/60 mt-1">
-            <Text className="text-zinc-400 text-sm font-semibold">Total Price</Text>
-            <Text className="text-emerald-400 font-black text-base">
+          <View className="flex-row justify-between py-1.5 border-t border-slate-200/60 dark:border-zinc-800/60 mt-1">
+            <Text className="text-slate-700 dark:text-zinc-400 text-sm font-semibold">Total Price</Text>
+            <Text className="text-emerald-600 dark:text-emerald-400 font-black text-base">
               {formatTaka(totalPrice)}
             </Text>
           </View>
@@ -378,7 +378,7 @@ export default function CreateBookingScreen() {
         />
 
         {/* Payment Method Selector */}
-        <Text className="text-zinc-400 text-xs mb-2">Payment Channel</Text>
+        <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Payment Channel</Text>
         <View className="flex-row flex-wrap gap-2 mb-3">
           {PAYMENT_METHODS.map((m) => {
             const isSelected = paymentMethod === m.id;
@@ -386,16 +386,16 @@ export default function CreateBookingScreen() {
               <Pressable
                 key={m.id}
                 onPress={() => setPaymentMethod(m.id)}
-                className={`flex-row items-center px-3 py-1.5 rounded-xl border ${
+                className={`flex-row items-center px-3.5 py-2 rounded-xl border ${
                   isSelected
-                    ? "bg-emerald-600 border-emerald-500"
-                    : "bg-zinc-950 border-zinc-800"
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                 }`}
               >
-                <Text className="mr-1 text-xs">{m.icon}</Text>
+                <Text className="mr-1.5 text-xs">{m.icon}</Text>
                 <Text
                   className={`text-xs font-semibold ${
-                    isSelected ? "text-white" : "text-zinc-400"
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                   }`}
                 >
                   {m.label}

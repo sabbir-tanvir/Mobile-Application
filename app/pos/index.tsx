@@ -154,13 +154,13 @@ export default function PosScreen() {
         <View className="flex-row items-center gap-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-white text-xl font-black">Sales POS</Text>
-            <Text className="text-zinc-400 text-xs">Drinks, Snacks & Equipment Counter</Text>
+            <Text className="text-slate-900 dark:text-white text-xl font-black tracking-tight">Sales POS</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">Drinks, Snacks & Equipment Counter</Text>
           </View>
         </View>
 
@@ -168,13 +168,13 @@ export default function PosScreen() {
         <View className="flex-row gap-1.5">
           <Pressable
             onPress={() => router.push("/pos/products" as any)}
-            className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+            className="w-10 h-10 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
             <Text className="text-base">📦</Text>
           </Pressable>
           <Pressable
             onPress={() => router.push("/pos/orders" as any)}
-            className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+            className="w-10 h-10 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
             <Text className="text-base">📋</Text>
           </Pressable>
@@ -182,18 +182,18 @@ export default function PosScreen() {
       </View>
 
       {/* Search Bar */}
-      <View className="flex-row items-center bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 mb-3">
-        <Text className="text-zinc-500 mr-2 text-sm">🔍</Text>
+      <View className="flex-row items-center bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-sm">🔍</Text>
         <TextInput
           placeholder="Search products, drinks, gear..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-xs"
+          className="flex-1 text-slate-900 dark:text-white text-xs"
         />
         {searchQuery.length > 0 && (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-400 text-xs px-1">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-400 text-xs px-1">✕</Text>
           </Pressable>
         )}
       </View>
@@ -208,13 +208,13 @@ export default function PosScreen() {
               onPress={() => setSelectedCategory(c)}
               className={`px-3 py-1.5 rounded-full border capitalize ${
                 isSelected
-                  ? "bg-emerald-600 border-emerald-500"
-                  : "bg-zinc-900 border-zinc-800"
+                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800"
               }`}
             >
               <Text
                 className={`text-xs font-semibold ${
-                  isSelected ? "text-white" : "text-zinc-400"
+                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                 }`}
               >
                 {c}
@@ -239,10 +239,10 @@ export default function PosScreen() {
           refreshing={isRefetching}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
-            <Card className="bg-zinc-900/60 border-zinc-800 p-8 items-center justify-center my-6">
+            <Card className="bg-white/80 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 p-8 items-center justify-center my-6 rounded-2xl">
               <Text className="text-3xl mb-2">🛍️</Text>
-              <Text className="text-zinc-300 font-bold text-sm">No products found</Text>
-              <Text className="text-zinc-500 text-xs text-center mt-1">
+              <Text className="text-slate-800 dark:text-zinc-300 font-bold text-sm">No products found</Text>
+              <Text className="text-slate-500 dark:text-zinc-500 text-xs text-center mt-1">
                 Go to Inventory to add drinks, snacks or sports equipment
               </Text>
             </Card>
@@ -259,31 +259,33 @@ export default function PosScreen() {
                 className={`mb-2.5 active:scale-[0.98] ${isOutOfStock ? "opacity-50" : ""}`}
               >
                 <Card
-                  className={`bg-zinc-900 p-3.5 border ${
-                    inCartItem ? "border-emerald-500/60 bg-emerald-950/10" : "border-zinc-800"
+                  className={`p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none border ${
+                    inCartItem
+                      ? "border-emerald-500/60 bg-emerald-50/50 dark:bg-emerald-950/20"
+                      : "bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800"
                   }`}
                 >
                   <View className="flex-row items-center justify-between">
                     {/* Left Info */}
                     <View className="flex-1 mr-2">
                       <View className="flex-row items-center gap-2">
-                        <Text className="text-white font-bold text-sm" numberOfLines={1}>
+                        <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>
                           {item.name}
                         </Text>
                         <Badge label={item.category} variant="default" size="sm" />
                       </View>
                       <View className="flex-row items-center gap-2 mt-1">
-                        <Text className="text-emerald-400 font-black text-sm">
+                        <Text className="text-emerald-600 dark:text-emerald-400 font-black text-sm">
                           {formatTaka(item.price)}
                         </Text>
-                        <Text className="text-zinc-600">•</Text>
+                        <Text className="text-slate-300 dark:text-zinc-600">•</Text>
                         <Text
                           className={`text-xs font-semibold ${
                             isOutOfStock
-                              ? "text-red-400"
+                              ? "text-rose-500 dark:text-red-400"
                               : isLowStock
-                              ? "text-amber-400"
-                              : "text-zinc-400"
+                              ? "text-amber-500 dark:text-amber-400"
+                              : "text-slate-500 dark:text-zinc-400"
                           }`}
                         >
                           {isOutOfStock ? "Out of Stock" : `${item.stock} ${item.unit} left`}
@@ -293,14 +295,14 @@ export default function PosScreen() {
 
                     {/* Right Cart Counter / Add Action */}
                     {inCartItem ? (
-                      <View className="flex-row items-center gap-1.5 bg-emerald-600 px-2.5 py-1.5 rounded-xl shadow-md shadow-emerald-950">
+                      <View className="flex-row items-center gap-1.5 bg-emerald-600 px-3 py-1.5 rounded-xl shadow-sm shadow-emerald-600/30">
                         <Text className="text-white font-bold text-xs">
                           {inCartItem.quantity} in cart
                         </Text>
                       </View>
                     ) : (
-                      <View className="w-9 h-9 rounded-xl bg-zinc-800 border border-zinc-700 items-center justify-center">
-                        <Text className="text-emerald-400 font-bold text-base">+</Text>
+                      <View className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 items-center justify-center">
+                        <Text className="text-emerald-600 dark:text-emerald-400 font-black text-base">+</Text>
                       </View>
                     )}
                   </View>
@@ -313,10 +315,10 @@ export default function PosScreen() {
 
       {/* Floating Bottom Cart Bar */}
       {cart.length > 0 && (
-        <View className="mt-2 pt-2 border-t border-zinc-800">
+        <View className="mt-2 pt-2 border-t border-slate-200/80 dark:border-zinc-800">
           <Pressable
             onPress={() => setShowCartModal(true)}
-            className="p-3.5 rounded-2xl bg-emerald-600 active:bg-emerald-700 flex-row items-center justify-between shadow-xl shadow-emerald-950 border border-emerald-500"
+            className="p-3.5 rounded-2xl bg-emerald-600 active:bg-emerald-700 flex-row items-center justify-between shadow-xl shadow-emerald-600/30 border border-emerald-500"
           >
             <View className="flex-row items-center gap-2.5">
               <View className="w-8 h-8 rounded-full bg-emerald-800/80 items-center justify-center">
@@ -335,26 +337,26 @@ export default function PosScreen() {
 
       {/* Cart & Checkout Sheet Modal */}
       <Modal visible={showCartModal} transparent animationType="slide">
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-5 max-h-[90%]">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-end">
+          <View className="bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 rounded-t-3xl p-5 max-h-[90%] shadow-2xl">
             <View className="flex-row items-center justify-between mb-3">
               <View>
-                <Text className="text-white font-black text-lg">Current Sale Order</Text>
-                <Text className="text-zinc-400 text-xs">
+                <Text className="text-slate-900 dark:text-white font-black text-lg">Current Sale Order</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 text-xs">
                   {totalCartCount} items • Total: {formatTaka(totalCartAmount)}
                 </Text>
               </View>
               <Pressable
                 onPress={() => setShowCartModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center"
               >
-                <Text className="text-zinc-400 font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 font-bold">✕</Text>
               </Pressable>
             </View>
 
             {checkoutError ? (
-              <View className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl mb-3">
-                <Text className="text-red-400 text-xs font-semibold">{checkoutError}</Text>
+              <View className="p-3 bg-rose-50 dark:bg-red-500/15 border border-rose-200 dark:border-red-500/30 rounded-2xl mb-3">
+                <Text className="text-rose-600 dark:text-red-400 text-xs font-semibold">{checkoutError}</Text>
               </View>
             ) : null}
 
@@ -364,13 +366,13 @@ export default function PosScreen() {
                 {cart.map((item) => (
                   <View
                     key={item.productId}
-                    className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 flex-row items-center justify-between"
+                    className="p-3 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800 flex-row items-center justify-between shadow-xs"
                   >
                     <View className="flex-1 mr-2">
-                      <Text className="text-white font-bold text-xs" numberOfLines={1}>
+                      <Text className="text-slate-900 dark:text-white font-bold text-xs" numberOfLines={1}>
                         {item.productName}
                       </Text>
-                      <Text className="text-zinc-400 text-[11px] mt-0.5">
+                      <Text className="text-slate-500 dark:text-zinc-400 text-[11px] mt-0.5">
                         {formatTaka(item.unitPrice)} each
                       </Text>
                     </View>
@@ -378,24 +380,24 @@ export default function PosScreen() {
                     <View className="flex-row items-center gap-2">
                       <Pressable
                         onPress={() => updateQuantity(item.productId, -1)}
-                        className="w-7 h-7 rounded-lg bg-zinc-800 items-center justify-center active:bg-zinc-700"
+                        className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-zinc-800 items-center justify-center active:bg-slate-300 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-white font-bold text-xs">-</Text>
+                        <Text className="text-slate-800 dark:text-white font-bold text-xs">-</Text>
                       </Pressable>
-                      <Text className="text-white font-bold text-xs w-6 text-center">
+                      <Text className="text-slate-900 dark:text-white font-bold text-xs w-6 text-center">
                         {item.quantity}
                       </Text>
                       <Pressable
                         onPress={() => updateQuantity(item.productId, 1)}
-                        className="w-7 h-7 rounded-lg bg-zinc-800 items-center justify-center active:bg-zinc-700"
+                        className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-zinc-800 items-center justify-center active:bg-slate-300 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-white font-bold text-xs">+</Text>
+                        <Text className="text-slate-800 dark:text-white font-bold text-xs">+</Text>
                       </Pressable>
                       <Pressable
                         onPress={() => removeFromCart(item.productId)}
-                        className="w-7 h-7 rounded-lg bg-red-500/15 items-center justify-center active:bg-red-500/30 ml-1"
+                        className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-red-500/15 items-center justify-center active:bg-rose-100 dark:active:bg-red-500/30 ml-1"
                       >
-                        <Text className="text-red-400 text-[10px] font-bold">✕</Text>
+                        <Text className="text-rose-600 dark:text-red-400 text-[10px] font-bold">✕</Text>
                       </Pressable>
                     </View>
                   </View>
@@ -419,7 +421,7 @@ export default function PosScreen() {
               />
 
               {/* Payment Method Selector */}
-              <Text className="text-zinc-400 text-xs mb-1.5">Payment Method *</Text>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-1.5 font-medium">Payment Method *</Text>
               <View className="flex-row flex-wrap gap-1.5 mb-3.5">
                 {PAYMENT_METHODS.map((m) => {
                   const isSelected = paymentMethod === m;
@@ -427,15 +429,15 @@ export default function PosScreen() {
                     <Pressable
                       key={m}
                       onPress={() => setPaymentMethod(m)}
-                      className={`px-3 py-1.5 rounded-xl border uppercase ${
+                      className={`px-3.5 py-1.5 rounded-xl border uppercase ${
                         isSelected
-                          ? "bg-emerald-600 border-emerald-500"
-                          : "bg-zinc-950 border-zinc-800"
+                          ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                          : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                       }`}
                     >
                       <Text
                         className={`text-xs font-semibold ${
-                          isSelected ? "text-white" : "text-zinc-400"
+                          isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                         }`}
                       >
                         {m}

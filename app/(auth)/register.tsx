@@ -51,16 +51,16 @@ export default function RegisterScreen() {
       <View className="w-full max-w-md self-center">
         {/* Header */}
         <View className="items-center my-4">
-          <Text className="text-2xl font-bold text-white">Create Account</Text>
-          <Text className="text-zinc-400 text-xs mt-1">
+          <Text className="text-2xl font-black text-slate-900 dark:text-white">Create Account</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-1 font-medium">
             Join TurfSlot to book your favorite slots
           </Text>
         </View>
 
-        <Card className="p-6 bg-zinc-900 border-zinc-800">
+        <Card className="p-6 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           {errorMessage ? (
-            <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 mb-4">
-              <Text className="text-red-400 text-xs font-medium">
+            <View className="bg-red-50 dark:bg-red-500/15 border border-red-200 dark:border-red-500/30 rounded-xl p-3 mb-4">
+              <Text className="text-red-600 dark:text-red-400 text-xs font-medium">
                 {errorMessage}
               </Text>
             </View>
@@ -108,9 +108,9 @@ export default function RegisterScreen() {
         </Card>
 
         <View className="flex-row justify-center items-center mt-6">
-          <Text className="text-zinc-400 text-sm">Already have an account? </Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-sm">Already have an account? </Text>
           <Pressable onPress={() => router.back()}>
-            <Text className="text-emerald-400 font-semibold text-sm">
+            <Text className="text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
               Sign In
             </Text>
           </Pressable>

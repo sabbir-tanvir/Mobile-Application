@@ -64,10 +64,10 @@ export default function UsersManagementScreen() {
   if (!isAdmin) {
     return (
       <ScreenWrapper className="p-4 items-center justify-center">
-        <Card className="p-8 bg-zinc-900 border-zinc-800 items-center max-w-sm">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-4xl mb-3">🔒</Text>
-          <Text className="text-white text-lg font-bold mb-1">Access Restricted</Text>
-          <Text className="text-zinc-400 text-xs text-center mb-4">
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Access Restricted</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-4">
             Only System Administrators have permission to manage staff, partners, and user roles.
           </Text>
           <Button title="Back to Dashboard" variant="primary" onPress={() => router.back()} />
@@ -223,26 +223,26 @@ export default function UsersManagementScreen() {
       : "U";
 
     return (
-      <Card className="mb-3 bg-zinc-900 border-zinc-800 p-4 rounded-2xl shadow-sm">
+      <Card className="mb-3 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
         <View className="flex-row items-center justify-between mb-3">
           <View className="flex-row items-center gap-3 flex-1 mr-2">
             {/* Initials Avatar */}
-            <View className="w-12 h-12 rounded-full bg-zinc-800 border border-zinc-700 items-center justify-center">
-              <Text className="text-white font-black text-sm">{initials}</Text>
+            <View className="w-12 h-12 rounded-full bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 items-center justify-center">
+              <Text className="text-slate-800 dark:text-white font-black text-sm">{initials}</Text>
             </View>
 
             <View className="flex-1">
               <View className="flex-row items-center gap-2">
-                <Text className="text-white font-bold text-base" numberOfLines={1}>
+                <Text className="text-slate-900 dark:text-white font-bold text-base" numberOfLines={1}>
                   {item.fullName}
                 </Text>
                 {isCurrent ? (
-                  <View className="bg-emerald-950/80 border border-emerald-800/80 px-2 py-0.5 rounded-full">
-                    <Text className="text-emerald-400 text-[9px] font-extrabold">YOU</Text>
+                  <View className="bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800/80 px-2 py-0.5 rounded-full">
+                    <Text className="text-emerald-700 dark:text-emerald-400 text-[9px] font-extrabold">YOU</Text>
                   </View>
                 ) : null}
               </View>
-              <Text className="text-zinc-400 text-xs mt-0.5" numberOfLines={1}>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5" numberOfLines={1}>
                 {item.email}
               </Text>
             </View>
@@ -257,7 +257,7 @@ export default function UsersManagementScreen() {
         </View>
 
         {/* Status and Joined Date */}
-        <View className="flex-row items-center justify-between pt-2 border-t border-zinc-800/60">
+        <View className="flex-row items-center justify-between pt-2.5 border-t border-slate-100 dark:border-zinc-800/60">
           <View className="flex-row items-center gap-2">
             <View
               className={`w-2 h-2 rounded-full ${
@@ -265,14 +265,14 @@ export default function UsersManagementScreen() {
                   ? "bg-emerald-500"
                   : item.status === "suspended"
                   ? "bg-red-500"
-                  : "bg-zinc-500"
+                  : "bg-slate-400 dark:bg-zinc-500"
               }`}
             />
-            <Text className="text-zinc-400 text-xs capitalize font-medium">
+            <Text className="text-slate-600 dark:text-zinc-400 text-xs capitalize font-medium">
               {item.status || "active"}
             </Text>
             {item.createdAt ? (
-              <Text className="text-zinc-500 text-[10px]">
+              <Text className="text-slate-400 dark:text-zinc-500 text-[10px]">
                 • Joined {formatDate(item.createdAt)}
               </Text>
             ) : null}
@@ -282,17 +282,17 @@ export default function UsersManagementScreen() {
           <View className="flex-row items-center gap-2">
             <Pressable
               onPress={() => openEditModal(item)}
-              className="px-3 py-1.5 rounded-xl bg-zinc-800 border border-zinc-700 flex-row items-center"
+              className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 active:bg-slate-200 dark:active:bg-zinc-700 flex-row items-center"
             >
-              <Text className="text-zinc-200 text-xs font-semibold">✏️ Edit</Text>
+              <Text className="text-slate-700 dark:text-zinc-200 text-xs font-semibold">✏️ Edit</Text>
             </Pressable>
 
             {!isCurrent ? (
               <Pressable
                 onPress={() => handleDeleteUser(item)}
-                className="w-8 h-8 rounded-xl bg-red-950/40 border border-red-900/50 items-center justify-center"
+                className="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 items-center justify-center active:bg-red-100 dark:active:bg-red-900/60"
               >
-                <Text className="text-red-400 text-xs font-bold">🗑️</Text>
+                <Text className="text-red-500 dark:text-red-400 text-xs font-bold">🗑️</Text>
               </Pressable>
             ) : null}
           </View>
@@ -308,13 +308,13 @@ export default function UsersManagementScreen() {
         <View className="flex-row items-center gap-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-white text-2xl font-black">User Access</Text>
-            <Text className="text-zinc-400 text-xs mt-0.5">
+            <Text className="text-slate-900 dark:text-white text-2xl font-black">User Access</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
               Staff, partners & administrators
             </Text>
           </View>
@@ -324,38 +324,38 @@ export default function UsersManagementScreen() {
       </View>
 
       {/* 4 Metric Summary Cards */}
-      <View className="grid grid-cols-4 gap-2 mb-3">
-        <Card className="bg-zinc-900 border-zinc-800 p-2.5 items-center">
-          <Text className="text-zinc-500 text-[9px] uppercase font-bold">Total</Text>
-          <Text className="text-white text-base font-black mt-0.5">{totalUsers}</Text>
+      <View className="flex-row gap-2 mb-3">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Total</Text>
+          <Text className="text-slate-900 dark:text-white text-base font-black mt-0.5">{totalUsers}</Text>
         </Card>
-        <Card className="bg-zinc-900 border-zinc-800 p-2.5 items-center">
-          <Text className="text-zinc-500 text-[9px] uppercase font-bold">Staff</Text>
-          <Text className="text-emerald-400 text-base font-black mt-0.5">{staffCount}</Text>
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Staff</Text>
+          <Text className="text-emerald-600 dark:text-emerald-400 text-base font-black mt-0.5">{staffCount}</Text>
         </Card>
-        <Card className="bg-zinc-900 border-zinc-800 p-2.5 items-center">
-          <Text className="text-zinc-500 text-[9px] uppercase font-bold">Partners</Text>
-          <Text className="text-amber-400 text-base font-black mt-0.5">{partnerCount}</Text>
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Partners</Text>
+          <Text className="text-amber-600 dark:text-amber-400 text-base font-black mt-0.5">{partnerCount}</Text>
         </Card>
-        <Card className="bg-zinc-900 border-zinc-800 p-2.5 items-center">
-          <Text className="text-zinc-500 text-[9px] uppercase font-bold">Admins</Text>
-          <Text className="text-blue-400 text-base font-black mt-0.5">{adminCount}</Text>
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Admins</Text>
+          <Text className="text-blue-600 dark:text-blue-400 text-base font-black mt-0.5">{adminCount}</Text>
         </Card>
       </View>
 
       {/* Search Input */}
-      <View className="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 flex-row items-center mb-3">
-        <Text className="text-zinc-500 mr-2">🔍</Text>
+      <View className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 flex-row items-center mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2">🔍</Text>
         <TextInput
           placeholder="Search by full name or email address..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-xs"
+          className="flex-1 text-slate-900 dark:text-white text-xs"
         />
         {searchQuery ? (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-500 text-xs font-bold">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-xs font-bold">✕</Text>
           </Pressable>
         ) : null}
       </View>
@@ -377,13 +377,13 @@ export default function UsersManagementScreen() {
                 onPress={() => setSelectedRole(f.value)}
                 className={`px-3 py-1.5 rounded-full border mr-1 ${
                   isSelected
-                    ? "bg-emerald-600 border-emerald-500"
-                    : "bg-zinc-900 border-zinc-800"
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/30 dark:shadow-none"
                 }`}
               >
                 <Text
                   className={`text-[11px] font-bold ${
-                    isSelected ? "text-white" : "text-zinc-400"
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                   }`}
                 >
                   {f.label}
@@ -402,10 +402,10 @@ export default function UsersManagementScreen() {
           <Skeleton height={100} borderRadius={16} />
         </View>
       ) : filteredUsers.length === 0 ? (
-        <Card className="p-8 bg-zinc-900 border-zinc-800 items-center justify-center my-6 border-dashed">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl items-center justify-center my-6 border-dashed shadow-sm shadow-slate-200/40 dark:shadow-none">
           <Text className="text-4xl mb-2">👥</Text>
-          <Text className="text-white font-bold text-sm">No Users Found</Text>
-          <Text className="text-zinc-400 text-xs text-center mt-1 mb-4">
+          <Text className="text-slate-900 dark:text-white font-bold text-sm">No Users Found</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mt-1 mb-4">
             {searchQuery
               ? "No accounts match your current query or role filter."
               : "No user accounts registered in this category."}
@@ -430,28 +430,28 @@ export default function UsersManagementScreen() {
         animationType="slide"
         onRequestClose={() => setShowModal(false)}
       >
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 rounded-t-3xl border-t border-zinc-800 p-5 max-h-[90%]">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-end">
+          <View className="bg-white dark:bg-zinc-900 rounded-t-3xl border-t border-slate-200 dark:border-zinc-800 p-5 max-h-[90%] shadow-2xl">
             <View className="flex-row justify-between items-center mb-4">
               <View>
-                <Text className="text-white text-lg font-bold">
+                <Text className="text-slate-900 dark:text-white text-lg font-bold">
                   {editingUser ? "Edit User Account" : "Add Team Member"}
                 </Text>
-                <Text className="text-zinc-400 text-xs">
+                <Text className="text-slate-500 dark:text-zinc-400 text-xs">
                   {editingUser ? `Updating access for ${editingUser.email}` : "Configure permissions and platform role"}
                 </Text>
               </View>
               <Pressable
                 onPress={() => setShowModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center"
               >
-                <Text className="text-zinc-400 text-sm font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 text-sm font-bold">✕</Text>
               </Pressable>
             </View>
 
             {errorMsg ? (
-              <View className="bg-red-950/80 border border-red-800 p-3 rounded-xl mb-4">
-                <Text className="text-red-300 text-xs font-semibold">{errorMsg}</Text>
+              <View className="bg-red-50 dark:bg-red-950/80 border border-red-200 dark:border-red-800 p-3 rounded-xl mb-4">
+                <Text className="text-red-600 dark:text-red-300 text-xs font-semibold">{errorMsg}</Text>
               </View>
             ) : null}
 
@@ -482,7 +482,7 @@ export default function UsersManagementScreen() {
 
               {/* Role Selection */}
               <View>
-                <Text className="text-zinc-400 text-xs font-semibold mb-2">
+                <Text className="text-slate-700 dark:text-zinc-400 text-xs font-semibold mb-2">
                   System Role & Access Scope
                 </Text>
                 <View className="space-y-2">
@@ -494,8 +494,8 @@ export default function UsersManagementScreen() {
                         onPress={() => setRole(opt.value)}
                         className={`p-3 rounded-xl border flex-row items-center justify-between ${
                           isSelected
-                            ? "bg-emerald-950/70 border-emerald-600"
-                            : "bg-zinc-950 border-zinc-800"
+                            ? "bg-emerald-50 dark:bg-emerald-950/70 border-emerald-500 dark:border-emerald-600"
+                            : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                         }`}
                       >
                         <View className="flex-row items-center gap-3 flex-1 mr-2">
@@ -503,12 +503,12 @@ export default function UsersManagementScreen() {
                           <View>
                             <Text
                               className={`text-xs font-bold ${
-                                isSelected ? "text-emerald-400" : "text-white"
+                                isSelected ? "text-emerald-700 dark:text-emerald-400" : "text-slate-900 dark:text-white"
                               }`}
                             >
                               {opt.label}
                             </Text>
-                            <Text className="text-zinc-500 text-[10px] mt-0.5">
+                            <Text className="text-slate-500 dark:text-zinc-500 text-[10px] mt-0.5">
                               {opt.desc}
                             </Text>
                           </View>
@@ -517,7 +517,7 @@ export default function UsersManagementScreen() {
                           className={`w-5 h-5 rounded-full border items-center justify-center ${
                             isSelected
                               ? "border-emerald-500 bg-emerald-500"
-                              : "border-zinc-700 bg-zinc-900"
+                              : "border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900"
                           }`}
                         >
                           {isSelected && <Text className="text-white text-[10px] font-bold">✓</Text>}
@@ -530,7 +530,7 @@ export default function UsersManagementScreen() {
 
               {/* Status Selection */}
               <View>
-                <Text className="text-zinc-400 text-xs font-semibold mb-2">
+                <Text className="text-slate-700 dark:text-zinc-400 text-xs font-semibold mb-2">
                   Account Status
                 </Text>
                 <View className="flex-row gap-2">
@@ -543,12 +543,12 @@ export default function UsersManagementScreen() {
                         className={`flex-1 py-2 rounded-xl border items-center ${
                           isSelected
                             ? "bg-emerald-600 border-emerald-500"
-                            : "bg-zinc-950 border-zinc-800"
+                            : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                         }`}
                       >
                         <Text
                           className={`text-xs font-bold ${
-                            isSelected ? "text-white" : "text-zinc-300"
+                            isSelected ? "text-white" : "text-slate-700 dark:text-zinc-300"
                           }`}
                         >
                           {opt.label}

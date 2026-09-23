@@ -134,8 +134,8 @@ export function TeamManager({ tournament }: TeamManagerProps) {
       {/* Header & Add Team Action */}
       <View className="flex-row items-center justify-between">
         <View>
-          <Text className="text-white font-bold text-base">Registered Teams</Text>
-          <Text className="text-zinc-400 text-xs">
+          <Text className="text-slate-900 dark:text-white font-bold text-base">Registered Teams</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs">
             {teams.length} of {tournament.maxTeams} spots filled
           </Text>
         </View>
@@ -154,10 +154,10 @@ export function TeamManager({ tournament }: TeamManagerProps) {
 
       {/* Teams List */}
       {teams.length === 0 ? (
-        <Card className="p-8 bg-zinc-900 border-zinc-800 items-center justify-center border-dashed">
+        <Card className="p-8 bg-white/80 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center border-dashed rounded-2xl">
           <Text className="text-4xl mb-2">🛡️</Text>
-          <Text className="text-white font-bold text-sm">No Teams Registered Yet</Text>
-          <Text className="text-zinc-400 text-xs text-center mt-1">
+          <Text className="text-slate-800 dark:text-white font-bold text-sm">No Teams Registered Yet</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mt-1">
             Tap "+ Register Team" to add participating squads and manage captain fees.
           </Text>
         </Card>
@@ -166,13 +166,13 @@ export function TeamManager({ tournament }: TeamManagerProps) {
           {teams.map((team, idx) => (
             <Card
               key={idx}
-              className="bg-zinc-900 border-zinc-800 p-3.5 flex-row items-center justify-between"
+              className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none flex-row items-center justify-between"
             >
               {/* Team Info */}
               <View className="flex-1 mr-3">
                 <View className="flex-row items-center gap-2 mb-1">
-                  <Text className="text-zinc-500 font-black text-xs">#{idx + 1}</Text>
-                  <Text className="text-white font-bold text-sm flex-1" numberOfLines={1}>
+                  <Text className="text-slate-400 dark:text-zinc-500 font-black text-xs">#{idx + 1}</Text>
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm flex-1" numberOfLines={1}>
                     {team.name}
                   </Text>
                   <Badge
@@ -183,15 +183,15 @@ export function TeamManager({ tournament }: TeamManagerProps) {
                 </View>
 
                 <View className="flex-row items-center gap-3">
-                  <Text className="text-zinc-400 text-xs">
-                    Captain: <Text className="text-zinc-200">{team.captainName}</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
+                    Captain: <Text className="text-slate-800 dark:text-zinc-200 font-medium">{team.captainName}</Text>
                   </Text>
                   {team.captainPhone ? (
                     <Pressable
                       onPress={() => handleCall(team.captainPhone)}
                       className="flex-row items-center"
                     >
-                      <Text className="text-emerald-400 text-xs font-semibold">
+                      <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
                         📞 {team.captainPhone}
                       </Text>
                     </Pressable>
@@ -203,15 +203,15 @@ export function TeamManager({ tournament }: TeamManagerProps) {
               <View className="flex-row items-center gap-2">
                 <Pressable
                   onPress={() => handleTogglePaid(idx)}
-                  className={`px-2.5 py-1.5 rounded-lg border ${
+                  className={`px-3 py-1.5 rounded-xl border ${
                     team.paid
-                      ? "bg-zinc-800 border-zinc-700"
-                      : "bg-emerald-950/60 border-emerald-600/60"
+                      ? "bg-slate-100 dark:bg-zinc-800 border-slate-200 dark:border-zinc-700"
+                      : "bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-600/60 shadow-sm shadow-emerald-500/10"
                   }`}
                 >
                   <Text
                     className={`text-[11px] font-bold ${
-                      team.paid ? "text-zinc-400" : "text-emerald-400"
+                      team.paid ? "text-slate-500 dark:text-zinc-400" : "text-emerald-700 dark:text-emerald-400"
                     }`}
                   >
                     {team.paid ? "Mark Unpaid" : "Mark Paid"}
@@ -220,9 +220,9 @@ export function TeamManager({ tournament }: TeamManagerProps) {
 
                 <Pressable
                   onPress={() => handleRemoveTeam(idx)}
-                  className="w-8 h-8 rounded-lg bg-red-950/40 border border-red-900/50 items-center justify-center"
+                  className="w-8 h-8 rounded-xl bg-rose-50 dark:bg-red-950/40 border border-rose-200 dark:border-red-900/50 items-center justify-center active:bg-rose-100"
                 >
-                  <Text className="text-red-400 text-xs font-bold">✕</Text>
+                  <Text className="text-rose-600 dark:text-red-400 text-xs font-bold">✕</Text>
                 </Pressable>
               </View>
             </Card>
@@ -237,26 +237,26 @@ export function TeamManager({ tournament }: TeamManagerProps) {
         animationType="slide"
         onRequestClose={() => setShowAddModal(false)}
       >
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 rounded-t-3xl border-t border-zinc-800 p-5 max-h-[85%]">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-end">
+          <View className="bg-white dark:bg-zinc-900 rounded-t-3xl border-t border-slate-200 dark:border-zinc-800 p-5 max-h-[85%] shadow-2xl">
             <View className="flex-row justify-between items-center mb-4">
               <View>
-                <Text className="text-white text-lg font-bold">Register Team</Text>
-                <Text className="text-zinc-400 text-xs">
+                <Text className="text-slate-900 dark:text-white text-lg font-black">Register Team</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 text-xs">
                   {tournament.name} • Entry Fee: {formatTaka(tournament.entryFee)}
                 </Text>
               </View>
               <Pressable
                 onPress={() => setShowAddModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center"
               >
-                <Text className="text-zinc-400 text-sm font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 text-sm font-bold">✕</Text>
               </Pressable>
             </View>
 
             {errorMsg ? (
-              <View className="bg-red-950/80 border border-red-800 p-3 rounded-xl mb-4">
-                <Text className="text-red-300 text-xs font-semibold">{errorMsg}</Text>
+              <View className="bg-rose-50 dark:bg-red-950/80 border border-rose-200 dark:border-red-800 p-3 rounded-2xl mb-4">
+                <Text className="text-rose-600 dark:text-red-300 text-xs font-semibold">{errorMsg}</Text>
               </View>
             ) : null}
 
@@ -284,12 +284,12 @@ export function TeamManager({ tournament }: TeamManagerProps) {
               />
 
               {/* Payment status toggle */}
-              <View className="bg-zinc-950 border border-zinc-800 p-4 rounded-xl flex-row items-center justify-between">
+              <View className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-4 rounded-2xl flex-row items-center justify-between">
                 <View className="flex-1 mr-3">
-                  <Text className="text-white font-semibold text-sm">
+                  <Text className="text-slate-900 dark:text-white font-semibold text-sm">
                     Entry Fee Paid ({formatTaka(tournament.entryFee)})
                   </Text>
-                  <Text className="text-zinc-500 text-xs">
+                  <Text className="text-slate-400 dark:text-zinc-500 text-xs">
                     Mark if the captain has already transferred the registration fee.
                   </Text>
                 </View>
@@ -297,10 +297,10 @@ export function TeamManager({ tournament }: TeamManagerProps) {
                 <Pressable
                   onPress={() => setIsPaid(!isPaid)}
                   className={`w-12 h-7 rounded-full p-1 transition-colors ${
-                    isPaid ? "bg-emerald-600 items-end" : "bg-zinc-800 items-start"
+                    isPaid ? "bg-emerald-600 items-end" : "bg-slate-300 dark:bg-zinc-800 items-start"
                   }`}
                 >
-                  <View className="w-5 h-5 rounded-full bg-white" />
+                  <View className="w-5 h-5 rounded-full bg-white shadow-xs" />
                 </Pressable>
               </View>
 

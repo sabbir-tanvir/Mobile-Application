@@ -50,29 +50,29 @@ export default function LoginScreen() {
       <View className="w-full max-w-md self-center">
         {/* Brand Header */}
         <View className="items-center my-6">
-          <View className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 items-center justify-center mb-3 shadow-lg shadow-emerald-950">
+          <View className="w-16 h-16 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 dark:border-emerald-500/40 items-center justify-center mb-3 shadow-md shadow-emerald-500/10 dark:shadow-emerald-950">
             <Text className="text-3xl">⚽</Text>
           </View>
-          <Text className="text-3xl font-black text-white tracking-tight">
+          <Text className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
             Turf<Text className="text-emerald-500">Slot</Text>
           </Text>
-          <Text className="text-zinc-400 text-xs mt-1">
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-1 font-medium">
             Sports Venue Management & Slot Booking
           </Text>
         </View>
 
         {/* Login Card */}
-        <Card className="p-6 bg-zinc-900 border-zinc-800 shadow-xl shadow-black/50">
-          <Text className="text-white font-bold text-xl mb-1">
+        <Card className="p-6 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-black/50">
+          <Text className="text-slate-900 dark:text-white font-bold text-xl mb-1">
             Welcome Back
           </Text>
-          <Text className="text-zinc-400 text-xs mb-5">
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-5">
             Sign in with your account credentials to access your dashboard
           </Text>
 
           {errorMessage ? (
-            <View className="bg-red-500/15 border border-red-500/30 rounded-xl p-3 mb-4">
-              <Text className="text-red-400 text-xs font-medium">
+            <View className="bg-red-50 dark:bg-red-500/15 border border-red-200 dark:border-red-500/30 rounded-xl p-3 mb-4">
+              <Text className="text-red-600 dark:text-red-400 text-xs font-medium">
                 {errorMessage}
               </Text>
             </View>
@@ -109,9 +109,9 @@ export default function LoginScreen() {
 
         {/* Footer Register Link */}
         <View className="flex-row justify-center items-center mt-6">
-          <Text className="text-zinc-400 text-sm">Don't have an account? </Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-sm">Don't have an account? </Text>
           <Pressable onPress={() => router.push("/(auth)/register")}>
-            <Text className="text-emerald-400 font-semibold text-sm">
+            <Text className="text-emerald-600 dark:text-emerald-400 font-semibold text-sm">
               Sign Up
             </Text>
           </Pressable>

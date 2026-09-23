@@ -66,8 +66,8 @@ export default function CustomerDetailScreen() {
       <ScreenWrapper>
         <View className="items-center justify-center py-16">
           <Text className="text-4xl mb-3">🔍</Text>
-          <Text className="text-white font-bold text-lg">Customer Not Found</Text>
-          <Text className="text-zinc-500 text-xs mt-1 text-center">
+          <Text className="text-slate-900 dark:text-white font-bold text-lg">Customer Not Found</Text>
+          <Text className="text-slate-500 dark:text-zinc-500 text-xs mt-1 text-center">
             No booking records found for phone: {phone}
           </Text>
           <Button
@@ -89,23 +89,23 @@ export default function CustomerDetailScreen() {
       <View className="flex-row items-center justify-between my-3">
         <Pressable
           onPress={() => router.back()}
-          className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+          className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
         >
-          <Text className="text-white text-base font-bold">←</Text>
+          <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
         </Pressable>
-        <Text className="text-white text-base font-black">Player Profile</Text>
+        <Text className="text-slate-900 dark:text-white text-base font-black">Player Profile</Text>
         <View className="w-10" />
       </View>
 
       {/* Customer Header Card */}
-      <Card className="bg-zinc-900 border-zinc-800 p-4 mb-3.5">
+      <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-3xl mb-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none">
         <View className="flex-row items-center gap-3.5">
-          <View className="w-14 h-14 rounded-2xl bg-emerald-500/20 border-2 border-emerald-500/40 items-center justify-center shadow-lg shadow-emerald-950">
-            <Text className="text-emerald-400 font-black text-2xl">{initial}</Text>
+          <View className="w-14 h-14 rounded-2xl bg-emerald-50 dark:bg-emerald-500/20 border-2 border-emerald-200 dark:border-emerald-500/40 items-center justify-center shadow-sm">
+            <Text className="text-emerald-600 dark:text-emerald-400 font-black text-2xl">{initial}</Text>
           </View>
           <View className="flex-1">
             <View className="flex-row items-center gap-2">
-              <Text className="text-white font-black text-lg" numberOfLines={1}>
+              <Text className="text-slate-900 dark:text-white font-black text-lg" numberOfLines={1}>
                 {customer.name}
               </Text>
               <Badge
@@ -120,64 +120,64 @@ export default function CustomerDetailScreen() {
                 size="sm"
               />
             </View>
-            <Text className="text-zinc-400 text-xs font-mono mt-0.5">{customer.phone}</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-mono mt-0.5">{customer.phone}</Text>
             {customer.email && (
-              <Text className="text-zinc-500 text-[11px] mt-0.5">{customer.email}</Text>
+              <Text className="text-slate-400 dark:text-zinc-500 text-[11px] mt-0.5">{customer.email}</Text>
             )}
           </View>
         </View>
 
         {/* Action Buttons */}
-        <View className="flex-row gap-2 mt-4 pt-3 border-t border-zinc-800">
+        <View className="flex-row gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-zinc-800">
           <Pressable
             onPress={handleCall}
-            className="flex-1 py-2.5 rounded-xl bg-emerald-600 active:bg-emerald-700 flex-row items-center justify-center gap-1.5 shadow-md shadow-emerald-950"
+            className="flex-1 py-2.5 rounded-xl bg-emerald-600 active:bg-emerald-700 flex-row items-center justify-center gap-1.5 shadow-sm shadow-emerald-600/30"
           >
             <Text className="text-white font-bold text-xs">📞 Call Player</Text>
           </Pressable>
           <Pressable
             onPress={handleSMS}
-            className="flex-1 py-2.5 rounded-xl bg-zinc-800 active:bg-zinc-700 border border-zinc-700 flex-row items-center justify-center gap-1.5"
+            className="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700 border border-slate-200 dark:border-zinc-700 flex-row items-center justify-center gap-1.5"
           >
-            <Text className="text-zinc-200 font-bold text-xs">💬 Send SMS</Text>
+            <Text className="text-slate-800 dark:text-zinc-200 font-bold text-xs">💬 Send SMS</Text>
           </Pressable>
         </View>
       </Card>
 
       {/* Lifetime Value Metric Cards */}
       <View className="flex-row gap-2.5 mb-4">
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-500 text-[10px] font-bold uppercase">Total Matches</Text>
-          <Text className="text-white font-black text-lg mt-1">{customer.bookingsCount}</Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Reservations</Text>
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase">Total Matches</Text>
+          <Text className="text-slate-900 dark:text-white font-black text-lg mt-1">{customer.bookingsCount}</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Reservations</Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-500 text-[10px] font-bold uppercase">Lifetime Spend</Text>
-          <Text className="text-emerald-400 font-black text-base mt-1" numberOfLines={1}>
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase">Lifetime Spend</Text>
+          <Text className="text-emerald-600 dark:text-emerald-400 font-black text-base mt-1" numberOfLines={1}>
             {formatTaka(customer.totalSpent)}
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Collected</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Collected</Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-500 text-[10px] font-bold uppercase">Pending Dues</Text>
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase">Pending Dues</Text>
           <Text
             className={`font-black text-base mt-1 ${
-              customer.unpaidDues > 0 ? "text-amber-400" : "text-zinc-400"
+              customer.unpaidDues > 0 ? "text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-zinc-400"
             }`}
             numberOfLines={1}
           >
             {formatTaka(customer.unpaidDues)}
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Outstanding</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Outstanding</Text>
         </Card>
       </View>
 
       {/* Booking History Header */}
       <View className="flex-row items-center justify-between mb-2.5">
-        <Text className="text-white font-bold text-base">Match History</Text>
-        <Text className="text-zinc-500 text-xs">{customer.bookings.length} reservations</Text>
+        <Text className="text-slate-900 dark:text-white font-bold text-base">Match History</Text>
+        <Text className="text-slate-500 dark:text-zinc-500 text-xs">{customer.bookings.length} reservations</Text>
       </View>
 
       {/* Chronological Reservations List */}
@@ -191,13 +191,13 @@ export default function CustomerDetailScreen() {
             onPress={() => router.push(`/booking/${item.id}` as any)}
             className="mb-2.5 active:opacity-90"
           >
-            <Card className="bg-zinc-900/90 border-zinc-800 p-3">
+            <Card className="bg-white dark:bg-zinc-900/90 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
               <View className="flex-row items-center justify-between mb-2">
                 <View className="flex-row items-center gap-2">
-                  <Text className="text-white font-bold text-sm">
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm">
                     {formatDate(item.date)}
                   </Text>
-                  <Text className="text-zinc-400 text-xs font-mono">
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs font-mono">
                     {item.startHour}:00 - {item.endHour}:00
                   </Text>
                 </View>
@@ -216,15 +216,15 @@ export default function CustomerDetailScreen() {
                 />
               </View>
 
-              <View className="flex-row items-center justify-between border-t border-zinc-800/80 pt-2">
+              <View className="flex-row items-center justify-between border-t border-slate-100 dark:border-zinc-800/80 pt-2">
                 <View>
-                  <Text className="text-zinc-400 text-xs">
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
                     {item.turfName || `Pitch #${item.turfId}`} • {item.durationHours || item.endHour - item.startHour}h
                   </Text>
                 </View>
 
                 <View className="flex-row items-center gap-2">
-                  <Text className="text-emerald-400 font-bold text-xs">
+                  <Text className="text-emerald-600 dark:text-emerald-400 font-bold text-xs">
                     {formatTaka(item.totalPrice)}
                   </Text>
                   <Badge
@@ -238,7 +238,7 @@ export default function CustomerDetailScreen() {
                     }
                     size="sm"
                   />
-                  <Text className="text-zinc-500 text-sm font-bold">›</Text>
+                  <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
                 </View>
               </View>
             </Card>

@@ -165,13 +165,13 @@ export default function ProductsScreen() {
         <View className="flex-row items-center gap-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-white text-xl font-black">Product Stock</Text>
-            <Text className="text-zinc-400 text-xs">
+            <Text className="text-slate-900 dark:text-white text-xl font-black tracking-tight">Product Stock</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">
               {totalProducts} products in inventory
             </Text>
           </View>
@@ -179,7 +179,7 @@ export default function ProductsScreen() {
 
         <Pressable
           onPress={handleOpenAdd}
-          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950 flex-row items-center"
+          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-600/30 flex-row items-center"
         >
           <Text className="text-white font-bold text-xs">+ Product</Text>
         </Pressable>
@@ -187,50 +187,50 @@ export default function ProductsScreen() {
 
       {/* KPI Cards */}
       <View className="flex-row gap-2.5 mb-3.5">
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
             Total Items
           </Text>
-          <Text className="text-white font-black text-lg mt-1">{totalProducts}</Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Catalog</Text>
+          <Text className="text-slate-900 dark:text-white font-black text-lg mt-1">{totalProducts}</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Catalog</Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
             Units in Stock
           </Text>
-          <Text className="text-emerald-400 font-black text-lg mt-1">{totalUnits}</Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Available</Text>
+          <Text className="text-emerald-600 dark:text-emerald-400 font-black text-lg mt-1">{totalUnits}</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Available</Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
             Low Stock
           </Text>
           <Text
             className={`font-black text-lg mt-1 ${
-              lowStockCount > 0 ? "text-amber-400" : "text-zinc-400"
+              lowStockCount > 0 ? "text-amber-600 dark:text-amber-400" : "text-slate-400 dark:text-zinc-400"
             }`}
           >
             {lowStockCount}
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Alerts</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Alerts</Text>
         </Card>
       </View>
 
       {/* Search Input */}
-      <View className="flex-row items-center bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-2.5 mb-3">
-        <Text className="text-zinc-500 mr-2 text-sm">🔍</Text>
+      <View className="flex-row items-center bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl px-3.5 py-2.5 mb-3 shadow-sm shadow-slate-200/40 dark:shadow-none">
+        <Text className="text-slate-400 dark:text-zinc-500 mr-2 text-sm">🔍</Text>
         <TextInput
           placeholder="Search products or SKU..."
-          placeholderTextColor="#71717a"
+          placeholderTextColor="#94a3b8"
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="flex-1 text-white text-xs"
+          className="flex-1 text-slate-900 dark:text-white text-xs"
         />
         {searchQuery.length > 0 && (
           <Pressable onPress={() => setSearchQuery("")}>
-            <Text className="text-zinc-400 text-xs px-1">✕</Text>
+            <Text className="text-slate-400 dark:text-zinc-400 text-xs px-1">✕</Text>
           </Pressable>
         )}
       </View>
@@ -245,13 +245,13 @@ export default function ProductsScreen() {
               onPress={() => setSelectedCategory(c)}
               className={`px-3 py-1.5 rounded-full border capitalize ${
                 isSelected
-                  ? "bg-emerald-600 border-emerald-500"
-                  : "bg-zinc-900 border-zinc-800"
+                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800"
               }`}
             >
               <Text
                 className={`text-xs font-semibold ${
-                  isSelected ? "text-white" : "text-zinc-400"
+                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                 }`}
               >
                 {c}
@@ -276,10 +276,10 @@ export default function ProductsScreen() {
           refreshing={isRefetching}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
-            <Card className="bg-zinc-900/60 border-zinc-800 p-8 items-center justify-center my-6">
+            <Card className="bg-white/80 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 p-8 items-center justify-center my-6 rounded-2xl">
               <Text className="text-3xl mb-2">📦</Text>
-              <Text className="text-zinc-300 font-bold text-sm">No products found</Text>
-              <Text className="text-zinc-500 text-xs text-center mt-1">
+              <Text className="text-slate-800 dark:text-zinc-300 font-bold text-sm">No products found</Text>
+              <Text className="text-slate-500 dark:text-zinc-500 text-xs text-center mt-1">
                 Tap "+ Product" to add items to your store
               </Text>
             </Card>
@@ -287,23 +287,23 @@ export default function ProductsScreen() {
           renderItem={({ item }) => {
             const isLowStock = item.stock <= (item.lowStockAlert || 5);
             return (
-              <Card className="bg-zinc-900 border-zinc-800 p-3.5 mb-2.5">
+              <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 mb-2.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1 mr-2">
                     <View className="flex-row items-center gap-2">
-                      <Text className="text-white font-bold text-sm" numberOfLines={1}>
+                      <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>
                         {item.name}
                       </Text>
                       <Badge label={item.category} variant="default" size="sm" />
                     </View>
                     <View className="flex-row items-center gap-2 mt-1">
-                      <Text className="text-emerald-400 font-black text-sm">
+                      <Text className="text-emerald-600 dark:text-emerald-400 font-black text-sm">
                         {formatTaka(item.price)}
                       </Text>
                       {item.costPrice ? (
                         <>
-                          <Text className="text-zinc-600">•</Text>
-                          <Text className="text-zinc-500 text-xs">
+                          <Text className="text-slate-300 dark:text-zinc-600">•</Text>
+                          <Text className="text-slate-500 dark:text-zinc-500 text-xs">
                             Cost: {formatTaka(item.costPrice)}
                           </Text>
                         </>
@@ -316,19 +316,19 @@ export default function ProductsScreen() {
                     <View
                       className={`px-2.5 py-1 rounded-lg border ${
                         item.stock <= 0
-                          ? "bg-red-500/15 border-red-500/30"
+                          ? "bg-rose-50 dark:bg-red-500/15 border-rose-200 dark:border-red-500/30"
                           : isLowStock
-                          ? "bg-amber-500/15 border-amber-500/30"
-                          : "bg-emerald-500/15 border-emerald-500/30"
+                          ? "bg-amber-50 dark:bg-amber-500/15 border-amber-200 dark:border-amber-500/30"
+                          : "bg-emerald-50 dark:bg-emerald-500/15 border-emerald-200 dark:border-emerald-500/30"
                       }`}
                     >
                       <Text
                         className={`text-xs font-bold ${
                           item.stock <= 0
-                            ? "text-red-400"
+                            ? "text-rose-600 dark:text-red-400"
                             : isLowStock
-                            ? "text-amber-400"
-                            : "text-emerald-400"
+                            ? "text-amber-600 dark:text-amber-400"
+                            : "text-emerald-600 dark:text-emerald-400"
                         }`}
                       >
                         {item.stock} {item.unit}
@@ -338,23 +338,23 @@ export default function ProductsScreen() {
                     <View className="flex-row gap-1">
                       <Pressable
                         onPress={() => handleOpenEdit(item)}
-                        className="w-7 h-7 rounded-lg bg-zinc-800 items-center justify-center active:bg-zinc-700"
+                        className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 items-center justify-center active:bg-slate-200 dark:active:bg-zinc-700"
                       >
-                        <Text className="text-zinc-300 text-xs font-bold">⚙️</Text>
+                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">⚙️</Text>
                       </Pressable>
                       <Pressable
                         onPress={() => handleDelete(item.id, item.name)}
-                        className="w-7 h-7 rounded-lg bg-zinc-800 items-center justify-center active:bg-red-500/20"
+                        className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-zinc-800 border border-rose-200 dark:border-zinc-700 items-center justify-center active:bg-rose-100 dark:active:bg-red-500/20"
                       >
-                        <Text className="text-red-400 text-xs font-bold">🗑️</Text>
+                        <Text className="text-rose-600 dark:text-red-400 text-xs font-bold">🗑️</Text>
                       </Pressable>
                     </View>
                   </View>
                 </View>
 
                 {item.description ? (
-                  <View className="mt-2 pt-2 border-t border-zinc-800/80">
-                    <Text className="text-zinc-400 text-xs">{item.description}</Text>
+                  <View className="mt-2 pt-2 border-t border-slate-100 dark:border-zinc-800/80">
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">{item.description}</Text>
                   </View>
                 ) : null}
               </Card>
@@ -365,23 +365,23 @@ export default function ProductsScreen() {
 
       {/* Add / Edit Product Modal */}
       <Modal visible={showModal} transparent animationType="slide">
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-5 max-h-[90%]">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-end">
+          <View className="bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 rounded-t-3xl p-5 max-h-[90%] shadow-2xl">
             <View className="flex-row items-center justify-between mb-3">
-              <Text className="text-white font-black text-lg">
+              <Text className="text-slate-900 dark:text-white font-black text-lg">
                 {editingProduct ? "Edit Product" : "Add New Product"}
               </Text>
               <Pressable
                 onPress={() => setShowModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center"
               >
-                <Text className="text-zinc-400 font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 font-bold">✕</Text>
               </Pressable>
             </View>
 
             {errorMsg ? (
-              <View className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl mb-3">
-                <Text className="text-red-400 text-xs font-semibold">{errorMsg}</Text>
+              <View className="p-3 bg-rose-50 dark:bg-red-500/15 border border-rose-200 dark:border-red-500/30 rounded-2xl mb-3">
+                <Text className="text-rose-600 dark:text-red-400 text-xs font-semibold">{errorMsg}</Text>
               </View>
             ) : null}
 
@@ -394,7 +394,7 @@ export default function ProductsScreen() {
               />
 
               {/* Category Chips */}
-              <Text className="text-zinc-400 text-xs mb-1.5">Category *</Text>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-1.5 font-medium">Category *</Text>
               <View className="flex-row flex-wrap gap-1.5 mb-3.5">
                 {CATEGORIES.map((c) => {
                   const isSelected = category === c;
@@ -402,15 +402,15 @@ export default function ProductsScreen() {
                     <Pressable
                       key={c}
                       onPress={() => setCategory(c)}
-                      className={`px-3 py-1.5 rounded-xl border capitalize ${
+                      className={`px-3.5 py-1.5 rounded-xl border capitalize ${
                         isSelected
-                          ? "bg-emerald-600 border-emerald-500"
-                          : "bg-zinc-950 border-zinc-800"
+                          ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                          : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                       }`}
                     >
                       <Text
                         className={`text-xs font-semibold ${
-                          isSelected ? "text-white" : "text-zinc-400"
+                          isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                         }`}
                       >
                         {c}
@@ -463,7 +463,7 @@ export default function ProductsScreen() {
               </View>
 
               {/* Unit Selector */}
-              <Text className="text-zinc-400 text-xs mb-1.5">Packaging Unit</Text>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-1.5 font-medium">Packaging Unit</Text>
               <View className="flex-row flex-wrap gap-1.5 mb-3.5">
                 {UNITS.map((u) => {
                   const isSelected = unit === u;
@@ -471,15 +471,15 @@ export default function ProductsScreen() {
                     <Pressable
                       key={u}
                       onPress={() => setUnit(u)}
-                      className={`px-3 py-1.5 rounded-xl border uppercase ${
+                      className={`px-3.5 py-1.5 rounded-xl border uppercase ${
                         isSelected
-                          ? "bg-emerald-600 border-emerald-500"
-                          : "bg-zinc-950 border-zinc-800"
+                          ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                          : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                       }`}
                     >
                       <Text
                         className={`text-xs font-semibold ${
-                          isSelected ? "text-white" : "text-zinc-400"
+                          isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                         }`}
                       >
                         {u}

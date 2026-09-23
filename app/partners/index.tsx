@@ -151,13 +151,13 @@ export default function PartnersScreen() {
         <View className="flex-row items-center gap-3">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center active:bg-zinc-800"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-white text-xl font-black">Partner Shares</Text>
-            <Text className="text-zinc-400 text-xs">
+            <Text className="text-slate-900 dark:text-white text-xl font-black">Partner Shares</Text>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs">
               Equity distribution & dividend payouts
             </Text>
           </View>
@@ -165,7 +165,7 @@ export default function PartnersScreen() {
 
         <Pressable
           onPress={handleOpenAddPartner}
-          className="px-3 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-md shadow-emerald-950 flex-row items-center"
+          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-600/30 flex-row items-center"
         >
           <Text className="text-white font-bold text-xs">+ Partner</Text>
         </Pressable>
@@ -175,58 +175,58 @@ export default function PartnersScreen() {
       <View className="flex-row gap-2 mb-3.5">
         <Pressable
           onPress={() => router.push("/partners/reallocate" as any)}
-          className="flex-1 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 flex-row items-center justify-center gap-1.5 active:bg-zinc-800"
+          className="flex-1 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 flex-row items-center justify-center gap-1.5 shadow-sm shadow-slate-200/40 dark:shadow-none active:bg-slate-100 dark:active:bg-zinc-800"
         >
           <Text className="text-xs">⚖️</Text>
-          <Text className="text-zinc-200 font-bold text-xs">Reallocate Shares</Text>
+          <Text className="text-slate-800 dark:text-zinc-200 font-bold text-xs">Reallocate Shares</Text>
         </Pressable>
 
         <Pressable
           onPress={() => router.push("/partners/history" as any)}
-          className="flex-1 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 flex-row items-center justify-center gap-1.5 active:bg-zinc-800"
+          className="flex-1 py-2.5 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 flex-row items-center justify-center gap-1.5 shadow-sm shadow-slate-200/40 dark:shadow-none active:bg-slate-100 dark:active:bg-zinc-800"
         >
           <Text className="text-xs">📜</Text>
-          <Text className="text-zinc-200 font-bold text-xs">Payouts & History</Text>
+          <Text className="text-slate-800 dark:text-zinc-200 font-bold text-xs">Payouts & History</Text>
         </Pressable>
       </View>
 
       {/* Overview Stat Cards */}
       <View className="flex-row gap-2.5 mb-4">
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none p-3.5">
+          <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
             Total Partners
           </Text>
-          <Text className="text-white font-black text-lg mt-1">{totalPartners}</Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">Active</Text>
+          <Text className="text-slate-900 dark:text-white font-black text-lg mt-1">{totalPartners}</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Active</Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none p-3.5">
+          <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
             Shares Allocated
           </Text>
           <Text
             className={`font-black text-lg mt-1 ${
-              totalBP === 10000 ? "text-emerald-400" : "text-amber-400"
+              totalBP === 10000 ? "text-emerald-600 dark:text-emerald-400" : "text-amber-600 dark:text-amber-400"
             }`}
           >
             {(totalBP / 100).toFixed(0)}%
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">{totalBP} / 10,000 BP</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">{totalBP} / 10,000 BP</Text>
         </Card>
 
-        <Card className="flex-1 bg-zinc-900 border-zinc-800 p-3">
-          <Text className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+        <Card className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none p-3.5">
+          <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
             Total Payouts
           </Text>
-          <Text className="text-purple-400 font-black text-base mt-1" numberOfLines={1}>
+          <Text className="text-purple-600 dark:text-purple-400 font-black text-base mt-1" numberOfLines={1}>
             {formatTaka(totalPayoutsTaka)}
           </Text>
-          <Text className="text-zinc-500 text-[10px] mt-0.5">{allPayouts.length} disbursements</Text>
+          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">{allPayouts.length} disbursements</Text>
         </Card>
       </View>
 
       {/* Partners List Header */}
-      <Text className="text-zinc-300 font-bold text-xs uppercase tracking-wider mb-2.5">
+      <Text className="text-slate-700 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-2.5">
         Active Partners Roster
       </Text>
 
@@ -245,10 +245,10 @@ export default function PartnersScreen() {
           refreshing={isRefetching}
           showsVerticalScrollIndicator={false}
           ListEmptyComponent={
-            <Card className="bg-zinc-900/60 border-zinc-800 p-8 items-center justify-center my-6">
+            <Card className="bg-white dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 rounded-2xl p-8 items-center justify-center my-6 shadow-sm shadow-slate-200/40 dark:shadow-none">
               <Text className="text-3xl mb-2">🤝</Text>
-              <Text className="text-zinc-300 font-bold text-sm">No partners registered</Text>
-              <Text className="text-zinc-500 text-xs text-center mt-1">
+              <Text className="text-slate-800 dark:text-zinc-300 font-bold text-sm">No partners registered</Text>
+              <Text className="text-slate-500 dark:text-zinc-500 text-xs text-center mt-1">
                 Tap "+ Partner" to add equity partners and assign share ratios
               </Text>
             </Card>
@@ -257,49 +257,49 @@ export default function PartnersScreen() {
             const initial = item.fullName ? item.fullName[0].toUpperCase() : "?";
             const sharePercentage = (item.shareBp || 0) / 100;
             return (
-              <Card className="bg-zinc-900 border-zinc-800 p-4 mb-3">
+              <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-2xl p-4 mb-3 shadow-sm shadow-slate-200/50 dark:shadow-none">
                 <View className="flex-row items-center justify-between">
                   {/* Left: Avatar & Info */}
                   <View className="flex-row items-center gap-3 flex-1 mr-2">
-                    <View className="w-12 h-12 rounded-2xl bg-purple-500/15 border border-purple-500/30 items-center justify-center">
-                      <Text className="text-purple-400 font-black text-lg">{initial}</Text>
+                    <View className="w-12 h-12 rounded-2xl bg-purple-500/10 dark:bg-purple-500/15 border border-purple-500/20 dark:border-purple-500/30 items-center justify-center">
+                      <Text className="text-purple-600 dark:text-purple-400 font-black text-lg">{initial}</Text>
                     </View>
                     <View className="flex-1">
                       <View className="flex-row items-center gap-2">
-                        <Text className="text-white font-black text-base" numberOfLines={1}>
+                        <Text className="text-slate-900 dark:text-white font-black text-base" numberOfLines={1}>
                           {item.fullName}
                         </Text>
                         <Badge label={item.status} variant="success" size="sm" />
                       </View>
-                      <Text className="text-zinc-400 text-xs mt-0.5">{item.email}</Text>
+                      <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">{item.email}</Text>
                     </View>
                   </View>
 
                   {/* Right: Equity Pill */}
-                  <View className="items-end bg-purple-500/10 border border-purple-500/30 px-3 py-1.5 rounded-xl">
-                    <Text className="text-purple-300 font-black text-sm">
+                  <View className="items-end bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/30 px-3 py-1.5 rounded-xl">
+                    <Text className="text-purple-700 dark:text-purple-300 font-black text-sm">
                       {sharePercentage.toFixed(2)}%
                     </Text>
-                    <Text className="text-zinc-400 text-[10px] font-mono">
+                    <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-mono">
                       {item.shareBp || 0} BP
                     </Text>
                   </View>
                 </View>
 
                 {/* Action Buttons Row */}
-                <View className="flex-row gap-2 mt-3.5 pt-3 border-t border-zinc-800">
+                <View className="flex-row gap-2 mt-3.5 pt-3 border-t border-slate-100 dark:border-zinc-800">
                   <Pressable
                     onPress={() => handleOpenPayout(item)}
-                    className="flex-1 py-2 rounded-xl bg-purple-600 active:bg-purple-700 flex-row items-center justify-center gap-1.5 shadow-md shadow-purple-950"
+                    className="flex-1 py-2.5 rounded-xl bg-purple-600 active:bg-purple-700 flex-row items-center justify-center gap-1.5 shadow-sm shadow-purple-600/30"
                   >
                     <Text className="text-white font-bold text-xs">💸 Record Payout</Text>
                   </Pressable>
 
                   <Pressable
                     onPress={() => handleOpenEditPartner(item)}
-                    className="px-4 py-2 rounded-xl bg-zinc-800 border border-zinc-700 active:bg-zinc-700 flex-row items-center justify-center gap-1"
+                    className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 active:bg-slate-200 dark:active:bg-zinc-700 flex-row items-center justify-center gap-1"
                   >
-                    <Text className="text-zinc-300 font-bold text-xs">⚙️ Edit</Text>
+                    <Text className="text-slate-700 dark:text-zinc-300 font-bold text-xs">⚙️ Edit</Text>
                   </Pressable>
                 </View>
               </Card>
@@ -310,23 +310,23 @@ export default function PartnersScreen() {
 
       {/* Add / Edit Partner Modal */}
       <Modal visible={showPartnerModal} transparent animationType="slide">
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-5 max-h-[90%]">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-end">
+          <View className="bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 rounded-t-3xl p-5 max-h-[90%] shadow-2xl">
             <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-white font-black text-lg">
+              <Text className="text-slate-900 dark:text-white font-black text-lg">
                 {editingPartner ? "Edit Partner" : "Add New Partner"}
               </Text>
               <Pressable
                 onPress={() => setShowPartnerModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center"
               >
-                <Text className="text-zinc-400 font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 font-bold">✕</Text>
               </Pressable>
             </View>
 
             {partnerError ? (
               <View className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl mb-3">
-                <Text className="text-red-400 text-xs font-semibold">{partnerError}</Text>
+                <Text className="text-red-500 dark:text-red-400 text-xs font-semibold">{partnerError}</Text>
               </View>
             ) : null}
 
@@ -375,23 +375,23 @@ export default function PartnersScreen() {
 
       {/* Record Payout Modal */}
       <Modal visible={showPayoutModal} transparent animationType="slide">
-        <View className="flex-1 bg-black/80 justify-end">
-          <View className="bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-5 max-h-[90%]">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 justify-end">
+          <View className="bg-white dark:bg-zinc-900 border-t border-slate-200 dark:border-zinc-800 rounded-t-3xl p-5 max-h-[90%] shadow-2xl">
             <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-white font-black text-lg">
+              <Text className="text-slate-900 dark:text-white font-black text-lg">
                 Record Payout for {selectedPartnerForPayout?.fullName}
               </Text>
               <Pressable
                 onPress={() => setShowPayoutModal(false)}
-                className="w-8 h-8 rounded-full bg-zinc-800 items-center justify-center"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 items-center justify-center"
               >
-                <Text className="text-zinc-400 font-bold">✕</Text>
+                <Text className="text-slate-500 dark:text-zinc-400 font-bold">✕</Text>
               </Pressable>
             </View>
 
             {payoutError ? (
               <View className="p-3 bg-red-500/15 border border-red-500/30 rounded-xl mb-3">
-                <Text className="text-red-400 text-xs font-semibold">{payoutError}</Text>
+                <Text className="text-red-500 dark:text-red-400 text-xs font-semibold">{payoutError}</Text>
               </View>
             ) : null}
 
@@ -405,7 +405,7 @@ export default function PartnersScreen() {
               />
 
               {/* Payment Method Selector */}
-              <Text className="text-zinc-400 text-xs mb-1.5">Payment Channel *</Text>
+              <Text className="text-slate-600 dark:text-zinc-400 text-xs mb-1.5 font-medium">Payment Channel *</Text>
               <View className="flex-row flex-wrap gap-1.5 mb-3.5">
                 {PAYOUT_METHODS.map((m) => {
                   const isSelected = payoutMethod === m;
@@ -416,12 +416,12 @@ export default function PartnersScreen() {
                       className={`px-3 py-1.5 rounded-xl border uppercase ${
                         isSelected
                           ? "bg-purple-600 border-purple-500"
-                          : "bg-zinc-950 border-zinc-800"
+                          : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                       }`}
                     >
                       <Text
                         className={`text-xs font-semibold ${
-                          isSelected ? "text-white" : "text-zinc-400"
+                          isSelected ? "text-white" : "text-slate-700 dark:text-zinc-400"
                         }`}
                       >
                         {m.replace("_", " ")}

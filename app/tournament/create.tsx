@@ -94,24 +94,24 @@ export default function CreateTournamentScreen() {
         <View className="flex-row items-center justify-between my-2">
           <Pressable
             onPress={() => router.back()}
-            className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 items-center justify-center"
+            className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
           >
-            <Text className="text-white text-base font-bold">←</Text>
+            <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
 
-          <Text className="text-white text-lg font-bold">Create Tournament</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-black tracking-tight">Create Tournament</Text>
           <View className="w-10" />
         </View>
 
         {errorMsg ? (
-          <View className="bg-red-950/80 border border-red-800 p-3 rounded-xl">
-            <Text className="text-red-300 text-xs font-semibold">{errorMsg}</Text>
+          <View className="bg-rose-50 dark:bg-red-950/80 border border-rose-200 dark:border-red-800 p-3 rounded-2xl">
+            <Text className="text-rose-600 dark:text-red-300 text-xs font-semibold">{errorMsg}</Text>
           </View>
         ) : null}
 
         {/* Basic Info */}
-        <Card className="bg-zinc-900 border-zinc-800 p-4 space-y-3">
-          <Text className="text-emerald-400 text-xs font-bold uppercase tracking-wider">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
             Tournament Details
           </Text>
 
@@ -124,11 +124,11 @@ export default function CreateTournamentScreen() {
 
           {/* Turf Venue Selector */}
           <View>
-            <Text className="text-zinc-400 text-xs font-semibold mb-2">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mb-2">
               Select Venue / Turf *
             </Text>
             {loadingTurfs ? (
-              <Text className="text-zinc-500 text-xs">Loading venues...</Text>
+              <Text className="text-slate-400 dark:text-zinc-500 text-xs">Loading venues...</Text>
             ) : (
               <ScrollView horizontal showsHorizontalScrollIndicator={false} className="gap-2">
                 {turfs.map((t) => {
@@ -139,18 +139,18 @@ export default function CreateTournamentScreen() {
                       onPress={() => setTurfId(String(t.id))}
                       className={`px-3.5 py-2.5 rounded-xl border mr-2 ${
                         isSelected
-                          ? "bg-emerald-950 border-emerald-600"
-                          : "bg-zinc-950 border-zinc-800"
+                          ? "bg-emerald-50 dark:bg-emerald-950 border-emerald-500 shadow-sm shadow-emerald-500/10"
+                          : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                       }`}
                     >
                       <Text
                         className={`text-xs font-bold ${
-                          isSelected ? "text-emerald-400" : "text-zinc-300"
+                          isSelected ? "text-emerald-700 dark:text-emerald-400" : "text-slate-700 dark:text-zinc-300"
                         }`}
                       >
                         🏟️ {t.name}
                       </Text>
-                      <Text className="text-zinc-500 text-[10px] mt-0.5">
+                      <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">
                         {t.type || "Turf Ground"}
                       </Text>
                     </Pressable>
@@ -162,7 +162,7 @@ export default function CreateTournamentScreen() {
 
           {/* Format Selector */}
           <View>
-            <Text className="text-zinc-400 text-xs font-semibold mb-2">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mb-2">
               Tournament Format
             </Text>
             <View className="flex-row gap-2">
@@ -174,14 +174,14 @@ export default function CreateTournamentScreen() {
                     onPress={() => setFormat(opt.value)}
                     className={`flex-1 p-2.5 rounded-xl border items-center ${
                       isSelected
-                        ? "bg-emerald-950 border-emerald-600"
-                        : "bg-zinc-950 border-zinc-800"
+                        ? "bg-emerald-50 dark:bg-emerald-950 border-emerald-500 shadow-sm shadow-emerald-500/10"
+                        : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                     }`}
                   >
                     <Text className="text-base mb-1">{opt.icon}</Text>
                     <Text
                       className={`text-xs font-bold ${
-                        isSelected ? "text-emerald-400" : "text-zinc-400"
+                        isSelected ? "text-emerald-700 dark:text-emerald-400" : "text-slate-600 dark:text-zinc-400"
                       }`}
                     >
                       {opt.label}
@@ -194,7 +194,7 @@ export default function CreateTournamentScreen() {
 
           {/* Max Teams Stepper */}
           <View>
-            <Text className="text-zinc-400 text-xs font-semibold mb-2">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mb-2">
               Maximum Teams Capacity
             </Text>
             <View className="flex-row gap-2">
@@ -206,13 +206,13 @@ export default function CreateTournamentScreen() {
                     onPress={() => setMaxTeams(count)}
                     className={`flex-1 py-2 rounded-xl border items-center ${
                       isSelected
-                        ? "bg-emerald-600 border-emerald-500"
-                        : "bg-zinc-950 border-zinc-800"
+                        ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                        : "bg-slate-50 dark:bg-zinc-950 border-slate-200 dark:border-zinc-800"
                     }`}
                   >
                     <Text
                       className={`text-xs font-bold ${
-                        isSelected ? "text-white" : "text-zinc-300"
+                        isSelected ? "text-white" : "text-slate-700 dark:text-zinc-300"
                       }`}
                     >
                       {count} Teams
@@ -225,8 +225,8 @@ export default function CreateTournamentScreen() {
         </Card>
 
         {/* Financials & Dates */}
-        <Card className="bg-zinc-900 border-zinc-800 p-4 space-y-3">
-          <Text className="text-emerald-400 text-xs font-bold uppercase tracking-wider">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
             Pricing & Schedule
           </Text>
 
@@ -272,38 +272,38 @@ export default function CreateTournamentScreen() {
         </Card>
 
         {/* Guidelines & Rules */}
-        <Card className="bg-zinc-900 border-zinc-800 p-4 space-y-3">
-          <Text className="text-emerald-400 text-xs font-bold uppercase tracking-wider">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
             Rules & Description
           </Text>
 
           <View>
-            <Text className="text-zinc-400 text-xs font-semibold mb-1">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mb-1">
               Tournament Description
             </Text>
             <TextInput
               multiline
               numberOfLines={3}
               placeholder="Describe championship background, sponsors, or requirements..."
-              placeholderTextColor="#71717a"
+              placeholderTextColor="#94a3b8"
               value={description}
               onChangeText={setDescription}
-              className="bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white text-xs leading-relaxed"
+              className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-2xl p-3 text-slate-900 dark:text-white text-xs leading-relaxed"
             />
           </View>
 
           <View>
-            <Text className="text-zinc-400 text-xs font-semibold mb-1">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold mb-1">
               Official Match Rules
             </Text>
             <TextInput
               multiline
               numberOfLines={3}
               placeholder="e.g. 7-a-side, 20-min halves, rubber studs only..."
-              placeholderTextColor="#71717a"
+              placeholderTextColor="#94a3b8"
               value={rules}
               onChangeText={setRules}
-              className="bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white text-xs leading-relaxed"
+              className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-2xl p-3 text-slate-900 dark:text-white text-xs leading-relaxed"
             />
           </View>
         </Card>
