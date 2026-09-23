@@ -1,7 +1,16 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export type BadgeVariant = "pending" | "partial" | "paid" | "cancelled" | "default" | "success" | "warning";
+export type BadgeVariant =
+  | "pending"
+  | "partial"
+  | "paid"
+  | "cancelled"
+  | "default"
+  | "success"
+  | "warning"
+  | "info"
+  | "danger";
 
 export interface BadgeProps {
   label: string;
@@ -20,11 +29,13 @@ export const Badge: React.FC<BadgeProps> = ({
       case "success":
         return "bg-emerald-500/15 border-emerald-500/30 text-emerald-400";
       case "partial":
+      case "info":
         return "bg-blue-500/15 border-blue-500/30 text-blue-400";
       case "pending":
       case "warning":
         return "bg-amber-500/15 border-amber-500/30 text-amber-400";
       case "cancelled":
+      case "danger":
         return "bg-red-500/15 border-red-500/30 text-red-400";
       case "default":
       default:
@@ -38,11 +49,13 @@ export const Badge: React.FC<BadgeProps> = ({
       case "success":
         return "text-emerald-400";
       case "partial":
+      case "info":
         return "text-blue-400";
       case "pending":
       case "warning":
         return "text-amber-400";
       case "cancelled":
+      case "danger":
         return "text-red-400";
       case "default":
       default:

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Alert, Platform } from "react-native";
+import { View, Text, Alert, Platform, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button } from "@/components/ui";
 import { useAuthStore, selectUser } from "@/stores/auth.store";
@@ -160,7 +160,90 @@ export default function ProfileScreen() {
         </View>
       </Card>
 
-      {/* Connectivity Status */}
+      {/* Management Hubs (Admin / Staff / Partner) */}
+      {role !== "customer" && (
+        <Card className="mb-4 bg-zinc-900 border-zinc-800 p-4">
+          <Text className="text-zinc-400 text-xs uppercase font-bold tracking-wider mb-2.5">
+            Management Hubs
+          </Text>
+          <View className="space-y-1">
+            <Pressable
+              onPress={() => router.push("/payments" as any)}
+              className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+            >
+              <View className="flex-row items-center gap-2.5">
+                <Text className="text-base">💳</Text>
+                <View>
+                  <Text className="text-white font-medium text-sm">Payments Hub</Text>
+                  <Text className="text-zinc-500 text-xs">Collections, dues & digital receipts</Text>
+                </View>
+              </View>
+              <Text className="text-zinc-500 text-sm">›</Text>
+            </Pressable>
+
+            {role === "admin" && (
+              <Pressable
+                onPress={() => router.push("/turf/manage" as any)}
+                className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+              >
+                <View className="flex-row items-center gap-2.5">
+                  <Text className="text-base">🏟️</Text>
+                  <View>
+                    <Text className="text-white font-medium text-sm">Turf Ground Setup</Text>
+                    <Text className="text-zinc-500 text-xs">Add pitches & configure hourly rates</Text>
+                  </View>
+                </View>
+                <Text className="text-zinc-500 text-sm">›</Text>
+              </Pressable>
+            )}
+
+            <Pressable
+              onPress={() => router.push("/customers" as any)}
+              className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+            >
+              <View className="flex-row items-center gap-2.5">
+                <Text className="text-base">👥</Text>
+                <View>
+                  <Text className="text-white font-medium text-sm">Customer CRM</Text>
+                  <Text className="text-zinc-500 text-xs">Player directory, lifetime spend & call</Text>
+                </View>
+              </View>
+              <Text className="text-zinc-500 text-sm">›</Text>
+            </Pressable>
+
+            {role === "admin" && (
+              <Pressable
+                onPress={() => router.push("/accounting" as any)}
+                className="py-2.5 border-b border-zinc-800/80 flex-row items-center justify-between"
+              >
+                <View className="flex-row items-center gap-2.5">
+                  <Text className="text-base">📊</Text>
+                  <View>
+                    <Text className="text-white font-medium text-sm">Financial Accounting</Text>
+                    <Text className="text-zinc-500 text-xs">General ledger, accounts, expenses & incomes</Text>
+                  </View>
+                </View>
+                <Text className="text-zinc-500 text-sm">›</Text>
+              </Pressable>
+            )}
+
+            <Pressable
+              onPress={() => router.push("/(tabs)/bookings")}
+              className="py-2.5 flex-row items-center justify-between"
+            >
+              <View className="flex-row items-center gap-2.5">
+                <Text className="text-base">⏱️</Text>
+                <View>
+                  <Text className="text-white font-medium text-sm">24h Slot Schedule</Text>
+                  <Text className="text-zinc-500 text-xs">Live calendar matrix & bookings</Text>
+                </View>
+              </View>
+              <Text className="text-zinc-500 text-sm">›</Text>
+            </Pressable>
+          </View>
+        </Card>
+      )}
+
       <Card className="mb-6 bg-zinc-900 border-zinc-800 p-4">
         <Text className="text-zinc-400 text-xs uppercase font-bold tracking-wider mb-2.5">
           Server Connection

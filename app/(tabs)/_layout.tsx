@@ -2,10 +2,10 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { View, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Home, Compass, CalendarDays, Trophy, User } from "lucide-react-native";
+import { Home, Compass, CalendarDays, Trophy, User, LucideIcon } from "lucide-react-native";
 
 interface TabItemProps {
-  icon: React.ComponentType<{ size?: number; color?: string; strokeWidth?: number }>;
+  icon: LucideIcon;
   focused: boolean;
 }
 

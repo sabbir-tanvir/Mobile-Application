@@ -49,9 +49,14 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
 
       {/* Financial KPIs Grid (matching web Dashboard.jsx) */}
       <View>
-        <Text className="text-zinc-300 font-bold text-sm uppercase tracking-wider mb-2.5">
-          Financial Overview (Monthly)
-        </Text>
+        <View className="flex-row items-center justify-between mb-2.5">
+          <Text className="text-zinc-300 font-bold text-sm uppercase tracking-wider">
+            Financial Overview (Monthly)
+          </Text>
+          <Pressable onPress={() => router.push("/accounting" as any)}>
+            <Text className="text-emerald-400 text-xs font-semibold">Accounting Hub →</Text>
+          </Pressable>
+        </View>
 
         {isLoadingReport ? (
           <View className="grid grid-cols-2 gap-3 mb-2">
@@ -126,20 +131,45 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
         <Text className="text-zinc-300 font-bold text-sm uppercase tracking-wider mb-3">
           Quick Management Actions
         </Text>
-        <View className="flex-row gap-2.5">
+        <View className="space-y-2">
+          <View className="flex-row gap-2.5">
+            <Button
+              title="+ Booking"
+              variant="primary"
+              size="sm"
+              onPress={() => router.push("/booking/create" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="+ Add Pitch"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/turf/manage" as any)}
+              className="flex-1"
+            />
+          </View>
+          <View className="flex-row gap-2.5">
+            <Button
+              title="💳 Payments"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/payments" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="👥 Customers"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/customers" as any)}
+              className="flex-1"
+            />
+          </View>
           <Button
-            title="+ New Booking"
-            variant="primary"
-            size="sm"
-            onPress={() => router.push("/booking/create" as any)}
-            className="flex-1"
-          />
-          <Button
-            title="+ Add Pitch"
+            title="📊 Financial Accounting & Ledger"
             variant="secondary"
             size="sm"
-            onPress={() => router.push("/turf/manage" as any)}
-            className="flex-1"
+            onPress={() => router.push("/accounting" as any)}
+            className="w-full"
           />
         </View>
       </Card>

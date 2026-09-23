@@ -72,20 +72,29 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
         <Text className="text-zinc-300 font-bold text-xs uppercase tracking-wider mb-3">
           Front-Desk Quick Actions
         </Text>
-        <View className="flex-row gap-2.5">
+        <View className="space-y-2">
+          <View className="flex-row gap-2.5">
+            <Button
+              title="+ Walk-in Booking"
+              variant="primary"
+              size="sm"
+              onPress={() => router.push("/booking/create" as any)}
+              className="flex-1"
+            />
+            <Button
+              title="💳 Payments"
+              variant="secondary"
+              size="sm"
+              onPress={() => router.push("/payments" as any)}
+              className="flex-1"
+            />
+          </View>
           <Button
-            title="+ Walk-in Booking"
-            variant="primary"
-            size="sm"
-            onPress={() => router.push("/booking/create" as any)}
-            className="flex-1"
-          />
-          <Button
-            title="Collect Due Payment"
+            title="👥 Player CRM Directory"
             variant="secondary"
             size="sm"
-            onPress={() => router.push("/(tabs)/bookings")}
-            className="flex-1"
+            onPress={() => router.push("/customers" as any)}
+            className="w-full"
           />
         </View>
       </Card>
