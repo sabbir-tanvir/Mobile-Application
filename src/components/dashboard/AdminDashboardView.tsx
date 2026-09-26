@@ -32,13 +32,13 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
     <View className="space-y-5">
       {/* Role Indicator Banner */}
       <View className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
-        <View className="flex-row items-center gap-2.5">
+        <View className="flex-row items-center gap-2.5 flex-1 mr-2">
           <Text className="text-2xl">👑</Text>
-          <View>
-            <Text className="text-emerald-700 dark:text-emerald-400 font-extrabold text-xs uppercase tracking-wider">
+          <View className="flex-1">
+            <Text className="text-emerald-700 dark:text-emerald-400 font-extrabold text-xs uppercase tracking-wider" numberOfLines={1}>
               Executive Administrator
             </Text>
-            <Text className="text-slate-600 dark:text-zinc-400 text-[11px]">
+            <Text className="text-slate-600 dark:text-zinc-400 text-[11px]" numberOfLines={1}>
               Full financial, operational & partner authority
             </Text>
           </View>

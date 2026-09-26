@@ -31,15 +31,15 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
     <View className="space-y-6">
       {/* Role Banner */}
       <View className="bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/30 rounded-2xl p-3.5 flex-row items-center justify-between shadow-sm shadow-blue-500/5">
-        <View className="flex-row items-center gap-2.5">
+        <View className="flex-row items-center gap-2.5 flex-1 mr-2">
           <View className="w-9 h-9 rounded-xl bg-blue-500/20 items-center justify-center">
             <Text className="text-lg">💼</Text>
           </View>
-          <View>
-            <Text className="text-blue-600 dark:text-blue-400 font-bold text-xs uppercase tracking-wider">
+          <View className="flex-1">
+            <Text className="text-blue-600 dark:text-blue-400 font-bold text-xs uppercase tracking-wider" numberOfLines={1}>
               Partner / Stakeholder Portal
             </Text>
-            <Text className="text-slate-500 dark:text-zinc-400 text-[11px]">
+            <Text className="text-slate-500 dark:text-zinc-400 text-[11px]" numberOfLines={1}>
               Profit share & dividend monitoring
             </Text>
           </View>

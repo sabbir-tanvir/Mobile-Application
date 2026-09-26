@@ -31,13 +31,13 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
     <View className="space-y-5">
       {/* Role Banner */}
       <View className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
-        <View className="flex-row items-center gap-2.5">
+        <View className="flex-row items-center gap-2.5 flex-1 mr-2">
           <Text className="text-2xl">🛠️</Text>
-          <View>
-            <Text className="text-amber-700 dark:text-amber-400 font-extrabold text-xs uppercase tracking-wider">
+          <View className="flex-1">
+            <Text className="text-amber-700 dark:text-amber-400 font-extrabold text-xs uppercase tracking-wider" numberOfLines={1}>
               Field Operations & Staff
             </Text>
-            <Text className="text-slate-600 dark:text-zinc-400 text-[11px]">
+            <Text className="text-slate-600 dark:text-zinc-400 text-[11px]" numberOfLines={1}>
               Ground check-in, slots & cash collection
             </Text>
           </View>
