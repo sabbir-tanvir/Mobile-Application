@@ -110,29 +110,36 @@ export default function OrdersScreen() {
       </View>
 
       {/* Status Filter Chips */}
-      <View className="flex-row flex-wrap gap-1.5 mb-3.5">
-        {STATUS_FILTERS.map((s) => {
-          const isSelected = selectedStatus === s;
-          return (
-            <Pressable
-              key={s}
-              onPress={() => setSelectedStatus(s)}
-              className={`px-3.5 py-1.5 rounded-full border capitalize ${
-                isSelected
-                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
-                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800"
-              }`}
-            >
-              <Text
-                className={`text-xs font-semibold ${
-                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="flex-row gap-2 mb-3.5"
+          contentContainerStyle={{ paddingRight: 20 }}
+        >
+          {STATUS_FILTERS.map((s) => {
+            const isSelected = selectedStatus === s;
+            return (
+              <Pressable
+                key={s}
+                onPress={() => setSelectedStatus(s)}
+                className={`px-3.5 py-1.5 rounded-full border capitalize ${
+                  isSelected
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800"
                 }`}
               >
-                {s}
-              </Text>
-            </Pressable>
-          );
-        })}
+                <Text
+                  className={`text-xs font-semibold ${
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
+                  }`}
+                >
+                  {s}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
       </View>
 
       {/* Orders List */}

@@ -70,29 +70,36 @@ export default function ExploreScreen() {
       </View>
 
       {/* Sport Category Filter Chips */}
-      <View className="flex-row gap-2 mb-4">
-        {CATEGORIES.map((category) => {
-          const isSelected = selectedCategory === category;
-          return (
-            <Pressable
-              key={category}
-              onPress={() => setSelectedCategory(category)}
-              className={`px-3.5 py-1.5 rounded-full border ${
-                isSelected
-                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
-                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
-              }`}
-            >
-              <Text
-                className={`text-xs font-semibold ${
-                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="flex-row gap-2 mb-4"
+          contentContainerStyle={{ paddingRight: 20 }}
+        >
+          {CATEGORIES.map((category) => {
+            const isSelected = selectedCategory === category;
+            return (
+              <Pressable
+                key={category}
+                onPress={() => setSelectedCategory(category)}
+                className={`px-3.5 py-1.5 rounded-full border ${
+                  isSelected
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
                 }`}
               >
-                {category}
-              </Text>
-            </Pressable>
-          );
-        })}
+                <Text
+                  className={`text-xs font-semibold ${
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
+                  }`}
+                >
+                  {category}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
       </View>
 
       {/* Turfs List */}

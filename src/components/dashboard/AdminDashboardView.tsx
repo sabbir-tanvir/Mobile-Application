@@ -104,17 +104,17 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       </View>
 
       {/* Operational Stats */}
-      <View className="flex-row gap-2.5">
-        <Card variant="surface" className="flex-1 p-3">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">Turfs</Text>
-          <Text className="text-slate-900 dark:text-white text-base font-black mt-0.5">
+      <View className="flex-row gap-2">
+        <Card variant="surface" className="flex-1 p-2.5">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Turfs</Text>
+          <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
             {turfs.length} Grounds
           </Text>
         </Card>
 
-        <Card variant="surface" className="flex-1 p-3">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">Bookings</Text>
-          <Text className="text-slate-900 dark:text-white text-base font-black mt-0.5">
+        <Card variant="surface" className="flex-1 p-2.5">
+          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Bookings</Text>
+          <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
             {report?.bookingCount ?? bookings.length} Total
           </Text>
         </Card>
@@ -123,10 +123,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           onPress={() => router.push("/partners" as any)}
           className="flex-1 active:opacity-80"
         >
-          <Card variant="surface" className="p-3">
-            <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">Partners</Text>
-            <Text className="text-purple-600 dark:text-purple-400 text-base font-black mt-0.5">
-              {report?.partnerCount ?? 1} Active →
+          <Card variant="surface" className="p-2.5 h-full">
+            <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Partners</Text>
+            <Text className="text-purple-600 dark:text-purple-400 text-sm font-black mt-0.5" numberOfLines={1}>
+              {report?.partnerCount ?? 1} Active
             </Text>
           </Card>
         </Pressable>
@@ -137,87 +137,77 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
         <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-3">
           Quick Management Actions
         </Text>
-        <View className="space-y-2.5">
-          <View className="flex-row gap-2.5">
-            <Button
-              title="+ Booking"
-              variant="primary"
-              size="sm"
-              onPress={() => router.push("/booking/create" as any)}
-              className="flex-1"
-            />
-            <Button
-              title="+ Add Pitch"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/turf/manage" as any)}
-              className="flex-1"
-            />
-          </View>
-          <View className="flex-row gap-2.5">
-            <Button
-              title="💳 Payments"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/payments" as any)}
-              className="flex-1"
-            />
-            <Button
-              title="👥 Customers"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/customers" as any)}
-              className="flex-1"
-            />
-          </View>
-          <View className="flex-row gap-2.5">
-            <Button
-              title="📊 Accounting"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/accounting" as any)}
-              className="flex-1"
-            />
-            <Button
-              title="🤝 Partners"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/partners" as any)}
-              className="flex-1"
-            />
-          </View>
-          <View className="flex-row gap-2.5">
-            <Button
-              title="🛍️ Retail POS"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/pos" as any)}
-              className="flex-1"
-            />
-            <Button
-              title="🏆 Tournaments"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/(tabs)/tournaments" as any)}
-              className="flex-1"
-            />
-          </View>
-          <View className="flex-row gap-2.5">
-            <Button
-              title="👥 User Access"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/users" as any)}
-              className="flex-1"
-            />
-            <Button
-              title="📈 Reports"
-              variant="secondary"
-              size="sm"
-              onPress={() => router.push("/reports" as any)}
-              className="flex-1"
-            />
-          </View>
+        <View className="flex-row flex-wrap justify-between gap-y-2.5">
+          <Button
+            title="+ Booking"
+            variant="primary"
+            size="sm"
+            onPress={() => router.push("/booking/create" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="+ Add Pitch"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/turf/manage" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="💳 Payments"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/payments" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="👥 Customers"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/customers" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="📊 Accounting"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/accounting" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="🤝 Partners"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/partners" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="🛍️ Retail POS"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/pos" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="🏆 Tournaments"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/(tabs)/tournaments" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="👥 User Access"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/users" as any)}
+            className="w-[48%]"
+          />
+          <Button
+            title="📈 Reports"
+            variant="secondary"
+            size="sm"
+            onPress={() => router.push("/reports" as any)}
+            className="w-[48%]"
+          />
         </View>
       </Card>
 

@@ -16,6 +16,14 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, onPress }) =>
     (booking.totalPrice || 0) - (booking.paidAmount || 0)
   );
 
+  const formatTime = (h: number) => {
+    const isPM = h >= 12 && h < 24;
+    const period = isPM ? "PM" : "AM";
+    const hour12 = Math.floor(h) % 12 || 12;
+    const minutes = h % 1 === 0.5 ? "30" : "00";
+    return `${hour12}:${minutes} ${period}`;
+  };
+
   return (
     <Pressable
       onPress={() => onPress(booking.id)}
@@ -53,7 +61,7 @@ export const BookingCard: React.FC<BookingCardProps> = ({ booking, onPress }) =>
           </Text>
           <Text className="text-slate-300 dark:text-zinc-600 text-xs">•</Text>
           <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">
-            ⏰ {booking.startHour}:00 - {booking.endHour}:00
+            ⏰ {formatTime(booking.startHour)} - {formatTime(booking.endHour)}
           </Text>
         </View>
 

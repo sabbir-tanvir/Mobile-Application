@@ -39,14 +39,18 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
   );
 
   const hours: number[] = [];
-  for (let h = minHour; h <= maxHour; h++) {
-    hours.push(h);
+  for (let h = minHour; h <= maxHour; h += 1.5) {
+    if (h + 1.5 <= maxHour + 1) { // Ensure the last slot fits within the closing time boundary roughly
+      hours.push(h);
+    }
   }
 
   const formatHourLabel = (h: number) => {
-    const period = h >= 12 ? "PM" : "AM";
-    const displayHour = h % 12 === 0 ? 12 : h % 12;
-    return `${displayHour}:00 ${period}`;
+    const isPM = h >= 12 && h < 24;
+    const period = isPM ? "PM" : "AM";
+    const displayHour = Math.floor(h) % 12 || 12;
+    const minutes = h % 1 === 0.5 ? "30" : "00";
+    return `${displayHour}:${minutes} ${period}`;
   };
 
   return (
@@ -119,7 +123,7 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
 
                         <View className="flex-row items-center justify-between">
                           <Text className="text-slate-700 dark:text-zinc-300 text-[11px] font-medium">
-                            ⏰ {matchingBooking.startHour}:00 - {matchingBooking.endHour}:00 ({duration}h)
+                            ⏰ {formatHourLabel(matchingBooking.startHour)} - {formatHourLabel(matchingBooking.endHour)} ({duration}h)
                           </Text>
                           <Text className="text-slate-500 dark:text-zinc-400 text-[10px]">
                             {matchingBooking.customerPhone}
@@ -137,11 +141,12 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
                   hour >= turf.peakHoursStart &&
                   hour < turf.peakHoursEnd;
                 const isNight = hour >= 20;
-                const rate = isNight
+                const baseRate = isNight
                   ? turf.nightPrice || turf.basePrice
                   : isPeak
                   ? turf.peakPrice || turf.basePrice
                   : turf.basePrice;
+                const rate = baseRate * 1.5; // Multiply by 1.5 since the slot is 90 mins
 
                 return (
                   <Pressable

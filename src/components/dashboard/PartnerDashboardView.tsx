@@ -113,33 +113,33 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
         <Text className="text-slate-700 dark:text-zinc-300 font-bold text-sm uppercase tracking-wider mb-3">
           Overall Turf Business Performance
         </Text>
-        <View className="flex-row gap-3">
+        <View className="flex-row gap-2">
           <Card
             variant="elevated"
-            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 shadow-sm"
+            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3 shadow-sm"
           >
-            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium" numberOfLines={1}>
               Business Revenue
             </Text>
-            <Text className="text-blue-600 dark:text-blue-400 text-lg font-black mt-1">
+            <Text className="text-blue-600 dark:text-blue-400 text-lg font-black mt-1" numberOfLines={1}>
               {formatFin(report?.totalRevenue)}
             </Text>
-            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5 font-medium">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5 font-medium" numberOfLines={1}>
               Gross Income
             </Text>
           </Card>
 
           <Card
             variant="elevated"
-            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 shadow-sm"
+            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3 shadow-sm"
           >
-            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium" numberOfLines={1}>
               Net Venue Profit
             </Text>
-            <Text className="text-emerald-600 dark:text-emerald-400 text-lg font-black mt-1">
+            <Text className="text-emerald-600 dark:text-emerald-400 text-lg font-black mt-1" numberOfLines={1}>
               {formatFin(report?.netProfit)}
             </Text>
-            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5 font-medium">
+            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5 font-medium" numberOfLines={1}>
               Before Distributions
             </Text>
           </Card>

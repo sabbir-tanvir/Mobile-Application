@@ -57,49 +57,49 @@ export default function AccountingHubScreen() {
         </View>
 
         {/* Financial KPI Summary Cards */}
-        <View className="flex-row gap-2.5 mb-4">
+        <View className="flex-row gap-2 mb-4">
           <Card
             variant="elevated"
-            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
+            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-2.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
           >
-            <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
-              Total Incomes
+            <Text className="text-slate-500 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-wider" numberOfLines={1}>
+              Incomes
             </Text>
-            <Text className="text-emerald-600 dark:text-emerald-400 font-black text-base mt-1" numberOfLines={1}>
+            <Text className="text-emerald-600 dark:text-emerald-400 font-black text-sm mt-1" numberOfLines={1}>
               {formatTaka(totalIncomeTaka)}
             </Text>
-            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">{incomes.length} logged</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-[9px] mt-0.5" numberOfLines={1}>{incomes.length} logged</Text>
           </Card>
 
           <Card
             variant="elevated"
-            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
+            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-2.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
           >
-            <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
-              Total Expenses
+            <Text className="text-slate-500 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-wider" numberOfLines={1}>
+              Expenses
             </Text>
-            <Text className="text-rose-600 dark:text-rose-400 font-black text-base mt-1" numberOfLines={1}>
+            <Text className="text-rose-600 dark:text-rose-400 font-black text-sm mt-1" numberOfLines={1}>
               {formatTaka(totalExpenseTaka)}
             </Text>
-            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">{expenses.length} logged</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-[9px] mt-0.5" numberOfLines={1}>{expenses.length} logged</Text>
           </Card>
 
           <Card
             variant="elevated"
-            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-3.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
+            className="flex-1 bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-2.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
           >
-            <Text className="text-slate-500 dark:text-zinc-400 text-[10px] font-bold uppercase tracking-wider">
+            <Text className="text-slate-500 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-wider" numberOfLines={1}>
               Net Flow
             </Text>
             <Text
-              className={`font-black text-base mt-1 ${
+              className={`font-black text-sm mt-1 ${
                 netManualFlow >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-amber-500 dark:text-amber-400"
               }`}
               numberOfLines={1}
             >
               {formatTaka(netManualFlow)}
             </Text>
-            <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Non-booking</Text>
+            <Text className="text-slate-400 dark:text-zinc-500 text-[9px] mt-0.5" numberOfLines={1}>Non-booking</Text>
           </Card>
         </View>
 
@@ -118,13 +118,13 @@ export default function AccountingHubScreen() {
               variant="elevated"
               className="bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 flex-row items-center justify-between shadow-sm shadow-slate-200/50 dark:shadow-none rounded-2xl"
             >
-              <View className="flex-row items-center gap-3.5">
+              <View className="flex-row items-center gap-3.5 flex-1 pr-2">
                 <View className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-500/30 items-center justify-center">
                   <Text className="text-2xl">📑</Text>
                 </View>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-base">Chart of Accounts</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-base" numberOfLines={1}>Chart of Accounts</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>
                     {accounts.length} active asset, liability & expense accounts
                   </Text>
                 </View>
@@ -142,13 +142,13 @@ export default function AccountingHubScreen() {
               variant="elevated"
               className="bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 flex-row items-center justify-between shadow-sm shadow-slate-200/50 dark:shadow-none rounded-2xl"
             >
-              <View className="flex-row items-center gap-3.5">
+              <View className="flex-row items-center gap-3.5 flex-1 pr-2">
                 <View className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200/60 dark:border-rose-500/30 items-center justify-center">
                   <Text className="text-2xl">💸</Text>
                 </View>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-base">Business Expenses</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-base" numberOfLines={1}>Business Expenses</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>
                     Log electricity, pitch maintenance, turf upkeep
                   </Text>
                 </View>
@@ -166,13 +166,13 @@ export default function AccountingHubScreen() {
               variant="elevated"
               className="bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 flex-row items-center justify-between shadow-sm shadow-slate-200/50 dark:shadow-none rounded-2xl"
             >
-              <View className="flex-row items-center gap-3.5">
+              <View className="flex-row items-center gap-3.5 flex-1 pr-2">
                 <View className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/60 dark:border-emerald-500/30 items-center justify-center">
                   <Text className="text-2xl">💰</Text>
                 </View>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-base">Manual Incomes</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-base" numberOfLines={1}>Manual Incomes</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>
                     Log sponsorships, billboard ads, vendor fees
                   </Text>
                 </View>
@@ -190,13 +190,13 @@ export default function AccountingHubScreen() {
               variant="elevated"
               className="bg-white dark:bg-zinc-900 border-slate-200/80 dark:border-zinc-800 p-4 flex-row items-center justify-between shadow-sm shadow-slate-200/50 dark:shadow-none rounded-2xl"
             >
-              <View className="flex-row items-center gap-3.5">
+              <View className="flex-row items-center gap-3.5 flex-1 pr-2">
                 <View className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200/60 dark:border-purple-500/30 items-center justify-center">
                   <Text className="text-2xl">📖</Text>
                 </View>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-base">General Ledger</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-base" numberOfLines={1}>General Ledger</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>
                     Complete double-entry journal lines and balances
                   </Text>
                 </View>

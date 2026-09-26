@@ -89,29 +89,29 @@ export default function TournamentsScreen() {
 
           {/* Prize and Entry Fee Box */}
           <View className="bg-slate-50 dark:bg-zinc-950/80 border border-slate-200/80 dark:border-zinc-800/80 rounded-xl p-3 flex-row justify-between items-center mb-3">
-            <View>
-              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">
+            <View className="flex-1">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>
                 Entry Fee
               </Text>
-              <Text className="text-slate-900 dark:text-white font-extrabold text-sm">
+              <Text className="text-slate-900 dark:text-white font-extrabold text-sm" numberOfLines={1}>
                 {formatTaka(item.entryFee)}
               </Text>
             </View>
 
-            <View className="items-center">
-              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">
+            <View className="items-center flex-1">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>
                 Prize Pool
               </Text>
-              <Text className="text-amber-500 dark:text-amber-400 font-extrabold text-sm">
+              <Text className="text-amber-500 dark:text-amber-400 font-extrabold text-sm" numberOfLines={1}>
                 🏆 {formatTaka(item.prizePool)}
               </Text>
             </View>
 
-            <View className="items-end">
-              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold">
+            <View className="items-end flex-1">
+              <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>
                 Teams
               </Text>
-              <Text className="text-slate-800 dark:text-zinc-200 font-bold text-sm">
+              <Text className="text-slate-800 dark:text-zinc-200 font-bold text-sm" numberOfLines={1}>
                 {registeredCount} / {maxCapacity}
               </Text>
             </View>
@@ -188,34 +188,41 @@ export default function TournamentsScreen() {
       </View>
 
       {/* Status Filter Chips */}
-      <View className="flex-row gap-2 mb-3">
-        {[
-          { label: "All", value: "all" },
-          { label: "Active", value: "active" },
-          { label: "Upcoming", value: "upcoming" },
-          { label: "Completed", value: "completed" },
-        ].map((f) => {
-          const isSelected = selectedStatus === f.value;
-          return (
-            <Pressable
-              key={f.value}
-              onPress={() => setSelectedStatus(f.value)}
-              className={`px-3 py-1.5 rounded-full border ${
-                isSelected
-                  ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
-                  : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
-              }`}
-            >
-              <Text
-                className={`text-[11px] font-bold ${
-                  isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="flex-row gap-2 mb-3"
+          contentContainerStyle={{ paddingRight: 20 }}
+        >
+          {[
+            { label: "All", value: "all" },
+            { label: "Active", value: "active" },
+            { label: "Upcoming", value: "upcoming" },
+            { label: "Completed", value: "completed" },
+          ].map((f) => {
+            const isSelected = selectedStatus === f.value;
+            return (
+              <Pressable
+                key={f.value}
+                onPress={() => setSelectedStatus(f.value)}
+                className={`px-3 py-1.5 rounded-full border ${
+                  isSelected
+                    ? "bg-emerald-600 border-emerald-500 shadow-sm shadow-emerald-600/30"
+                    : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 shadow-sm shadow-slate-200/40 dark:shadow-none"
                 }`}
               >
-                {f.label}
-              </Text>
-            </Pressable>
-          );
-        })}
+                <Text
+                  className={`text-[11px] font-bold ${
+                    isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
+                  }`}
+                >
+                  {f.label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
       </View>
 
       {isLoading ? (

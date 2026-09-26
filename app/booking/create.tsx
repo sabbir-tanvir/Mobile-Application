@@ -46,9 +46,9 @@ export default function CreateBookingScreen() {
   // Form State
   const [selectedDate, setSelectedDate] = useState(paramDate || getTodayString());
   const [startHour, setStartHour] = useState(
-    paramStartHour ? parseInt(paramStartHour, 10) : 18
+    paramStartHour ? parseFloat(paramStartHour) : 18
   );
-  const [durationHours, setDurationHours] = useState(1);
+  const [durationHours, setDurationHours] = useState(1.5);
   const [customerName, setCustomerName] = useState(
     user?.fullName || user?.name || ""
   );
@@ -60,11 +60,19 @@ export default function CreateBookingScreen() {
 
   const endHour = startHour + durationHours;
 
-  // Accurate Rate calculation considering peak & night hours
+  const formatTime = (h: number) => {
+    const isPM = h >= 12 && h < 24;
+    const period = isPM ? "PM" : "AM";
+    const hour12 = Math.floor(h) % 12 || 12;
+    const minutes = h % 1 === 0.5 ? "30" : "00";
+    return `${hour12}:${minutes} ${period}`;
+  };
+
+  // Accurate Rate calculation considering peak & night hours (per 1.5hr slot)
   const calculateRate = () => {
-    if (!currentTurf) return 1000 * durationHours;
+    if (!currentTurf) return 1500 * (durationHours / 1.5);
     let sum = 0;
-    for (let h = startHour; h < endHour; h++) {
+    for (let h = startHour; h < endHour; h += 1.5) {
       const isPeak =
         currentTurf.peakHoursStart &&
         currentTurf.peakHoursEnd &&
@@ -72,13 +80,15 @@ export default function CreateBookingScreen() {
         h < currentTurf.peakHoursEnd;
       const isNight = h >= 20;
 
+      let slotPrice = currentTurf.basePrice;
       if (isNight) {
-        sum += currentTurf.nightPrice || currentTurf.basePrice;
+        slotPrice = currentTurf.nightPrice || currentTurf.basePrice;
       } else if (isPeak) {
-        sum += currentTurf.peakPrice || currentTurf.basePrice;
-      } else {
-        sum += currentTurf.basePrice;
+        slotPrice = currentTurf.peakPrice || currentTurf.basePrice;
       }
+      
+      // Price in DB is per hour, slot is 1.5 hours
+      sum += slotPrice * 1.5;
     }
     return sum;
   };
@@ -109,7 +119,7 @@ export default function CreateBookingScreen() {
 
     if (conflictingBooking) {
       setErrorMessage(
-        `Slot conflict: ${conflictingBooking.customerName} has already reserved this ground from ${conflictingBooking.startHour}:00 to ${conflictingBooking.endHour}:00`
+        `Slot conflict: ${conflictingBooking.customerName} has already reserved this ground from ${formatTime(conflictingBooking.startHour)} to ${formatTime(conflictingBooking.endHour)}`
       );
       return;
     }
@@ -162,12 +172,14 @@ export default function CreateBookingScreen() {
     }
   };
 
-  // Generate hour slots
+  // Generate 1.5-hour slots
   const opening = currentTurf?.openingHour ?? 6;
   const closing = currentTurf?.closingHour ?? 23;
   const availableHours: number[] = [];
-  for (let h = opening; h < closing; h++) {
-    availableHours.push(h);
+  for (let h = opening; h < closing; h += 1.5) {
+    if (h + 1.5 <= closing + 1) { // Allow up to 1 hr past closing if needed to complete a 1.5 slot
+      availableHours.push(h);
+    }
   }
 
   return (
@@ -280,7 +292,7 @@ export default function CreateBookingScreen() {
                       : "text-slate-700 dark:text-zinc-300"
                   }`}
                 >
-                  {hour >= 12 ? `${hour % 12 || 12}:00 PM` : `${hour}:00 AM`}
+                  {formatTime(hour)}
                 </Text>
                 {isBooked && (
                   <Text className="text-[9px] text-rose-500 dark:text-red-400 font-semibold mt-0.5">
@@ -295,7 +307,7 @@ export default function CreateBookingScreen() {
         {/* Duration Selector */}
         <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Duration</Text>
         <View className="flex-row gap-2 mb-2">
-          {[1, 1.5, 2, 3].map((hours) => {
+          {[1.5, 3, 4.5].map((hours) => {
             const isSelected = durationHours === hours;
             return (
               <Pressable
@@ -312,7 +324,7 @@ export default function CreateBookingScreen() {
                     isSelected ? "text-white" : "text-slate-600 dark:text-zinc-400"
                   }`}
                 >
-                  {hours} {hours === 1 ? "Hour" : "Hours"}
+                  {hours} Hours
                 </Text>
               </Pressable>
             );
@@ -325,7 +337,7 @@ export default function CreateBookingScreen() {
             <Text className="text-base">⚠️</Text>
             <Text className="text-rose-600 dark:text-red-400 text-xs flex-1 font-medium">
               Overlaps with an existing reservation by {conflictingBooking.customerName} (
-              {conflictingBooking.startHour}:00 - {conflictingBooking.endHour}:00).
+              {formatTime(conflictingBooking.startHour)} - {formatTime(conflictingBooking.endHour)}).
             </Text>
           </View>
         )}
@@ -359,7 +371,7 @@ export default function CreateBookingScreen() {
           <View className="flex-row justify-between py-1">
             <Text className="text-slate-500 dark:text-zinc-400 text-xs">Slot Window</Text>
             <Text className="text-slate-800 dark:text-zinc-200 font-semibold text-xs">
-              {startHour}:00 - {endHour}:00 ({durationHours}h)
+              {formatTime(startHour)} - {formatTime(endHour)} ({durationHours}h)
             </Text>
           </View>
           <View className="flex-row justify-between py-1.5 border-t border-slate-200/60 dark:border-zinc-800/60 mt-1">

@@ -326,19 +326,19 @@ export default function UsersManagementScreen() {
       {/* 4 Metric Summary Cards */}
       <View className="flex-row gap-2 mb-3">
         <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Total</Text>
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold" numberOfLines={1}>Total</Text>
           <Text className="text-slate-900 dark:text-white text-base font-black mt-0.5">{totalUsers}</Text>
         </Card>
         <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Staff</Text>
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold" numberOfLines={1}>Staff</Text>
           <Text className="text-emerald-600 dark:text-emerald-400 text-base font-black mt-0.5">{staffCount}</Text>
         </Card>
         <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Partners</Text>
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold" numberOfLines={1}>Partners</Text>
           <Text className="text-amber-600 dark:text-amber-400 text-base font-black mt-0.5">{partnerCount}</Text>
         </Card>
         <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 items-center rounded-2xl shadow-sm shadow-slate-200/40 dark:shadow-none">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Admins</Text>
+          <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold" numberOfLines={1}>Admins</Text>
           <Text className="text-blue-600 dark:text-blue-400 text-base font-black mt-0.5">{adminCount}</Text>
         </Card>
       </View>

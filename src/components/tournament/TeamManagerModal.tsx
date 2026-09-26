@@ -183,7 +183,7 @@ export function TeamManager({ tournament }: TeamManagerProps) {
                 </View>
 
                 <View className="flex-row items-center gap-3">
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs flex-1" numberOfLines={1}>
                     Captain: <Text className="text-slate-800 dark:text-zinc-200 font-medium">{team.captainName}</Text>
                   </Text>
                   {team.captainPhone ? (

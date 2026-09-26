@@ -199,11 +199,11 @@ export default function ProfileScreen() {
               onPress={() => router.push("/payments" as any)}
               className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
             >
-              <View className="flex-row items-center gap-2.5">
+              <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                 <Text className="text-base">💳</Text>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-sm">Payments Hub</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">Collections, dues & digital receipts</Text>
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Payments Hub</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Collections, dues & digital receipts</Text>
                 </View>
               </View>
               <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -214,11 +214,11 @@ export default function ProfileScreen() {
                 onPress={() => router.push("/turf/manage" as any)}
                 className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
               >
-                <View className="flex-row items-center gap-2.5">
+                <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                   <Text className="text-base">🏟️</Text>
-                  <View>
-                    <Text className="text-slate-900 dark:text-white font-bold text-sm">Turf Ground Setup</Text>
-                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Add pitches & configure hourly rates</Text>
+                  <View className="flex-1">
+                    <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Turf Ground Setup</Text>
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Add pitches & configure hourly rates</Text>
                   </View>
                 </View>
                 <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -229,11 +229,11 @@ export default function ProfileScreen() {
               onPress={() => router.push("/customers" as any)}
               className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
             >
-              <View className="flex-row items-center gap-2.5">
+              <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                 <Text className="text-base">👥</Text>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-sm">Customer CRM</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">Player directory, lifetime spend & call</Text>
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Customer CRM</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Player directory, lifetime spend & call</Text>
                 </View>
               </View>
               <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -244,11 +244,11 @@ export default function ProfileScreen() {
                 onPress={() => router.push("/accounting" as any)}
                 className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
               >
-                <View className="flex-row items-center gap-2.5">
+                <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                   <Text className="text-base">📊</Text>
-                  <View>
-                    <Text className="text-slate-900 dark:text-white font-bold text-sm">Financial Accounting</Text>
-                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">General ledger, accounts, expenses & incomes</Text>
+                  <View className="flex-1">
+                    <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Financial Accounting</Text>
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>General ledger, accounts, expenses & incomes</Text>
                   </View>
                 </View>
                 <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -260,11 +260,11 @@ export default function ProfileScreen() {
                 onPress={() => router.push("/partners" as any)}
                 className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
               >
-                <View className="flex-row items-center gap-2.5">
+                <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                   <Text className="text-base">🤝</Text>
-                  <View>
-                    <Text className="text-slate-900 dark:text-white font-bold text-sm">Partner Management</Text>
-                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Equity shares, basis points & dividend payouts</Text>
+                  <View className="flex-1">
+                    <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Partner Management</Text>
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Equity shares, basis points & dividend payouts</Text>
                   </View>
                 </View>
                 <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -276,11 +276,11 @@ export default function ProfileScreen() {
                 onPress={() => router.push("/users" as any)}
                 className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
               >
-                <View className="flex-row items-center gap-2.5">
+                <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                   <Text className="text-base">👥</Text>
-                  <View>
-                    <Text className="text-slate-900 dark:text-white font-bold text-sm">User Access & Roles</Text>
-                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Manage staff, partners & system accounts</Text>
+                  <View className="flex-1">
+                    <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>User Access & Roles</Text>
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Manage staff, partners & system accounts</Text>
                   </View>
                 </View>
                 <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -291,11 +291,11 @@ export default function ProfileScreen() {
               onPress={() => router.push("/pos" as any)}
               className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
             >
-              <View className="flex-row items-center gap-2.5">
+              <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                 <Text className="text-base">🛍️</Text>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-sm">Retail POS & Inventory</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">Fast-checkout counter, drinks & gear stock</Text>
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Retail POS & Inventory</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Fast-checkout counter, drinks & gear stock</Text>
                 </View>
               </View>
               <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -305,11 +305,11 @@ export default function ProfileScreen() {
               onPress={() => router.push("/(tabs)/tournaments" as any)}
               className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
             >
-              <View className="flex-row items-center gap-2.5">
+              <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                 <Text className="text-base">🏆</Text>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-sm">Tournaments & Cups</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">Championships, registered teams & brackets</Text>
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Tournaments & Cups</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Championships, registered teams & brackets</Text>
                 </View>
               </View>
               <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -320,11 +320,11 @@ export default function ProfileScreen() {
                 onPress={() => router.push("/reports" as any)}
                 className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"
               >
-                <View className="flex-row items-center gap-2.5">
+                <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                   <Text className="text-base">📊</Text>
-                  <View>
-                    <Text className="text-slate-900 dark:text-white font-bold text-sm">Financial Reports & P&L</Text>
-                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Statements, liquidity & receivables</Text>
+                  <View className="flex-1">
+                    <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>Financial Reports & P&L</Text>
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Statements, liquidity & receivables</Text>
                   </View>
                 </View>
                 <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
@@ -335,11 +335,11 @@ export default function ProfileScreen() {
               onPress={() => router.push("/(tabs)/bookings")}
               className="py-2.5 flex-row items-center justify-between active:opacity-75"
             >
-              <View className="flex-row items-center gap-2.5">
+              <View className="flex-row items-center gap-2.5 flex-1 pr-2">
                 <Text className="text-base">⏱️</Text>
-                <View>
-                  <Text className="text-slate-900 dark:text-white font-bold text-sm">24h Slot Schedule</Text>
-                  <Text className="text-slate-500 dark:text-zinc-400 text-xs">Live calendar matrix & bookings</Text>
+                <View className="flex-1">
+                  <Text className="text-slate-900 dark:text-white font-bold text-sm" numberOfLines={1}>24h Slot Schedule</Text>
+                  <Text className="text-slate-500 dark:text-zinc-400 text-xs" numberOfLines={1}>Live calendar matrix & bookings</Text>
                 </View>
               </View>
               <Text className="text-slate-400 dark:text-zinc-500 text-sm font-bold">›</Text>
