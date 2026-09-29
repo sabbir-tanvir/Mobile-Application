@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Skeleton, HScrollView } from "@/components/ui";
 import {
   useProfitLossReport,
   useCashPositionReport,
@@ -163,39 +163,37 @@ export default function ReportsScreen() {
         </View>
 
         {/* Tab Navigation */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} className="py-1">
-          <View className="flex-row gap-2">
-            {[
-              { id: "pnl", label: "📊 Profit & Loss", show: true },
-              { id: "cash", label: "💵 Cash Position", show: isAdmin },
-              { id: "receivables", label: "⏳ Receivables", show: isAdmin },
-              { id: "shares", label: "🤝 Partner Shares", show: true },
-            ]
-              .filter((t) => t.show)
-              .map((tab) => {
-                const isSelected = activeTab === tab.id;
-                return (
-                  <Pressable
-                    key={tab.id}
-                    onPress={() => setActiveTab(tab.id as any)}
-                    className={`px-3.5 py-2 rounded-full border ${
-                      isSelected
-                        ? "bg-white dark:bg-zinc-800 border-slate-300 dark:border-zinc-600 shadow-sm shadow-slate-200/40 dark:shadow-none"
-                        : "bg-white/60 dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800"
+        <HScrollView className="py-1">
+          {[
+            { id: "pnl", label: "📊 Profit & Loss", show: true },
+            { id: "cash", label: "💵 Cash Position", show: isAdmin },
+            { id: "receivables", label: "⏳ Receivables", show: isAdmin },
+            { id: "shares", label: "🤝 Partner Shares", show: true },
+          ]
+            .filter((t) => t.show)
+            .map((tab) => {
+              const isSelected = activeTab === tab.id;
+              return (
+                <Pressable
+                  key={tab.id}
+                  onPress={() => setActiveTab(tab.id as any)}
+                  className={`px-3.5 py-2 rounded-full border ${
+                    isSelected
+                      ? "bg-white dark:bg-zinc-800 border-slate-300 dark:border-zinc-600 shadow-sm shadow-slate-200/40 dark:shadow-none"
+                      : "bg-white/60 dark:bg-zinc-900/60 border-slate-200 dark:border-zinc-800"
+                  }`}
+                >
+                  <Text
+                    className={`text-xs font-bold ${
+                      isSelected ? "text-emerald-600 dark:text-emerald-400" : "text-slate-600 dark:text-zinc-400"
                     }`}
                   >
-                    <Text
-                      className={`text-xs font-bold ${
-                        isSelected ? "text-emerald-600 dark:text-emerald-400" : "text-slate-600 dark:text-zinc-400"
-                      }`}
-                    >
-                      {tab.label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-          </View>
-        </ScrollView>
+                    {tab.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+        </HScrollView>
 
         {/* TAB 1: PROFIT & LOSS */}
         {activeTab === "pnl" && (

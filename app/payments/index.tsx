@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, TextInput, ScrollView, Modal, Alert, Platform } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Input, Skeleton, HScrollView } from "@/components/ui";
 import { usePayments, useCreatePayment } from "@/hooks/queries/usePayments";
 import { useBookings } from "@/hooks/queries/useBookings";
 import { DigitalReceiptModal } from "@/components/payment/DigitalReceiptModal";
@@ -191,7 +191,7 @@ export default function PaymentsScreen() {
       </View>
 
       {/* Channel Filters */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-2 mb-3">
+      <HScrollView className="mb-3">
         {PAYMENT_CHANNELS.map((ch) => {
           const isSelected = selectedChannel === ch;
           const badge = methodBadges[ch];
@@ -216,7 +216,7 @@ export default function PaymentsScreen() {
             </Pressable>
           );
         })}
-      </ScrollView>
+      </HScrollView>
 
       {/* Status Tabs */}
       <View className="flex-row gap-2 mb-3.5">
@@ -363,7 +363,7 @@ export default function PaymentsScreen() {
               {bookings.filter((b) => b.paymentStatus !== "paid").length > 0 && (
                 <View className="mb-3">
                   <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1 font-medium">Link to Unpaid Booking (Optional)</Text>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-1.5">
+                  <HScrollView gap={6}>
                     {bookings
                       .filter((b) => b.paymentStatus !== "paid")
                       .slice(0, 5)
@@ -398,7 +398,7 @@ export default function PaymentsScreen() {
                           </Pressable>
                         );
                       })}
-                  </ScrollView>
+                  </HScrollView>
                 </View>
               )}
 

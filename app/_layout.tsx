@@ -1,3 +1,4 @@
+import "../src/theme/global.css";
 import React, { useEffect } from "react";
 import { Slot, useRouter, useSegments } from "expo-router";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -5,7 +6,6 @@ import { queryClient } from "@/config/queryClient";
 import { useAuthStore, selectIsAuth, selectAuthLoading } from "@/stores/auth.store";
 import { useThemeStore } from "@/stores/theme.store";
 import { View, ActivityIndicator } from "react-native";
-import "../src/theme/global.css";
 
 function RootNavigationLayout() {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, TextInput, Modal, Alert, Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Input, Skeleton, HScrollView } from "@/components/ui";
 import {
   useExpenses,
   useCreateExpense,
@@ -304,7 +304,7 @@ export default function ExpensesScreen() {
 
               {/* Expense Account Selector */}
               <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Expense Account Code</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-1.5 mb-3.5">
+              <HScrollView gap={6} className="mb-3.5">
                 {(expenseAccounts.length > 0 ? expenseAccounts : [{ code: "6099", name: "Misc Expense" }]).map((acc) => {
                   const isSelected = accountCode === acc.code;
                   return (
@@ -327,7 +327,7 @@ export default function ExpensesScreen() {
                     </Pressable>
                   );
                 })}
-              </ScrollView>
+              </HScrollView>
 
               {/* Payment Method Selector */}
               <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Disbursement Method</Text>

@@ -28,7 +28,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
   );
 
   return (
-    <View className="space-y-6">
+    <View className="flex-col gap-6">
       {/* Player Action Banner */}
       <Pressable
         onPress={() => router.push("/(tabs)/explore")}
@@ -82,7 +82,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
         </View>
 
         {turfsLoading ? (
-          <View className="space-y-3">
+          <View className="flex-col gap-3">
             <Skeleton height={180} borderRadius={16} className="mb-3" />
             <Skeleton height={180} borderRadius={16} />
           </View>

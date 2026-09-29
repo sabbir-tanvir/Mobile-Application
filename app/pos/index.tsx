@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, TextInput, Modal, ScrollView, Alert, Platform } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Input, Skeleton, HScrollView } from "@/components/ui";
 import { useProducts } from "@/hooks/queries/useProducts";
 import { useCreateOrder } from "@/hooks/queries/useOrders";
 import { formatTaka } from "@/lib/currency";
@@ -200,10 +200,7 @@ export default function PosScreen() {
 
       {/* Category Chips */}
       <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="flex-row gap-2 mb-3.5"
+        <HScrollView className="mb-3.5"
           contentContainerStyle={{ paddingRight: 20 }}
         >
           {CATEGORIES.map((c) => {
@@ -228,7 +225,7 @@ export default function PosScreen() {
               </Pressable>
             );
           })}
-        </ScrollView>
+        </HScrollView>
       </View>
 
       {/* Product Catalog Grid */}

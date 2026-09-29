@@ -28,7 +28,7 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
   );
 
   return (
-    <View className="space-y-5">
+    <View className="flex-col gap-5">
       {/* Role Banner */}
       <View className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
         <View className="flex-row items-center gap-2.5 flex-1 mr-2">
@@ -71,7 +71,7 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
         <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-3">
           Front-Desk Quick Actions
         </Text>
-        <View className="space-y-2.5">
+        <View className="flex-col gap-2.5">
           <View className="flex-row gap-2.5">
             <Button
               title="+ Walk-in Booking"

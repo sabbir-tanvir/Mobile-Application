@@ -28,7 +28,7 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
   };
 
   return (
-    <View className="space-y-6">
+    <View className="flex-col gap-6">
       {/* Role Banner */}
       <View className="bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/30 rounded-2xl p-3.5 flex-row items-center justify-between shadow-sm shadow-blue-500/5">
         <View className="flex-row items-center gap-2.5 flex-1 mr-2">
@@ -68,7 +68,7 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
         {isLoadingReport ? (
           <Skeleton height={110} borderRadius={12} />
         ) : (
-          <View className="bg-slate-50 dark:bg-zinc-950/80 rounded-2xl p-4 border border-slate-200/80 dark:border-zinc-800/80 space-y-3">
+          <View className="bg-slate-50 dark:bg-zinc-950/80 rounded-2xl p-4 border border-slate-200/80 dark:border-zinc-800/80 flex-col gap-3">
             <View className="flex-row justify-between items-center pb-2.5 border-b border-slate-200/60 dark:border-zinc-800/60">
               <Text className="text-slate-500 dark:text-zinc-400 text-sm font-medium">
                 Gross Share Earned

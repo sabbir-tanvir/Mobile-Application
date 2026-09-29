@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, FlatList, TextInput } from "react-native";
+import { View, Text, Pressable, FlatList, TextInput, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Skeleton, HScrollView } from "@/components/ui";
 import { useOrders, useUpdateOrderStatus } from "@/hooks/queries/useOrders";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
@@ -111,10 +111,7 @@ export default function OrdersScreen() {
 
       {/* Status Filter Chips */}
       <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="flex-row gap-2 mb-3.5"
+        <HScrollView className="mb-3.5"
           contentContainerStyle={{ paddingRight: 20 }}
         >
           {STATUS_FILTERS.map((s) => {
@@ -139,7 +136,7 @@ export default function OrdersScreen() {
               </Pressable>
             );
           })}
-        </ScrollView>
+        </HScrollView>
       </View>
 
       {/* Orders List */}

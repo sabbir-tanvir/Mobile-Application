@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, TextInput, Modal, Alert, Platform, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Input, Skeleton, HScrollView } from "@/components/ui";
 import {
   useIncomes,
   useCreateIncome,
@@ -304,7 +304,7 @@ export default function IncomesScreen() {
 
               {/* Revenue Account Selector */}
               <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Revenue Account Code</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-1.5 mb-3.5">
+              <HScrollView gap={6} className="mb-3.5">
                 {(revenueAccounts.length > 0 ? revenueAccounts : [{ code: "4099", name: "Misc Revenue" }]).map((acc) => {
                   const isSelected = accountCode === acc.code;
                   return (
@@ -327,7 +327,7 @@ export default function IncomesScreen() {
                     </Pressable>
                   );
                 })}
-              </ScrollView>
+              </HScrollView>
 
               {/* Payment Method Selector */}
               <Text className="text-slate-700 dark:text-zinc-400 text-xs mb-1.5 font-medium">Collection Method</Text>

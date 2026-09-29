@@ -29,7 +29,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   };
 
   return (
-    <View className="space-y-5">
+    <View className="flex-col gap-5">
       {/* Role Indicator Banner */}
       <View className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
         <View className="flex-row items-center gap-2.5 flex-1 mr-2">
