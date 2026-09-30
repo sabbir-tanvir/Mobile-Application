@@ -523,62 +523,212 @@ export default function ReportsScreen() {
                   </Text>
                 </Card>
 
-                {/* Partner Share Cards */}
-                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
-                  <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">
-                    Partner Distribution Roster
-                  </Text>
+                {/* Role-Specific View */}
+                {isPartner ? (
+                  // PARTNER SPECIFIC HERO VIEW
+                  (() => {
+                    const myShare = partnerShares.shares?.[0];
+                    if (!myShare) {
+                      return (
+                        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl items-center">
+                          <Text className="text-3xl mb-2">💼</Text>
+                          <Text className="text-slate-800 dark:text-white font-bold text-sm">No equity record found</Text>
+                          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mt-1">
+                            Your account is not currently assigned active equity basis points for this period.
+                          </Text>
+                        </Card>
+                      );
+                    }
 
-                  {partnerShares.shares?.length === 0 ? (
-                    <Text className="text-slate-500 dark:text-zinc-500 text-xs py-3 text-center">
-                      No partner equity distributions recorded for this period.
-                    </Text>
-                  ) : (
-                    partnerShares.shares?.map((s, idx) => (
-                      <View
-                        key={idx}
-                        className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-3.5 rounded-2xl gap-2 mb-2"
-                      >
-                        <View className="flex-row items-center justify-between">
-                          <View className="flex-1 mr-2">
-                            <Text className="text-slate-900 dark:text-white font-bold text-sm">
-                              {s.fullName || s.name || "Partner"}
-                            </Text>
-                            <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
-                              {(s.effectivePct || 0).toFixed(2)}% Equity
+                    const isSettled = (myShare.outstanding || 0) <= 0;
+
+                    return (
+                      <Card className="bg-white dark:bg-zinc-900 border-2 border-emerald-500/30 dark:border-emerald-500/40 p-5 rounded-3xl shadow-sm gap-4">
+                        <View className="flex-row items-center justify-between pb-3 border-b border-slate-100 dark:border-zinc-800">
+                          <View>
+                            <View className="flex-row items-center gap-2">
+                              <Text className="text-slate-900 dark:text-white font-black text-base">
+                                {myShare.fullName || myShare.name || user?.fullName || "My Profit Share"}
+                              </Text>
+                              <Badge label="Verified Partner" variant="default" size="sm" />
+                            </View>
+                            <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
+                              Equity Allocation:{" "}
+                              <Text className="text-emerald-600 dark:text-emerald-400 font-bold">
+                                {(myShare.effectivePct || 0).toFixed(2)}%
+                              </Text>
                             </Text>
                           </View>
                           <Badge
-                            label={s.outstanding > 0 ? "PAYABLE" : "SETTLED"}
-                            variant={s.outstanding > 0 ? "warning" : "success"}
-                            size="sm"
+                            label={isSettled ? "SETTLED" : "PAYOUT DUE"}
+                            variant={isSettled ? "success" : "warning"}
+                            size="md"
                           />
                         </View>
 
-                        <View className="flex-row justify-between items-center bg-white dark:bg-zinc-900/80 border border-slate-100 dark:border-transparent p-2.5 rounded-xl">
-                          <View>
-                            <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Gross Share</Text>
-                            <Text className="text-slate-900 dark:text-white text-xs font-extrabold">
-                              {fmtPoisha(s.grossShare)}
+                        {/* 3 Metric Cards */}
+                        <View className="gap-2.5">
+                          <View className="p-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800 flex-row justify-between items-center">
+                            <View>
+                              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold">
+                                Gross Profit Earned
+                              </Text>
+                              <Text className="text-slate-400 dark:text-zinc-500 text-[10px]">
+                                {(myShare.effectivePct || 0).toFixed(2)}% of {fmtPoisha(partnerShares.netProfit)}
+                              </Text>
+                            </View>
+                            <Text className="text-slate-900 dark:text-white font-black text-lg">
+                              {fmtPoisha(myShare.grossShare)}
                             </Text>
                           </View>
-                          <View>
-                            <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Paid Out</Text>
-                            <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">
-                              {fmtPoisha(s.paidOut)}
+
+                          <View className="p-3.5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800 flex-row justify-between items-center">
+                            <View>
+                              <Text className="text-slate-500 dark:text-zinc-400 text-xs font-semibold">
+                                Already Paid Out
+                              </Text>
+                              <Text className="text-slate-400 dark:text-zinc-500 text-[10px]">
+                                Disbursed dividends to date
+                              </Text>
+                            </View>
+                            <Text className="text-emerald-600 dark:text-emerald-400 font-black text-lg">
+                              {fmtPoisha(myShare.paidOut)}
                             </Text>
                           </View>
-                          <View className="items-end">
-                            <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Net Owed</Text>
-                            <Text className="text-amber-600 dark:text-amber-400 text-xs font-black">
-                              {fmtPoisha(s.outstanding)}
+
+                          <View className="p-3.5 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-900/40 flex-row justify-between items-center">
+                            <View>
+                              <Text className="text-amber-800 dark:text-amber-400 text-xs font-bold">
+                                Net Balance Owed
+                              </Text>
+                              <Text className="text-amber-700/70 dark:text-amber-500/70 text-[10px]">
+                                Outstanding payment from venue
+                              </Text>
+                            </View>
+                            <Text className="text-amber-600 dark:text-amber-400 font-black text-xl">
+                              {fmtPoisha(myShare.outstanding)}
                             </Text>
                           </View>
                         </View>
+
+                        {/* Status Footnote */}
+                        <View className="p-3 bg-slate-100 dark:bg-zinc-800/80 rounded-2xl">
+                          <Text className="text-slate-600 dark:text-zinc-300 text-xs text-center leading-relaxed">
+                            {isSettled
+                              ? "✓ All accrued dividends for this period have been fully disbursed."
+                              : `⏳ A net balance of ${fmtPoisha(myShare.outstanding)} is pending payout settlement by the venue administrator.`}
+                          </Text>
+                        </View>
+                      </Card>
+                    );
+                  })()
+                ) : (
+                  // SUPER ADMIN CORPORATE VIEW
+                  <>
+                    {/* Admin Corporate Overview KPI */}
+                    {partnerShares.shares && partnerShares.shares.length > 0 && (
+                      <View className="flex-row gap-2">
+                        <Card className="flex-1 p-3 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-2xl">
+                          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
+                            Total Allocated
+                          </Text>
+                          <Text className="text-slate-900 dark:text-white font-black text-sm mt-1">
+                            {fmtPoisha(
+                              partnerShares.shares.reduce((sum, s) => sum + (s.grossShare || 0), 0)
+                            )}
+                          </Text>
+                        </Card>
+                        <Card className="flex-1 p-3 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-2xl">
+                          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
+                            Total Disbursed
+                          </Text>
+                          <Text className="text-emerald-600 dark:text-emerald-400 font-black text-sm mt-1">
+                            {fmtPoisha(
+                              partnerShares.shares.reduce((sum, s) => sum + (s.paidOut || 0), 0)
+                            )}
+                          </Text>
+                        </Card>
+                        <Card className="flex-1 p-3 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 rounded-2xl">
+                          <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
+                            Total Payable
+                          </Text>
+                          <Text className="text-amber-600 dark:text-amber-400 font-black text-sm mt-1">
+                            {fmtPoisha(
+                              partnerShares.shares.reduce((sum, s) => sum + (s.outstanding || 0), 0)
+                            )}
+                          </Text>
+                        </Card>
                       </View>
-                    ))
-                  )}
-                </Card>
+                    )}
+
+                    {/* Partner Share Cards Roster */}
+                    <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
+                      <View className="flex-row items-center justify-between mb-1">
+                        <Text className="text-slate-900 dark:text-white font-bold text-sm">
+                          Partner Distribution Roster
+                        </Text>
+                        <Pressable
+                          onPress={() => router.push("/partners" as any)}
+                          className="px-2.5 py-1 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-500/30"
+                        >
+                          <Text className="text-purple-600 dark:text-purple-400 text-xs font-bold">
+                            💼 Manage Partners →
+                          </Text>
+                        </Pressable>
+                      </View>
+
+                      {partnerShares.shares?.length === 0 ? (
+                        <Text className="text-slate-500 dark:text-zinc-500 text-xs py-3 text-center">
+                          No partner equity distributions recorded for this period.
+                        </Text>
+                      ) : (
+                        partnerShares.shares?.map((s, idx) => (
+                          <View
+                            key={idx}
+                            className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-3.5 rounded-2xl gap-2 mb-2"
+                          >
+                            <View className="flex-row items-center justify-between">
+                              <View className="flex-1 mr-2">
+                                <Text className="text-slate-900 dark:text-white font-bold text-sm">
+                                  {s.fullName || s.name || "Partner"}
+                                </Text>
+                                <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
+                                  {(s.effectivePct || 0).toFixed(2)}% Equity
+                                </Text>
+                              </View>
+                              <Badge
+                                label={s.outstanding > 0 ? "PAYABLE" : "SETTLED"}
+                                variant={s.outstanding > 0 ? "warning" : "success"}
+                                size="sm"
+                              />
+                            </View>
+
+                            <View className="flex-row justify-between items-center bg-white dark:bg-zinc-900/80 border border-slate-100 dark:border-transparent p-2.5 rounded-xl">
+                              <View>
+                                <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Gross Share</Text>
+                                <Text className="text-slate-900 dark:text-white text-xs font-extrabold">
+                                  {fmtPoisha(s.grossShare)}
+                                </Text>
+                              </View>
+                              <View>
+                                <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Paid Out</Text>
+                                <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">
+                                  {fmtPoisha(s.paidOut)}
+                                </Text>
+                              </View>
+                              <View className="items-end">
+                                <Text className="text-slate-500 dark:text-zinc-500 text-[9px] uppercase font-bold">Net Owed</Text>
+                                <Text className="text-amber-600 dark:text-amber-400 text-xs font-black">
+                                  {fmtPoisha(s.outstanding)}
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                        ))
+                      )}
+                    </Card>
+                  </>
+                )}
               </>
             ) : (
               <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl items-center shadow-sm shadow-slate-200/40 dark:shadow-none">

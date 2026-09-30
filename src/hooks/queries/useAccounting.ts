@@ -15,10 +15,11 @@ export const accountingKeys = {
 };
 
 // Accounts
-export function useAccounts(params?: { type?: string; status?: string }) {
+export function useAccounts(params?: { type?: string; status?: string }, enabled = true) {
   return useQuery({
     queryKey: accountingKeys.accounts(params),
     queryFn: () => accountingApi.listAccounts(params),
+    enabled,
   });
 }
 
@@ -44,10 +45,11 @@ export function useUpdateAccount() {
 }
 
 // Expenses
-export function useExpenses(params?: { from?: string; to?: string }) {
+export function useExpenses(params?: { from?: string; to?: string }, enabled = true) {
   return useQuery({
     queryKey: accountingKeys.expenses(params),
     queryFn: () => accountingApi.listExpenses(params),
+    enabled,
   });
 }
 
@@ -76,10 +78,11 @@ export function useDeleteExpense() {
 }
 
 // Incomes
-export function useIncomes(params?: { from?: string; to?: string }) {
+export function useIncomes(params?: { from?: string; to?: string }, enabled = true) {
   return useQuery({
     queryKey: accountingKeys.incomes(params),
     queryFn: () => accountingApi.listIncomes(params),
+    enabled,
   });
 }
 
@@ -108,9 +111,10 @@ export function useDeleteIncome() {
 }
 
 // General Ledger
-export function useLedgerEntries(params?: { from?: string; to?: string; limit?: number }) {
+export function useLedgerEntries(params?: { from?: string; to?: string; limit?: number }, enabled = true) {
   return useQuery({
     queryKey: accountingKeys.ledger(params),
     queryFn: () => accountingApi.listJournalEntries(params),
+    enabled,
   });
 }

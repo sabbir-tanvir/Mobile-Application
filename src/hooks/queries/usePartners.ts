@@ -16,10 +16,11 @@ export const partnerKeys = {
   history: () => [...partnerKeys.all, "history"] as const,
 };
 
-export function usePartners() {
+export function usePartners(enabled = true) {
   return useQuery({
     queryKey: partnerKeys.lists(),
     queryFn: () => partnersApi.list(),
+    enabled,
   });
 }
 
@@ -64,10 +65,11 @@ export function useReallocateShares() {
   });
 }
 
-export function usePartnerPayouts(userId?: string) {
+export function usePartnerPayouts(userId?: string, enabled = true) {
   return useQuery({
     queryKey: partnerKeys.payouts(userId),
     queryFn: () => partnersApi.listPayouts(userId ? { userId } : undefined),
+    enabled,
   });
 }
 
@@ -83,9 +85,10 @@ export function useCreatePayout() {
   });
 }
 
-export function useShareHistory() {
+export function useShareHistory(enabled = true) {
   return useQuery({
     queryKey: partnerKeys.history(),
     queryFn: () => partnersApi.getShareHistory(),
+    enabled,
   });
 }

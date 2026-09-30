@@ -4,6 +4,7 @@ import { Card, Badge, Button } from "@/components/ui";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
 import { showAlert } from "@/lib/alerts";
+import { printBookingReceipt, shareBookingReceiptPdf, type BookingReceiptData } from "@/lib/invoicePrint";
 import type { PaymentItem } from "@/api/types/payment.types";
 
 interface DigitalReceiptModalProps {
@@ -28,30 +29,24 @@ export const DigitalReceiptModal: React.FC<DigitalReceiptModalProps> = ({
 }) => {
   if (!payment) return null;
 
-  const handleShare = async () => {
-    const message = `🧾 TurfSlot Payment Receipt\n` +
-      `Receipt #: RCP-${payment.id.slice(0, 8).toUpperCase()}\n` +
-      `Customer: ${payment.customerName || "Customer"}\n` +
-      `Amount: ৳${payment.amount.toLocaleString()}\n` +
-      `Channel: ${payment.method.toUpperCase()}\n` +
-      (payment.transactionId ? `Txn ID: ${payment.transactionId}\n` : "") +
-      `Status: Verified / Completed\n` +
-      `Date: ${formatDate(payment.createdAt)}`;
+  const getReceiptData = (): BookingReceiptData => ({
+    receiptNo: payment.id ? payment.id.slice(0, 8).toUpperCase() : "RCP-0001",
+    date: formatDate(payment.createdAt),
+    bookingId: payment.bookingId,
+    customerName: payment.customerName || "Valued Customer",
+    customerPhone: payment.customerPhone,
+    amount: payment.amount,
+    method: payment.method,
+    transactionId: payment.transactionId,
+    status: payment.status || "COMPLETED",
+  });
 
-    if (Platform.OS === "web") {
-      if (typeof navigator !== "undefined" && navigator.clipboard) {
-        await navigator.clipboard.writeText(message);
-        showAlert("Copied", "Receipt details copied to clipboard!");
-      } else {
-        showAlert("Receipt", message);
-      }
-    } else {
-      try {
-        await Share.share({ message });
-      } catch (err) {
-        console.error(err);
-      }
-    }
+  const handlePrint = () => {
+    printBookingReceipt(getReceiptData());
+  };
+
+  const handleSharePdf = () => {
+    shareBookingReceiptPdf(getReceiptData());
   };
 
   return (
@@ -133,18 +128,27 @@ export const DigitalReceiptModal: React.FC<DigitalReceiptModalProps> = ({
             </View>
 
             {/* Actions */}
-            <View className="flex-row gap-2.5">
-              <Button
-                title="Share Receipt"
-                variant="primary"
-                onPress={handleShare}
-                className="flex-1"
-              />
+            <View className="gap-2">
+              <View className="flex-row gap-2">
+                <Pressable
+                  onPress={handlePrint}
+                  className="flex-1 py-3 px-3 rounded-xl bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700 border border-slate-200 dark:border-zinc-700 items-center justify-center flex-row gap-1.5"
+                >
+                  <Text className="text-slate-800 dark:text-white font-bold text-xs">🖨️ Print</Text>
+                </Pressable>
+                <Pressable
+                  onPress={handleSharePdf}
+                  className="flex-1 py-3 px-3 rounded-xl bg-emerald-600 active:bg-emerald-700 shadow-sm shadow-emerald-600/30 items-center justify-center flex-row gap-1.5"
+                >
+                  <Text className="text-white font-bold text-xs">📤 Share PDF</Text>
+                </Pressable>
+              </View>
+
               <Button
                 title="Close"
                 variant="secondary"
                 onPress={onClose}
-                className="flex-1"
+                className="w-full"
               />
             </View>
           </Card>

@@ -3,6 +3,7 @@ import { View, Text, Pressable, FlatList, TextInput, Modal, Alert, Platform } fr
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
 import { useAccounts, useCreateAccount } from "@/hooks/queries/useAccounting";
+import { useAuthStore } from "@/stores/auth.store";
 import { showAlert } from "@/lib/alerts";
 import type { AccountType, NormalSide, CreateAccountPayload } from "@/api/types/accounting.types";
 
@@ -26,6 +27,9 @@ const CODE_PREFIXES: Record<AccountType, string> = {
 
 export default function AccountsScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<"all" | AccountType>("all");
 
@@ -38,7 +42,7 @@ export default function AccountsScreen() {
   const [description, setDescription] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const { data: accounts = [], isLoading, isRefetching, refetch } = useAccounts();
+  const { data: accounts = [], isLoading, isRefetching, refetch } = useAccounts(undefined, isAdmin);
   const createAccountMutation = useCreateAccount();
 
   const filteredAccounts = accounts.filter((acc) => {
@@ -51,6 +55,32 @@ export default function AccountsScreen() {
 
     return matchesSearch && matchesType;
   });
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🔒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            The Chart of Accounts configuration and ledger structure are restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="View Financial Reports"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   const handleOpenAdd = () => {
     setErrorMsg("");

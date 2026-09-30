@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, TextInput } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Skeleton, Button } from "@/components/ui";
 import { useLedgerEntries } from "@/hooks/queries/useAccounting";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
 
 export default function LedgerScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  const { data: entries = [], isLoading, isRefetching, refetch } = useLedgerEntries({ limit: 100 });
+  const { data: entries = [], isLoading, isRefetching, refetch } = useLedgerEntries({ limit: 100 }, isAdmin);
 
   const toggleExpand = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
@@ -25,6 +29,32 @@ export default function LedgerScreen() {
       e.entryDate?.includes(searchQuery)
     );
   });
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🔒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            The General Ledger and raw double-entry journal auditing are restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="View Financial Reports"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper className="pb-4">

@@ -3,17 +3,48 @@ import { View, Text, Pressable, FlatList } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Skeleton } from "@/components/ui";
 import { usePartnerPayouts, useShareHistory } from "@/hooks/queries/usePartners";
+import { useAuthStore } from "@/stores/auth.store";
+import { Button } from "@/components/ui";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
 
 export default function PartnerHistoryScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+
   const [activeTab, setActiveTab] = useState<"payouts" | "reallocations">("payouts");
 
   const { data: payouts = [], isLoading: loadingPayouts, refetch: refetchPayouts, isRefetching: refetchingPayouts } =
-    usePartnerPayouts();
+    usePartnerPayouts(undefined, isAdmin);
   const { data: history = [], isLoading: loadingHistory, refetch: refetchHistory, isRefetching: refetchingHistory } =
-    useShareHistory();
+    useShareHistory(isAdmin);
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">📜</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            Historical company-wide payout logs and equity reallocation audits are restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="View Financial Reports"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper className="pb-4">

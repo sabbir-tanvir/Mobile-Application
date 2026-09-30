@@ -8,6 +8,7 @@ import {
   useUpdateProduct,
   useDeleteProduct,
 } from "@/hooks/queries/useProducts";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { showAlert, showConfirm } from "@/lib/alerts";
 import type { ProductItem, CreateProductPayload, ProductCategory } from "@/api/types/product.types";
@@ -22,10 +23,14 @@ const CATEGORIES: ProductCategory[] = [
   "other",
 ];
 
-const UNITS = ["pcs", "can", "bottle", "box", "pair", "set"];
+const UNITS = ["pcs", "can", "bottle", "box", "pack", "pair", "set", "kg", "litre"];
 
 export default function ProductsScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+  const isStaff = user?.role === "staff";
+  const canManageProducts = isAdmin;
 
   // Search & Filter
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,6 +59,10 @@ export default function ProductsScreen() {
   const totalProducts = products.length;
   const totalUnits = products.reduce((sum, p) => sum + (p.stock || 0), 0);
   const lowStockCount = products.filter((p) => p.stock <= (p.lowStockAlert || 5)).length;
+  const totalInventoryValue = products.reduce(
+    (sum, p) => sum + (p.stock || 0) * (p.price || 0),
+    0
+  );
 
   const filteredProducts = products.filter((p) => {
     const matchesSearch =
@@ -69,6 +78,10 @@ export default function ProductsScreen() {
   });
 
   const handleOpenAdd = () => {
+    if (!canManageProducts) {
+      showAlert("Restricted", "Only administrators can add new inventory items.");
+      return;
+    }
     setEditingProduct(null);
     setName("");
     setCategory("beverage");
@@ -84,6 +97,10 @@ export default function ProductsScreen() {
   };
 
   const handleOpenEdit = (p: ProductItem) => {
+    if (!canManageProducts) {
+      showAlert("Restricted", "Only administrators can edit product details.");
+      return;
+    }
     setEditingProduct(p);
     setName(p.name);
     setCategory((p.category as ProductCategory) || "beverage");
@@ -99,6 +116,10 @@ export default function ProductsScreen() {
   };
 
   const handleSubmit = async () => {
+    if (!canManageProducts) {
+      setErrorMsg("Unauthorized: Only administrators can save products.");
+      return;
+    }
     if (!name.trim()) {
       setErrorMsg("Product name is required");
       return;
@@ -138,6 +159,10 @@ export default function ProductsScreen() {
   };
 
   const handleDelete = (id: string, prodName: string) => {
+    if (!canManageProducts) {
+      showAlert("Restricted", "Only administrators can delete products.");
+      return;
+    }
     const confirmMsg = `Are you sure you want to delete "${prodName}" from inventory?`;
     showConfirm(
       "Delete Product",
@@ -167,17 +192,26 @@ export default function ProductsScreen() {
           </View>
         </View>
 
-        <Pressable
-          onPress={handleOpenAdd}
-          className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-600/30 flex-row items-center"
-        >
-          <Text className="text-white font-bold text-xs">+ Product</Text>
-        </Pressable>
+        {canManageProducts ? (
+          <Pressable
+            onPress={handleOpenAdd}
+            className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-600/30 flex-row items-center"
+          >
+            <Text className="text-white font-bold text-xs">+ Product</Text>
+          </Pressable>
+        ) : isStaff ? (
+          <Pressable
+            onPress={() => router.push("/pos" as any)}
+            className="px-3.5 py-2 rounded-xl bg-emerald-600 active:bg-emerald-700 border border-emerald-500 shadow-sm shadow-emerald-600/30 flex-row items-center"
+          >
+            <Text className="text-white font-bold text-xs">🛒 POS</Text>
+          </Pressable>
+        ) : null}
       </View>
 
       {/* KPI Cards */}
-      <View className="flex-row gap-2.5 mb-3.5">
-        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+      <View className="flex-row flex-wrap gap-2 mb-3.5">
+        <Card className="flex-1 min-w-[28%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
             Total Items
           </Text>
@@ -185,7 +219,7 @@ export default function ProductsScreen() {
           <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Catalog</Text>
         </Card>
 
-        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Card className="flex-1 min-w-[28%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
             Units in Stock
           </Text>
@@ -193,7 +227,7 @@ export default function ProductsScreen() {
           <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Available</Text>
         </Card>
 
-        <Card className="flex-1 bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Card className="flex-1 min-w-[28%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider">
             Low Stock
           </Text>
@@ -206,6 +240,20 @@ export default function ProductsScreen() {
           </Text>
           <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Alerts</Text>
         </Card>
+
+        {isAdmin ? (
+          <Card className="w-full bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 p-3 rounded-2xl flex-row items-center justify-between shadow-sm">
+            <View>
+              <Text className="text-emerald-800 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+                Total Inventory Valuation (Retail)
+              </Text>
+              <Text className="text-emerald-700 dark:text-emerald-400 font-black text-lg mt-0.5">
+                {formatTaka(totalInventoryValue)}
+              </Text>
+            </View>
+            <Badge label="Admin Only" variant="success" size="sm" />
+          </Card>
+        ) : null}
       </View>
 
       {/* Search Input */}
@@ -290,7 +338,7 @@ export default function ProductsScreen() {
                       <Text className="text-emerald-600 dark:text-emerald-400 font-black text-sm">
                         {formatTaka(item.price)}
                       </Text>
-                      {item.costPrice ? (
+                      {isAdmin && item.costPrice ? (
                         <>
                           <Text className="text-slate-300 dark:text-zinc-600">•</Text>
                           <Text className="text-slate-500 dark:text-zinc-500 text-xs">
@@ -321,24 +369,26 @@ export default function ProductsScreen() {
                             : "text-emerald-600 dark:text-emerald-400"
                         }`}
                       >
-                        {item.stock} {item.unit}
+                        {item.stock <= 0 ? "Out of Stock" : isLowStock ? `⚠️ Low: ${item.stock} ${item.unit}` : `${item.stock} ${item.unit}`}
                       </Text>
                     </View>
 
-                    <View className="flex-row gap-1">
-                      <Pressable
-                        onPress={() => handleOpenEdit(item)}
-                        className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 items-center justify-center active:bg-slate-200 dark:active:bg-zinc-700"
-                      >
-                        <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">⚙️</Text>
-                      </Pressable>
-                      <Pressable
-                        onPress={() => handleDelete(item.id, item.name)}
-                        className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-zinc-800 border border-rose-200 dark:border-zinc-700 items-center justify-center active:bg-rose-100 dark:active:bg-red-500/20"
-                      >
-                        <Text className="text-rose-600 dark:text-red-400 text-xs font-bold">🗑️</Text>
-                      </Pressable>
-                    </View>
+                    {canManageProducts && (
+                      <View className="flex-row gap-1">
+                        <Pressable
+                          onPress={() => handleOpenEdit(item)}
+                          className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 items-center justify-center active:bg-slate-200 dark:active:bg-zinc-700"
+                        >
+                          <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold">⚙️</Text>
+                        </Pressable>
+                        <Pressable
+                          onPress={() => handleDelete(item.id, item.name)}
+                          className="w-7 h-7 rounded-lg bg-rose-50 dark:bg-zinc-800 border border-rose-200 dark:border-zinc-700 items-center justify-center active:bg-rose-100 dark:active:bg-red-500/20"
+                        >
+                          <Text className="text-rose-600 dark:text-red-400 text-xs font-bold">🗑️</Text>
+                        </Pressable>
+                      </View>
+                    )}
                   </View>
                 </View>
 
@@ -420,15 +470,17 @@ export default function ProductsScreen() {
                     keyboardType="numeric"
                   />
                 </View>
-                <View className="flex-1">
-                  <Input
-                    label="Cost Price (BDT ৳)"
-                    placeholder="130"
-                    value={costPrice}
-                    onChangeText={setCostPrice}
-                    keyboardType="numeric"
-                  />
-                </View>
+                {isAdmin ? (
+                  <View className="flex-1">
+                    <Input
+                      label="Cost Price (BDT ৳)"
+                      placeholder="130"
+                      value={costPrice}
+                      onChangeText={setCostPrice}
+                      keyboardType="numeric"
+                    />
+                  </View>
+                ) : null}
               </View>
 
               <View className="flex-row gap-3">

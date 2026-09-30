@@ -8,6 +8,7 @@ import {
   useDeleteIncome,
   useAccounts,
 } from "@/hooks/queries/useAccounting";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
 import { showAlert, showConfirm } from "@/lib/alerts";
@@ -17,6 +18,9 @@ const PAYMENT_METHODS = ["cash", "bkash", "nagad", "rocket", "card"];
 
 export default function IncomesScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+
   const [searchQuery, setSearchQuery] = useState("");
 
   // Record Income Modal State
@@ -29,8 +33,8 @@ export default function IncomesScreen() {
   const [notes, setNotes] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const { data: incomes = [], isLoading, isRefetching, refetch } = useIncomes();
-  const { data: accounts = [] } = useAccounts();
+  const { data: incomes = [], isLoading, isRefetching, refetch } = useIncomes(undefined, isAdmin);
+  const { data: accounts = [] } = useAccounts(undefined, isAdmin);
   const createIncomeMutation = useCreateIncome();
   const deleteIncomeMutation = useDeleteIncome();
 
@@ -47,6 +51,32 @@ export default function IncomesScreen() {
       i.accountCode?.includes(searchQuery)
     );
   });
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🔒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            Logging and reviewing business manual incomes are restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="View Financial Reports"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   const handleOpenModal = () => {
     setErrorMsg("");

@@ -3,17 +3,47 @@ import { View, Text, Pressable, ScrollView, TextInput, Alert, Platform } from "r
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Button, Input, Skeleton } from "@/components/ui";
 import { usePartners, useReallocateShares } from "@/hooks/queries/usePartners";
+import { useAuthStore } from "@/stores/auth.store";
 import { showAlert } from "@/lib/alerts";
 import type { ReallocatePayload } from "@/api/types/partner.types";
 
 export default function ReallocateSharesScreen() {
   const router = useRouter();
-  const { data: partners = [], isLoading } = usePartners();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+
+  const { data: partners = [], isLoading } = usePartners(isAdmin);
   const reallocateMutation = useReallocateShares();
 
   const [shares, setShares] = useState<Record<string, number>>({});
   const [reason, setReason] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🔒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            Equity basis points reallocation across partners is restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="View Financial Reports"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   // Initialize shares map from partners
   useEffect(() => {

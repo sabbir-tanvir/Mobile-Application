@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { View, Text, Pressable, FlatList, TextInput, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Skeleton } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Skeleton } from "@/components/ui";
 import { useOrders, useUpdateOrderStatus } from "@/hooks/queries/useOrders";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
+import { printOrderInvoice, shareOrderInvoicePdf, type InvoiceData } from "@/lib/invoicePrint";
 import type { OrderItem, OrderLineItem } from "@/api/types/product.types";
 
 const STATUS_FILTERS = ["all", "confirmed", "delivered", "pending", "cancelled"];
 
 export default function OrdersScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("all");
 
@@ -50,6 +54,64 @@ export default function OrdersScreen() {
   const handleMarkDelivered = (orderId: string) => {
     updateStatusMutation.mutate({ id: orderId, payload: { status: "delivered" } });
   };
+
+  const buildInvoiceData = (item: OrderItem, parsedItems: OrderLineItem[]): InvoiceData => {
+    return {
+      invoiceNo: item.id ? item.id.slice(0, 8).toUpperCase() : "ORD-0001",
+      date: item.createdAt ? formatDate(item.createdAt) : new Date().toLocaleDateString(),
+      customerName: item.customerName || "Walk-in Customer",
+      customerPhone: item.customerPhone || "",
+      customerAddress: item.customerAddress || "",
+      servedBy: user?.name || "Counter Staff",
+      paymentMethod: item.paymentMethod || "cash",
+      paymentStatus: "PAID",
+      orderStatus: item.status || "CONFIRMED",
+      notes: item.notes || "",
+      items: parsedItems.map((prod) => ({
+        productName: prod.productName || "Product",
+        quantity: prod.quantity || 1,
+        unitPrice: prod.unitPrice || 0,
+        subtotal: prod.subtotal || (prod.quantity || 1) * (prod.unitPrice || 0),
+      })),
+      totalAmount: item.totalAmount || 0,
+    };
+  };
+
+  const handlePrintInvoice = (item: OrderItem, parsedItems: OrderLineItem[]) => {
+    const data = buildInvoiceData(item, parsedItems);
+    printOrderInvoice(data);
+  };
+
+  const handleShareInvoicePdf = (item: OrderItem, parsedItems: OrderLineItem[]) => {
+    const data = buildInvoiceData(item, parsedItems);
+    shareOrderInvoicePdf(data);
+  };
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🔒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            Historical retail order auditing and order status management are restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="Return to POS Terminal"
+              variant="primary"
+              onPress={() => router.replace("/pos" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper className="pb-4">
@@ -223,17 +285,32 @@ export default function OrdersScreen() {
                   </View>
                 )}
 
-                {/* Delivery Action Button */}
-                {isConfirmed && (
-                  <View className="mt-3 pt-2.5 border-t border-slate-100 dark:border-zinc-800 flex-row justify-end">
+                {/* Actions: Print, PDF, Delivery */}
+                <View className="mt-3 pt-2.5 border-t border-slate-100 dark:border-zinc-800 flex-row items-center justify-between">
+                  <View className="flex-row items-center gap-2">
+                    <Pressable
+                      onPress={() => handlePrintInvoice(item, parsedItems)}
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700 border border-slate-200 dark:border-zinc-700 flex-row items-center gap-1.5"
+                    >
+                      <Text className="text-slate-700 dark:text-zinc-200 text-xs font-bold">🖨️ Print</Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => handleShareInvoicePdf(item, parsedItems)}
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700 border border-slate-200 dark:border-zinc-700 flex-row items-center gap-1.5"
+                    >
+                      <Text className="text-slate-700 dark:text-zinc-200 text-xs font-bold">📤 PDF</Text>
+                    </Pressable>
+                  </View>
+
+                  {isConfirmed && (
                     <Pressable
                       onPress={() => handleMarkDelivered(item.id)}
                       className="px-3.5 py-1.5 rounded-xl bg-emerald-600 active:bg-emerald-700 shadow-sm shadow-emerald-600/30"
                     >
                       <Text className="text-white font-bold text-xs">✓ Mark Delivered</Text>
                     </Pressable>
-                  </View>
-                )}
+                  )}
+                </View>
               </Card>
             );
           }}

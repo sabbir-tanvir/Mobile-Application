@@ -4,8 +4,10 @@ import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
 import { useProducts } from "@/hooks/queries/useProducts";
 import { useCreateOrder } from "@/hooks/queries/useOrders";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { showAlert } from "@/lib/alerts";
+import { printOrderInvoice, shareOrderInvoicePdf, type InvoiceData } from "@/lib/invoicePrint";
 import type { ProductItem, OrderLineItem, CreateOrderPayload } from "@/api/types/product.types";
 
 const CATEGORIES = ["All", "beverage", "snack", "food", "equipment", "clothing", "other"];
@@ -13,6 +15,10 @@ const PAYMENT_METHODS = ["cash", "bkash", "nagad", "rocket", "card"];
 
 export default function PosScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
+  const isStaff = user?.role === "staff";
+  const canOperatePOS = isAdmin || isStaff;
 
   // Search & Filter
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,6 +34,8 @@ export default function PosScreen() {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [checkoutNotes, setCheckoutNotes] = useState("");
   const [checkoutError, setCheckoutError] = useState("");
+  const [completedInvoice, setCompletedInvoice] = useState<InvoiceData | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const { data: products = [], isLoading, isRefetching, refetch } = useProducts();
   const createOrderMutation = useCreateOrder();
@@ -127,18 +135,63 @@ export default function PosScreen() {
         notes: checkoutNotes.trim() || undefined,
       };
 
-      await createOrderMutation.mutateAsync(payload);
+      const created = await createOrderMutation.mutateAsync(payload);
+      const invoiceData: InvoiceData = {
+        invoiceNo: created?.id ? created.id.slice(0, 8).toUpperCase() : `ORD-${Date.now().toString().slice(-4)}`,
+        date: new Date().toLocaleDateString(),
+        customerName: payload.customerName || "Walk-in Customer",
+        customerPhone: payload.customerPhone,
+        servedBy: user?.fullName || user?.name || "Counter Staff",
+        paymentMethod: payload.paymentMethod,
+        paymentStatus: "PAID",
+        orderStatus: "CONFIRMED",
+        notes: payload.notes,
+        items: cart.map((c) => ({
+          productName: c.productName,
+          quantity: c.quantity,
+          unitPrice: c.unitPrice,
+          subtotal: c.subtotal,
+        })),
+        totalAmount: totalCartAmount,
+      };
+
+      setCompletedInvoice(invoiceData);
       setCart([]);
       setShowCartModal(false);
       setCustomerName("");
       setCustomerPhone("");
       setCheckoutNotes("");
-
-      showAlert("Order Completed", "Sale recorded and stock decremented successfully!");
+      setShowSuccessModal(true);
     } catch (err: any) {
       setCheckoutError(err.message || "Failed to complete checkout");
     }
   };
+
+  if (!canOperatePOS) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🛒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Staff Access Only</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            The Point of Sale Register is restricted to authorized store staff and administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="Browse Product Catalog"
+              variant="primary"
+              onPress={() => router.replace("/pos/products" as any)}
+            />
+            <Button
+              title="Back to Dashboard"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper className="pb-4">
@@ -152,8 +205,11 @@ export default function PosScreen() {
             <Text className="text-slate-800 dark:text-white text-base font-bold">←</Text>
           </Pressable>
           <View>
-            <Text className="text-slate-900 dark:text-white text-xl font-black tracking-tight">Sales POS</Text>
-            <Text className="text-slate-500 dark:text-zinc-400 text-xs">Drinks, Snacks & Equipment Counter</Text>
+            <View className="flex-row items-center gap-2">
+              <Text className="text-slate-900 dark:text-white text-xl font-black tracking-tight">Sales POS</Text>
+              <Badge label={`Cashier: ${user?.fullName || user?.name || "Staff"}`} variant="info" size="sm" />
+            </View>
+            <Text className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">Drinks, Snacks & Equipment Counter</Text>
           </View>
         </View>
 
@@ -162,15 +218,19 @@ export default function PosScreen() {
           <Pressable
             onPress={() => router.push("/pos/products" as any)}
             className="w-10 h-10 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
+            accessibilityLabel="Products Inventory"
           >
             <Text className="text-base">📦</Text>
           </Pressable>
-          <Pressable
-            onPress={() => router.push("/pos/orders" as any)}
-            className="w-10 h-10 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
-          >
-            <Text className="text-base">📋</Text>
-          </Pressable>
+          {isAdmin && (
+            <Pressable
+              onPress={() => router.push("/pos/orders" as any)}
+              className="w-10 h-10 rounded-2xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center justify-center shadow-sm shadow-slate-200/50 dark:shadow-none active:scale-95"
+              accessibilityLabel="Order Transactions"
+            >
+              <Text className="text-base">📋</Text>
+            </Pressable>
+          )}
         </View>
       </View>
 
@@ -470,6 +530,79 @@ export default function PosScreen() {
                 />
               </View>
             </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Sale Success & Invoice Modal */}
+      <Modal visible={showSuccessModal} transparent animationType="fade">
+        <View className="flex-1 bg-black/60 dark:bg-black/80 items-center justify-center p-4">
+          <View className="w-full max-w-sm">
+            <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-6 rounded-3xl shadow-2xl items-center">
+              <View className="w-14 h-14 rounded-full bg-emerald-50 dark:bg-emerald-500/20 border border-emerald-200 dark:border-emerald-500/40 items-center justify-center mb-3 shadow-xs">
+                <Text className="text-emerald-600 dark:text-emerald-400 text-2xl font-black">✓</Text>
+              </View>
+              <Text className="text-slate-900 dark:text-white font-black text-xl tracking-tight">Sale Completed!</Text>
+              <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mt-1 mb-4">
+                Invoice #{completedInvoice?.invoiceNo} recorded successfully
+              </Text>
+
+              {completedInvoice && (
+                <View className="w-full bg-slate-50 dark:bg-zinc-950/80 rounded-2xl p-4 border border-slate-200/80 dark:border-zinc-800 mb-4 gap-2">
+                  <View className="flex-row justify-between items-center">
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Customer</Text>
+                    <Text className="text-slate-900 dark:text-white text-xs font-bold">
+                      {completedInvoice.customerName}
+                    </Text>
+                  </View>
+                  <View className="flex-row justify-between items-center">
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Payment Method</Text>
+                    <Text className="text-slate-900 dark:text-white text-xs font-bold uppercase">
+                      {completedInvoice.paymentMethod}
+                    </Text>
+                  </View>
+                  <View className="flex-row justify-between items-center">
+                    <Text className="text-slate-500 dark:text-zinc-400 text-xs">Items Sold</Text>
+                    <Text className="text-slate-900 dark:text-white text-xs font-bold">
+                      {completedInvoice.items.reduce((s, i) => s + i.quantity, 0)} items
+                    </Text>
+                  </View>
+                  <View className="flex-row justify-between items-center pt-2 border-t border-slate-200/60 dark:border-zinc-800">
+                    <Text className="text-slate-900 dark:text-white text-xs font-bold">Grand Total</Text>
+                    <Text className="text-emerald-600 dark:text-emerald-400 text-lg font-black">
+                      {formatTaka(completedInvoice.totalAmount)}
+                    </Text>
+                  </View>
+                </View>
+              )}
+
+              <View className="w-full gap-2">
+                <View className="flex-row gap-2">
+                  <Pressable
+                    onPress={() => completedInvoice && printOrderInvoice(completedInvoice)}
+                    className="flex-1 py-3 px-2 rounded-xl bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700 border border-slate-200 dark:border-zinc-700 items-center justify-center flex-row gap-1.5"
+                  >
+                    <Text className="text-slate-800 dark:text-white font-bold text-xs">🖨️ Print</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => completedInvoice && shareOrderInvoicePdf(completedInvoice)}
+                    className="flex-1 py-3 px-2 rounded-xl bg-slate-100 dark:bg-zinc-800 active:bg-slate-200 dark:active:bg-zinc-700 border border-slate-200 dark:border-zinc-700 items-center justify-center flex-row gap-1.5"
+                  >
+                    <Text className="text-slate-800 dark:text-white font-bold text-xs">📤 PDF</Text>
+                  </Pressable>
+                </View>
+
+                <Button
+                  title="+ New Sale"
+                  variant="primary"
+                  onPress={() => {
+                    setShowSuccessModal(false);
+                    setCompletedInvoice(null);
+                  }}
+                  className="w-full bg-emerald-600 active:bg-emerald-700 mt-1"
+                />
+              </View>
+            </Card>
           </View>
         </View>
       </Modal>

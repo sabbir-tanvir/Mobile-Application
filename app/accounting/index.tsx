@@ -8,29 +8,61 @@ import {
   useIncomes,
   useLedgerEntries,
 } from "@/hooks/queries/useAccounting";
+import { useAuthStore } from "@/stores/auth.store";
+import { Button } from "@/components/ui";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
 
 export default function AccountingHubScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
 
-  const { data: accounts = [], isLoading: loadingAccounts, refetch: refetchAccounts } = useAccounts();
-  const { data: expenses = [], isLoading: loadingExpenses, refetch: refetchExpenses } = useExpenses();
-  const { data: incomes = [], isLoading: loadingIncomes, refetch: refetchIncomes } = useIncomes();
-  const { data: ledgerEntries = [], isLoading: loadingLedger, refetch: refetchLedger } = useLedgerEntries({ limit: 5 });
+  const { data: accounts = [], isLoading: loadingAccounts, refetch: refetchAccounts } = useAccounts(undefined, isAdmin);
+  const { data: expenses = [], isLoading: loadingExpenses, refetch: refetchExpenses } = useExpenses(undefined, isAdmin);
+  const { data: incomes = [], isLoading: loadingIncomes, refetch: refetchIncomes } = useIncomes(undefined, isAdmin);
+  const { data: ledgerEntries = [], isLoading: loadingLedger, refetch: refetchLedger } = useLedgerEntries({ limit: 5 }, isAdmin);
 
   const isRefreshing = false;
   const onRefresh = () => {
-    refetchAccounts();
-    refetchExpenses();
-    refetchIncomes();
-    refetchLedger();
+    if (isAdmin) {
+      refetchAccounts();
+      refetchExpenses();
+      refetchIncomes();
+      refetchLedger();
+    }
   };
 
   // Convert amounts from Poisha (divide by 100)
   const totalExpenseTaka = expenses.reduce((sum, e) => sum + (e.amount || 0), 0) / 100;
   const totalIncomeTaka = incomes.reduce((sum, i) => sum + (i.amount || 0), 0) / 100;
   const netManualFlow = totalIncomeTaka - totalExpenseTaka;
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">🔒</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            Financial Accounting, Chart of Accounts, and General Ledger auditing are reserved for Administrators. You can view your profit share and statements in Financial Reports.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="Go to Financial Reports"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   return (
     <ScreenWrapper className="pb-6">

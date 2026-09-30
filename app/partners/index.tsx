@@ -9,6 +9,7 @@ import {
   usePartnerPayouts,
   useCreatePayout,
 } from "@/hooks/queries/usePartners";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { showAlert } from "@/lib/alerts";
 import type { PartnerItem, CreatePartnerPayload, UpdatePartnerPayload } from "@/api/types/partner.types";
@@ -17,6 +18,8 @@ const PAYOUT_METHODS = ["bank_transfer", "cash", "bkash", "nagad"];
 
 export default function PartnersScreen() {
   const router = useRouter();
+  const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin" || user?.role === "owner";
 
   // Dialog State: Add / Edit Partner
   const [showPartnerModal, setShowPartnerModal] = useState(false);
@@ -34,8 +37,8 @@ export default function PartnersScreen() {
   const [payoutNotes, setPayoutNotes] = useState("");
   const [payoutError, setPayoutError] = useState("");
 
-  const { data: partners = [], isLoading, isRefetching, refetch } = usePartners();
-  const { data: allPayouts = [] } = usePartnerPayouts();
+  const { data: partners = [], isLoading, isRefetching, refetch } = usePartners(isAdmin);
+  const { data: allPayouts = [] } = usePartnerPayouts(undefined, isAdmin);
   const createPartnerMutation = useCreatePartner();
   const updatePartnerMutation = useUpdatePartner();
   const createPayoutMutation = useCreatePayout();
@@ -44,6 +47,32 @@ export default function PartnersScreen() {
   const totalPartners = partners.length;
   const totalBP = partners.reduce((sum, p) => sum + (p.shareBp || 0), 0);
   const totalPayoutsTaka = allPayouts.reduce((sum, p) => sum + (p.amount || 0), 0) / 100;
+
+  if (!isAdmin) {
+    return (
+      <ScreenWrapper className="p-4 items-center justify-center">
+        <Card className="p-8 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 items-center max-w-sm rounded-3xl shadow-sm">
+          <Text className="text-4xl mb-3">💼</Text>
+          <Text className="text-slate-900 dark:text-white text-lg font-bold mb-1">Admin Access Required</Text>
+          <Text className="text-slate-500 dark:text-zinc-400 text-xs text-center mb-5 leading-relaxed">
+            Equity partner management, basis points reallocation, and dividend payout distribution are restricted to Administrators.
+          </Text>
+          <View className="w-full gap-2.5">
+            <Button
+              title="View My Partner Report"
+              variant="primary"
+              onPress={() => router.replace("/reports" as any)}
+            />
+            <Button
+              title="Back"
+              variant="secondary"
+              onPress={() => router.back()}
+            />
+          </View>
+        </Card>
+      </ScreenWrapper>
+    );
+  }
 
   const handleOpenAddPartner = () => {
     setEditingPartner(null);

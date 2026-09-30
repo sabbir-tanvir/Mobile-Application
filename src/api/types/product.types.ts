@@ -51,6 +51,7 @@ export interface OrderItem {
   id: string;
   customerName?: string;
   customerPhone?: string;
+  customerAddress?: string;
   items: OrderLineItem[] | string;
   totalAmount: number;
   status: "confirmed" | "pending" | "delivered" | "cancelled" | string;
@@ -63,6 +64,7 @@ export interface OrderItem {
 export interface CreateOrderPayload {
   customerName?: string;
   customerPhone?: string;
+  customerAddress?: string;
   items: OrderLineItem[] | string;
   totalAmount: number;
   status?: string;
