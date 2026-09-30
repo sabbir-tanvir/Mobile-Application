@@ -57,7 +57,7 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
         ) : undefined
       }
     >
-      <View className={cn("flex-1 px-4 py-2", className)} {...props}>
+      <View className={cn("w-full px-4 py-2 flex-grow", className)} {...props}>
         {children}
       </View>
     </ScrollView>

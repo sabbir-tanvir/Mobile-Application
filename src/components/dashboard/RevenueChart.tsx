@@ -54,7 +54,7 @@ export const RevenueChart = ({ bookings = [] }: { bookings?: Booking[] }) => {
           yAxisTextNumberOfLines={1}
           maxValue={maxValueRounded}
           noOfSections={4}
-          formatYLabel={(label: string) => `৳${label}`}
+          formatYLabel={(label: string) => `৳${Math.round(Number(label))}`}
           pointerConfig={{
             pointerStripHeight: 160,
             pointerStripColor: 'lightgray',

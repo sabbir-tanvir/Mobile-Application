@@ -117,25 +117,35 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
 
       {/* Operational Stats */}
       <View className="flex-row gap-2 mb-5">
-        <Card variant="surface" className="flex-1 p-2.5">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Turfs</Text>
-          <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
-            {turfs.length} Grounds
-          </Text>
-        </Card>
+        <Pressable
+          onPress={() => router.push("/(tabs)/explore" as any)}
+          className="flex-1 active:opacity-80"
+        >
+          <Card variant="surface" className="p-2.5">
+            <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Turfs</Text>
+            <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
+              {turfs.length} Grounds
+            </Text>
+          </Card>
+        </Pressable>
 
-        <Card variant="surface" className="flex-1 p-2.5">
-          <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Bookings</Text>
-          <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
-            {report?.bookingCount ?? bookings.length} Total
-          </Text>
-        </Card>
+        <Pressable
+          onPress={() => router.push("/(tabs)/bookings" as any)}
+          className="flex-1 active:opacity-80"
+        >
+          <Card variant="surface" className="p-2.5">
+            <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Bookings</Text>
+            <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
+              {report?.bookingCount ?? bookings.length} Total
+            </Text>
+          </Card>
+        </Pressable>
 
         <Pressable
           onPress={() => router.push("/partners" as any)}
           className="flex-1 active:opacity-80"
         >
-          <Card variant="surface" className="p-2.5 h-full">
+          <Card variant="surface" className="p-2.5">
             <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Partners</Text>
             <Text className="text-purple-600 dark:text-purple-400 text-sm font-black mt-0.5" numberOfLines={1}>
               {report?.partnerCount ?? 1} Active
