@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
+import { cn } from "@/lib/cn";
 
 export type BadgeVariant =
   | "pending"
@@ -16,12 +17,16 @@ export interface BadgeProps {
   label: string;
   variant?: BadgeVariant;
   size?: "sm" | "md";
+  className?: string;
+  textClassName?: string;
 }
 
 export const Badge: React.FC<BadgeProps> = ({
   label,
   variant = "default",
   size = "md",
+  className = "",
+  textClassName = "",
 }) => {
   const getBadgeStyles = () => {
     switch (variant) {
@@ -63,16 +68,26 @@ export const Badge: React.FC<BadgeProps> = ({
     }
   };
 
-  const sizeStyles =
-    size === "sm"
-      ? "px-2 py-0.5 text-[10px]"
-      : "px-2.5 py-1 text-xs";
+  const containerPadding = size === "sm" ? "px-2 py-0.5" : "px-2.5 py-1";
+  const textSize = size === "sm" ? "text-[10px]" : "text-xs";
 
   return (
     <View
-      className={`border rounded-full flex-row items-center self-start ${getBadgeStyles()} ${sizeStyles}`}
+      className={cn(
+        "border rounded-full flex-row items-center self-start",
+        getBadgeStyles(),
+        containerPadding,
+        className
+      )}
     >
-      <Text className={`font-bold capitalize ${getBadgeTextStyles()}`}>
+      <Text
+        className={cn(
+          "font-bold capitalize",
+          textSize,
+          getBadgeTextStyles(),
+          textClassName
+        )}
+      >
         {label}
       </Text>
     </View>

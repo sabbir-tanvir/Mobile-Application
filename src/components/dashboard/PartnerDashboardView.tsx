@@ -3,6 +3,7 @@ import { View, Text, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { Card, Badge, Skeleton, Button } from "@/components/ui";
 import { BookingCard } from "@/components/booking/BookingCard";
+import { BookingHeatmap } from "@/components/dashboard/BookingHeatmap";
 import { formatTaka } from "@/lib/currency";
 import type { DashboardReport } from "@/api/types/report.types";
 import type { Booking } from "@/api/types/booking.types";
@@ -154,6 +155,9 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
           </Text>
         </Pressable>
       </View>
+
+      {/* Booking Heatmap Component */}
+      <BookingHeatmap bookings={bookings} />
 
       {/* Bookings Activity */}
       <View>

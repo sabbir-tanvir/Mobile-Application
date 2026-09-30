@@ -3,6 +3,7 @@ import { View, Text, Pressable } from "react-native";
 import { useRouter } from "expo-router";
 import { Card, Badge, Skeleton, Button } from "@/components/ui";
 import { BookingCard } from "@/components/booking/BookingCard";
+import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { formatTaka } from "@/lib/currency";
 import type { DashboardReport } from "@/api/types/report.types";
 import type { Booking } from "@/api/types/booking.types";
@@ -60,15 +61,23 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
         </View>
 
         {isLoadingReport ? (
-          <View className="grid grid-cols-2 gap-2.5 mb-2">
-            <Skeleton height={90} borderRadius={16} />
-            <Skeleton height={90} borderRadius={16} />
-            <Skeleton height={90} borderRadius={16} />
-            <Skeleton height={90} borderRadius={16} />
+          <View className="flex-row flex-wrap justify-between gap-y-2.5 mb-2">
+            <View className="w-[48%]">
+              <Skeleton height={90} borderRadius={16} />
+            </View>
+            <View className="w-[48%]">
+              <Skeleton height={90} borderRadius={16} />
+            </View>
+            <View className="w-[48%]">
+              <Skeleton height={90} borderRadius={16} />
+            </View>
+            <View className="w-[48%]">
+              <Skeleton height={90} borderRadius={16} />
+            </View>
           </View>
         ) : (
-          <View className="grid grid-cols-2 gap-2.5">
-            <Card className="p-3.5">
+          <View className="flex-row flex-wrap justify-between gap-y-2.5">
+            <Card className="w-[48%] p-3.5">
               <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Net Profit</Text>
               <Text className="text-emerald-600 dark:text-emerald-400 text-xl font-black mt-1">
                 {formatFin(report?.netProfit)}
@@ -76,7 +85,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Current Month</Text>
             </Card>
 
-            <Card className="p-3.5">
+            <Card className="w-[48%] p-3.5">
               <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Total Revenue</Text>
               <Text className="text-blue-600 dark:text-blue-400 text-xl font-black mt-1">
                 {formatFin(report?.totalRevenue)}
@@ -84,7 +93,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">Booking & Sales</Text>
             </Card>
 
-            <Card className="p-3.5">
+            <Card className="w-[48%] p-3.5">
               <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Cash on Hand</Text>
               <Text className="text-amber-600 dark:text-amber-400 text-xl font-black mt-1">
                 {formatFin(report?.totalCash)}
@@ -92,7 +101,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               <Text className="text-slate-400 dark:text-zinc-500 text-[10px] mt-0.5">All Accounts</Text>
             </Card>
 
-            <Card className="p-3.5">
+            <Card className="w-[48%] p-3.5">
               <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Receivables</Text>
               <Text className="text-purple-600 dark:text-purple-400 text-xl font-black mt-1">
                 {formatFin(report?.totalReceivables)}
@@ -102,6 +111,9 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           </View>
         )}
       </View>
+
+      {/* Revenue Chart Component */}
+      {!isLoadingReport && <RevenueChart bookings={bookings} />}
 
       {/* Operational Stats */}
       <View className="flex-row gap-2 mb-5">

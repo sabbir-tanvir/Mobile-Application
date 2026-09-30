@@ -1,5 +1,6 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
+import { cn } from "@/lib/cn";
 
 export interface CardProps extends ViewProps {
   variant?: "default" | "elevated" | "outlined" | "surface";
@@ -29,7 +30,7 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <View
-      className={`rounded-2xl p-4 ${getVariantStyles()} ${className}`}
+      className={cn("rounded-2xl p-4", getVariantStyles(), className)}
       {...props}
     >
       {children}

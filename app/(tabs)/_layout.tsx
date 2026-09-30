@@ -1,9 +1,10 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { View, Platform } from "react-native";
+import { View, Platform, Pressable } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Home, Compass, CalendarDays, Trophy, User, LucideIcon } from "lucide-react-native";
+import { Home, Compass, CalendarDays, Trophy, User, Plus, LucideIcon } from "lucide-react-native";
 import { triggerHaptic } from "@/lib/haptics";
+import { useRouter } from "expo-router";
 import { useThemeStore } from "@/stores/theme.store";
 
 interface TabItemProps {
@@ -40,6 +41,7 @@ function TabItem({ icon: Icon, focused, isDark }: TabItemProps) {
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
   const isDark = useThemeStore((s) => s.isDark);
+  const router = useRouter();
 
   const bottomPadding = insets.bottom > 0 ? insets.bottom : 8;
   const barHeight =
@@ -98,6 +100,25 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="create"
+        options={{
+          title: "",
+          tabBarButton: (props) => (
+            <View className="items-center justify-center top-[-18px]">
+              <Pressable
+                onPress={() => {
+                  triggerHaptic();
+                  router.push("/booking/create" as any);
+                }}
+                className="w-[60px] h-[60px] rounded-full bg-emerald-500 items-center justify-center border-[4px] border-white dark:border-[#09090b] shadow-lg shadow-emerald-600/40 dark:shadow-emerald-900/60 active:scale-95 transition-transform"
+              >
+                <Plus size={32} color="#ffffff" strokeWidth={2.5} />
+              </Pressable>
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="bookings"
         listeners={{ tabPress: handleTabPress }}
         options={{
@@ -111,6 +132,7 @@ export default function TabsLayout() {
         name="tournaments"
         listeners={{ tabPress: handleTabPress }}
         options={{
+          href: null,
           title: "Tournaments",
           tabBarIcon: ({ focused }) => (
             <TabItem icon={Trophy} focused={focused} isDark={isDark} />

@@ -16,7 +16,7 @@ export function BracketVisualizer({
 }: BracketVisualizerProps) {
   if (format === "league" || format === "group_stage") {
     return (
-      <View className="space-y-4">
+      <View className="gap-4">
         <View className="flex-row items-center justify-between">
           <Text className="text-slate-900 dark:text-white font-bold text-base">
             {format === "league" ? "🏆 League Table & Fixtures" : "⚡ Group Standings"}
@@ -31,7 +31,7 @@ export function BracketVisualizer({
             </Text>
           </Card>
         ) : (
-          <View className="space-y-3">
+          <View className="gap-3">
             {/* Standings Table */}
             <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-0 overflow-hidden rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
               <View className="flex-row bg-slate-50 dark:bg-zinc-950 px-3.5 py-2.5 border-b border-slate-200/80 dark:border-zinc-800">
@@ -76,7 +76,7 @@ export function BracketVisualizer({
               📅 Match Fixtures
             </Text>
             {teams.length >= 2 ? (
-              <View className="space-y-2">
+              <View className="gap-2">
                 {Array.from({ length: Math.min(teams.length - 1, 3) }).map((_, rIdx) => (
                   <Card key={rIdx} className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800/80 p-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
                     <Text className="text-emerald-600 dark:text-emerald-400 font-bold text-[11px] mb-2 uppercase">
@@ -116,7 +116,7 @@ export function BracketVisualizer({
   const quarterCount = Math.floor(bracketSlots / 2);
 
   return (
-    <View className="space-y-4">
+    <View className="gap-4">
       <View className="flex-row items-center justify-between">
         <Text className="text-slate-900 dark:text-white font-bold text-base">⚔️ Tournament Bracket Tree</Text>
         <Badge label="SINGLE ELIMINATION" variant="warning" size="sm" />
@@ -125,7 +125,7 @@ export function BracketVisualizer({
       <ScrollView horizontal showsHorizontalScrollIndicator={false} className="py-2">
         <View className="flex-row gap-4 items-start">
           {/* Round 1 / Quarterfinals */}
-          <View className="w-52 space-y-3">
+          <View className="w-52 gap-3">
             <View className="bg-slate-100 dark:bg-zinc-800/60 py-1.5 px-3 rounded-xl border border-slate-200 dark:border-zinc-700/50">
               <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold text-center uppercase tracking-wider">
                 {quarterCount >= 4 ? "Quarterfinals" : "Semifinals"}
@@ -139,7 +139,7 @@ export function BracketVisualizer({
               return (
                 <Card
                   key={mIdx}
-                  className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 rounded-2xl space-y-1.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
+                  className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 rounded-2xl gap-1.5 shadow-sm shadow-slate-200/50 dark:shadow-none"
                 >
                   <View className="flex-row items-center justify-between">
                     <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold">MATCH {mIdx + 1}</Text>
@@ -188,7 +188,7 @@ export function BracketVisualizer({
           </View>
 
           {/* Semifinals */}
-          <View className="w-52 space-y-3">
+          <View className="w-52 gap-3">
             <View className="bg-slate-100 dark:bg-zinc-800/60 py-1.5 px-3 rounded-xl border border-slate-200 dark:border-zinc-700/50">
               <Text className="text-slate-700 dark:text-zinc-300 text-xs font-bold text-center uppercase tracking-wider">
                 Semifinals
@@ -198,7 +198,7 @@ export function BracketVisualizer({
             {Array.from({ length: Math.max(Math.floor(quarterCount / 2), 2) }).map((_, sIdx) => (
               <Card
                 key={sIdx}
-                className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 rounded-2xl space-y-1.5 my-3 shadow-sm shadow-slate-200/50 dark:shadow-none"
+                className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-2.5 rounded-2xl gap-1.5 my-3 shadow-sm shadow-slate-200/50 dark:shadow-none"
               >
                 <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-bold">SEMI {sIdx + 1}</Text>
                 <View className="bg-slate-50/50 dark:bg-zinc-950/40 p-2 rounded-xl border border-dashed border-slate-200 dark:border-zinc-800/60">
@@ -212,14 +212,14 @@ export function BracketVisualizer({
           </View>
 
           {/* Championship Final */}
-          <View className="w-56 space-y-3">
+          <View className="w-56 gap-3">
             <View className="bg-amber-50 dark:bg-amber-950/40 py-1.5 px-3 rounded-xl border border-amber-300 dark:border-amber-600/40">
               <Text className="text-amber-700 dark:text-amber-400 text-xs font-extrabold text-center uppercase tracking-wider">
                 🏆 Grand Final
               </Text>
             </View>
 
-            <Card className="bg-white dark:bg-zinc-900 border border-amber-300 dark:border-amber-600/30 p-3.5 rounded-2xl space-y-2 my-8 shadow-md">
+            <Card className="bg-white dark:bg-zinc-900 border border-amber-300 dark:border-amber-600/30 p-3.5 rounded-2xl gap-2 my-8 shadow-md">
               <Text className="text-amber-600 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest text-center">
                 CHAMPIONSHIP DECIDER
               </Text>

@@ -8,6 +8,7 @@ import {
   GestureResponderEvent,
 } from "react-native";
 import { triggerHaptic } from "@/lib/haptics";
+import { cn } from "@/lib/cn";
 
 export interface ButtonProps extends PressableProps {
   title: string;
@@ -17,6 +18,8 @@ export interface ButtonProps extends PressableProps {
   icon?: React.ReactNode;
   iconRight?: React.ReactNode;
   enableHaptics?: boolean;
+  className?: string;
+  textClassName?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -30,34 +33,47 @@ export const Button: React.FC<ButtonProps> = ({
   enableHaptics = true,
   onPress,
   className = "",
+  textClassName = "",
   ...props
 }) => {
   const getVariantStyles = () => {
     switch (variant) {
       case "primary":
-        return "bg-emerald-600 active:bg-emerald-700 text-white shadow-sm shadow-emerald-950/20";
+        return "bg-emerald-600 active:bg-emerald-700 shadow-sm shadow-emerald-950/20";
       case "secondary":
         return "bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 active:bg-slate-200 dark:active:bg-zinc-700";
       case "outline":
         return "bg-transparent border border-emerald-600 dark:border-emerald-500 active:bg-emerald-50 dark:active:bg-emerald-950/30";
       case "danger":
-        return "bg-red-600 active:bg-red-700 text-white shadow-sm shadow-red-950/20";
+        return "bg-red-600 active:bg-red-700 shadow-sm shadow-red-950/20";
       case "ghost":
         return "bg-transparent active:bg-slate-100 dark:active:bg-zinc-800/60";
       default:
-        return "bg-emerald-600 text-white";
+        return "bg-emerald-600";
     }
   };
 
   const getSizeStyles = () => {
     switch (size) {
       case "sm":
-        return "py-2 px-3 text-xs rounded-xl";
+        return "py-2 px-3 rounded-xl";
       case "lg":
-        return "py-4 px-6 text-lg rounded-2xl";
+        return "py-4 px-6 rounded-2xl";
       case "md":
       default:
-        return "py-3 px-4 text-sm rounded-xl";
+        return "py-3 px-4 rounded-xl";
+    }
+  };
+
+  const getTextSizeStyles = () => {
+    switch (size) {
+      case "sm":
+        return "text-xs";
+      case "lg":
+        return "text-lg";
+      case "md":
+      default:
+        return "text-sm";
     }
   };
 
@@ -91,9 +107,13 @@ export const Button: React.FC<ButtonProps> = ({
       accessibilityRole="button"
       disabled={isDisabled}
       onPress={handlePress}
-      className={`flex-row items-center justify-center gap-2 active:scale-[0.98] ${getVariantStyles()} ${getSizeStyles()} ${
-        isDisabled ? "opacity-50" : ""
-      } ${className}`}
+      className={cn(
+        "flex-row items-center justify-center gap-2 active:scale-[0.98]",
+        getVariantStyles(),
+        getSizeStyles(),
+        isDisabled && "opacity-50",
+        className
+      )}
       {...props}
     >
       {loading ? (
@@ -104,7 +124,14 @@ export const Button: React.FC<ButtonProps> = ({
       ) : (
         <>
           {icon && <View className="mr-1">{icon}</View>}
-          <Text className={`text-center ${getTextVariantStyles()}`}>
+          <Text
+            className={cn(
+              "text-center",
+              getTextSizeStyles(),
+              getTextVariantStyles(),
+              textClassName
+            )}
+          >
             {title}
           </Text>
           {iconRight && <View className="ml-1">{iconRight}</View>}

@@ -7,9 +7,12 @@ import {
   ViewProps,
   KeyboardAvoidingView,
   Platform,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useThemeStore } from "@/stores/theme.store";
+import { cn } from "@/lib/cn";
 
 export interface ScreenWrapperProps extends ViewProps {
   children: React.ReactNode;
@@ -18,6 +21,8 @@ export interface ScreenWrapperProps extends ViewProps {
   onRefresh?: () => void;
   withKeyboardAvoid?: boolean;
   className?: string;
+  contentContainerClassName?: string;
+  contentContainerStyle?: StyleProp<ViewStyle>;
   edges?: ("top" | "right" | "bottom" | "left")[];
 }
 
@@ -28,6 +33,8 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   onRefresh,
   withKeyboardAvoid = true,
   className = "",
+  contentContainerClassName = "",
+  contentContainerStyle,
   edges = ["top", "left", "right"],
   ...props
 }) => {
@@ -36,7 +43,8 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
   const content = scrollable ? (
     <ScrollView
       className="flex-1"
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerClassName={contentContainerClassName}
+      contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
       showsVerticalScrollIndicator={false}
       refreshControl={
         onRefresh ? (
@@ -49,12 +57,12 @@ export const ScreenWrapper: React.FC<ScreenWrapperProps> = ({
         ) : undefined
       }
     >
-      <View className={`flex-1 px-4 py-2 ${className}`} {...props}>
+      <View className={cn("flex-1 px-4 py-2", className)} {...props}>
         {children}
       </View>
     </ScrollView>
   ) : (
-    <View className={`flex-1 px-4 py-2 ${className}`} {...props}>
+    <View className={cn("flex-1 px-4 py-2", className)} {...props}>
       {children}
     </View>
   );
