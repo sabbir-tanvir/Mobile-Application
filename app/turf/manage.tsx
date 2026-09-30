@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Pressable, ScrollView, Alert, Platform } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ScreenWrapper, Input, Button, Card, Badge, HScrollView } from "@/components/ui";
+import { ScreenWrapper, Input, Button, Card, Badge } from "@/components/ui";
 import { useTurf, useCreateTurf, useUpdateTurf, useDeleteTurf } from "@/hooks/queries/useTurfs";
 import { useAuthStore, selectUser } from "@/stores/auth.store";
 import type { Turf } from "@/api/types/turf.types";
@@ -202,7 +202,7 @@ export default function ManageTurfScreen() {
         />
 
         <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Pitch Sport / Type</Text>
-        <HScrollView className="mb-4">
+        <View className="flex-row flex-wrap gap-2 mb-4">
           {PITCH_TYPES.map((t) => {
             const isSelected = type === t;
             return (
@@ -225,7 +225,7 @@ export default function ManageTurfScreen() {
               </Pressable>
             );
           })}
-        </HScrollView>
+        </View>
 
         <View className="flex-row gap-3">
           <View className="flex-1">

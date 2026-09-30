@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Skeleton, HScrollView } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Skeleton } from "@/components/ui";
 import {
   useProfitLossReport,
   useCashPositionReport,
@@ -163,7 +163,7 @@ export default function ReportsScreen() {
         </View>
 
         {/* Tab Navigation */}
-        <HScrollView className="py-1">
+        <View className="flex-row flex-wrap gap-2 py-1">
           {[
             { id: "pnl", label: "📊 Profit & Loss", show: true },
             { id: "cash", label: "💵 Cash Position", show: isAdmin },
@@ -193,7 +193,7 @@ export default function ReportsScreen() {
                 </Pressable>
               );
             })}
-        </HScrollView>
+        </View>
 
         {/* TAB 1: PROFIT & LOSS */}
         {activeTab === "pnl" && (

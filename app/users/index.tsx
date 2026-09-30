@@ -11,7 +11,7 @@ import {
   Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { ScreenWrapper, Card, Badge, Button, Input, Skeleton, HScrollView } from "@/components/ui";
+import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
 import {
   useUsers,
   useCreateUser,
@@ -361,7 +361,7 @@ export default function UsersManagementScreen() {
       </View>
 
       {/* Role Filters */}
-      <HScrollView className="mb-3">
+      <View className="flex-row flex-wrap gap-2 mb-3">
           {[
             { label: "All Roles", value: "all" },
             { label: "Staff", value: "staff" },
@@ -390,7 +390,7 @@ export default function UsersManagementScreen() {
               </Pressable>
             );
           })}
-      </HScrollView>
+      </View>
 
       {/* Users List */}
       {isLoading ? (

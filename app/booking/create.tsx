@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Pressable, ScrollView, Alert, Platform } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ScreenWrapper, Card, Button, Input, Badge, HScrollView } from "@/components/ui";
+import { ScreenWrapper, Card, Button, Input, Badge } from "@/components/ui";
 import { useTurf, useTurfs } from "@/hooks/queries/useTurfs";
 import { useCreateBooking, useBookings } from "@/hooks/queries/useBookings";
 import { useAuthStore, selectUser } from "@/stores/auth.store";
@@ -208,7 +208,7 @@ export default function CreateBookingScreen() {
           <Text className="text-slate-400 dark:text-zinc-400 text-xs font-bold uppercase tracking-wider mb-2">
             Select Pitch / Ground
           </Text>
-          <HScrollView>
+          <View className="flex-row flex-wrap gap-2">
             {allTurfs.map((t) => {
               const isSelected = String(t.id) === String(selectedTurfId);
               return (
@@ -231,7 +231,7 @@ export default function CreateBookingScreen() {
                 </Pressable>
               );
             })}
-          </HScrollView>
+          </View>
         </Card>
       )}
 
@@ -263,7 +263,7 @@ export default function CreateBookingScreen() {
 
         {/* Start Hour Selector Chips */}
         <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Start Time Slot</Text>
-        <HScrollView className="mb-3">
+        <View className="flex-row flex-wrap gap-2 mb-3">
           {availableHours.map((hour) => {
             const isSelected = startHour === hour;
             const isBooked = existingTurfBookings.some(
@@ -302,7 +302,7 @@ export default function CreateBookingScreen() {
               </Pressable>
             );
           })}
-        </HScrollView>
+        </View>
 
         {/* Duration Selector */}
         <Text className="text-slate-500 dark:text-zinc-400 text-xs mb-2 font-medium">Duration</Text>

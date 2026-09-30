@@ -130,7 +130,7 @@ export default function CreateTournamentScreen() {
             {loadingTurfs ? (
               <Text className="text-slate-400 dark:text-zinc-500 text-xs">Loading venues...</Text>
             ) : (
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} className="gap-2">
+              <View className="flex-row flex-wrap gap-2">
                 {turfs.map((t) => {
                   const isSelected = String(t.id) === String(turfId);
                   return (
@@ -156,7 +156,7 @@ export default function CreateTournamentScreen() {
                     </Pressable>
                   );
                 })}
-              </ScrollView>
+              </View>
             )}
           </View>
 

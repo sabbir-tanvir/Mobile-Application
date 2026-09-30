@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, Pressable, TextInput } from "react-native";
+import { View, Text, FlatList, Pressable, TextInput, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button, Skeleton } from "@/components/ui";
 import { useTournaments } from "@/hooks/queries/useTournaments";
@@ -189,12 +189,7 @@ export default function TournamentsScreen() {
 
       {/* Status Filter Chips */}
       <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="flex-row gap-2 mb-3"
-          contentContainerStyle={{ paddingRight: 20 }}
-        >
+        <View className="flex-row flex-wrap gap-2 mb-3">
           {[
             { label: "All", value: "all" },
             { label: "Active", value: "active" },
@@ -222,7 +217,7 @@ export default function TournamentsScreen() {
               </Pressable>
             );
           })}
-        </ScrollView>
+        </View>
       </View>
 
       {isLoading ? (

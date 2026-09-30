@@ -170,11 +170,7 @@ export default function BookingsScreen() {
 
           {/* Turf Filter Chips for Timeline */}
           {turfs.length > 1 && (
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              className="flex-row gap-2 mb-3.5"
-            >
+            <View className="flex-row flex-wrap gap-2 mb-3.5">
               <Pressable
                 onPress={() => setSelectedTurfId("all")}
                 className={`px-3 py-1.5 rounded-full border ${
@@ -214,7 +210,7 @@ export default function BookingsScreen() {
                   </Pressable>
                 );
               })}
-            </ScrollView>
+            </View>
           )}
 
           {/* Timeline Matrix Component */}
@@ -264,12 +260,7 @@ export default function BookingsScreen() {
 
           {/* Filter Status Tabs */}
           <View>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              className="flex-row gap-2 mb-3.5"
-              contentContainerStyle={{ paddingRight: 20 }}
-            >
+            <View className="flex-row flex-wrap gap-2 mb-3.5">
               {STATUS_TABS.map((tab) => {
                 const isSelected = activeTab === tab;
                 return (
@@ -292,12 +283,12 @@ export default function BookingsScreen() {
                   </Pressable>
                 );
               })}
-            </ScrollView>
+            </View>
           </View>
 
           {/* List of Booking Cards */}
           {isLoading ? (
-            <View className="space-y-3">
+            <View className="flex-col gap-3">
               <Skeleton height={140} borderRadius={16} />
               <Skeleton height={140} borderRadius={16} />
               <Skeleton height={140} borderRadius={16} />

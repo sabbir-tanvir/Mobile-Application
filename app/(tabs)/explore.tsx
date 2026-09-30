@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, FlatList, TextInput } from "react-native";
+import { View, Text, Pressable, FlatList, TextInput, ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Skeleton, Card } from "@/components/ui";
 import { TurfCard } from "@/components/turf/TurfCard";
@@ -71,12 +71,7 @@ export default function ExploreScreen() {
 
       {/* Sport Category Filter Chips */}
       <View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="flex-row gap-2 mb-4"
-          contentContainerStyle={{ paddingRight: 20 }}
-        >
+        <View className="flex-row flex-wrap gap-2 mb-4">
           {CATEGORIES.map((category) => {
             const isSelected = selectedCategory === category;
             return (
@@ -99,12 +94,12 @@ export default function ExploreScreen() {
               </Pressable>
             );
           })}
-        </ScrollView>
+        </View>
       </View>
 
       {/* Turfs List */}
       {isLoading ? (
-        <View className="space-y-4">
+        <View className="flex-col gap-4">
           <Skeleton height={200} borderRadius={16} className="mb-3" />
           <Skeleton height={200} borderRadius={16} className="mb-3" />
           <Skeleton height={200} borderRadius={16} />

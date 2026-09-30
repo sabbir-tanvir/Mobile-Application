@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text } from "react-native";
 
 export interface AmenityListProps {
   amenities: string[];
@@ -17,12 +17,7 @@ export const AmenityList: React.FC<AmenityListProps> = ({
 
   return (
     <View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        className="flex-row gap-1.5 mt-2"
-        contentContainerStyle={{ paddingRight: 20 }}
-      >
+      <View className="flex-row flex-wrap gap-2 mt-2">
         {displayList.map((item, index) => (
           <View
             key={index}
@@ -36,7 +31,7 @@ export const AmenityList: React.FC<AmenityListProps> = ({
             <Text className="text-slate-500 dark:text-zinc-400 text-xs">+{remaining} more</Text>
           </View>
         )}
-      </ScrollView>
+      </View>
     </View>
   );
 };
