@@ -55,7 +55,7 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
       {/* Primary My Profit Share Card */}
       <Card
         variant="elevated"
-        className="bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 border-blue-500/30 dark:border-blue-500/40 p-5 shadow-md shadow-blue-500/10 dark:shadow-blue-950/20 mb-6"
+        className="bg-white dark:bg-zinc-900 border-blue-500/30 dark:border-blue-500/40 p-5 shadow-md shadow-blue-500/10 dark:shadow-blue-950/20 mb-6"
       >
         <View className="flex-row items-center justify-between mb-3.5">
           <Text className="text-slate-600 dark:text-zinc-400 text-xs font-bold uppercase tracking-wider">

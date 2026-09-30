@@ -29,7 +29,7 @@ export const TurfCard: React.FC<TurfCardProps> = ({ turf, onPress }) => {
               resizeMode="cover"
             />
           ) : (
-            <View className="w-full h-full items-center justify-center bg-gradient-to-tr from-emerald-100 to-emerald-200 dark:from-emerald-950/80 dark:to-zinc-900">
+            <View className="w-full h-full items-center justify-center bg-emerald-100 dark:bg-emerald-950/80">
               <Text className="text-zinc-600 font-bold text-4xl">⚽</Text>
             </View>
           )}

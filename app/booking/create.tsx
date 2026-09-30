@@ -7,6 +7,7 @@ import { useCreateBooking, useBookings } from "@/hooks/queries/useBookings";
 import { useAuthStore, selectUser } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { getTodayString } from "@/lib/date";
+import { showAlert } from "@/lib/alerts";
 import type { PaymentMethod } from "@/api/types/booking.types";
 
 const PAYMENT_METHODS: { id: PaymentMethod; label: string; icon: string }[] = [
@@ -148,25 +149,11 @@ export default function CreateBookingScreen() {
         txnId: txnId.trim() ? txnId.trim() : undefined,
       });
 
-      if (Platform.OS === "web") {
-        window.alert(`Booking Confirmed! Slot reserved for ${currentTurf?.name || "Turf"}.`);
-        router.replace(`/booking/${created.id}` as any);
-      } else {
-        Alert.alert(
-          "Booking Confirmed! 🎉",
-          `Your reservation for ${currentTurf?.name || "the turf"} is confirmed.`,
-          [
-            {
-              text: "View Details",
-              onPress: () => router.replace(`/booking/${created.id}` as any),
-            },
-            {
-              text: "My Bookings",
-              onPress: () => router.replace("/(tabs)/bookings"),
-            },
-          ]
-        );
-      }
+      showAlert(
+        "Booking Confirmed! 🎉",
+        `Your reservation for ${currentTurf?.name || "the turf"} is confirmed.`,
+        () => router.replace(`/booking/${created.id}` as any)
+      );
     } catch (err: any) {
       setErrorMessage(err.message || "Failed to create booking");
     }

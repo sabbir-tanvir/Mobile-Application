@@ -36,6 +36,7 @@ export default function AccountingHubScreen() {
     <ScreenWrapper className="pb-6">
       <ScrollView
         showsVerticalScrollIndicator={false}
+        contentContainerClassName="gap-4 pb-8"
         refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} tintColor="#10b981" />}
       >
         {/* Top Header */}
@@ -108,7 +109,7 @@ export default function AccountingHubScreen() {
           Accounting Modules
         </Text>
 
-        <View className="space-y-2.5 mb-5">
+        <View className="gap-2.5 mb-5">
           {/* Chart of Accounts */}
           <Pressable
             onPress={() => router.push("/accounting/accounts" as any)}
@@ -216,7 +217,7 @@ export default function AccountingHubScreen() {
 
         {/* Recent Ledger Entries Snippet */}
         {loadingLedger ? (
-          <View className="space-y-2">
+          <View className="gap-2">
             {[1, 2, 3].map((i) => (
               <Skeleton key={i} height={65} borderRadius={14} />
             ))}
@@ -229,7 +230,7 @@ export default function AccountingHubScreen() {
             <Text className="text-slate-500 dark:text-zinc-500 text-xs">No journal entries posted yet</Text>
           </Card>
         ) : (
-          <View className="space-y-2">
+          <View className="gap-2">
             {ledgerEntries.slice(0, 3).map((entry) => {
               const totalDebitTaka =
                 (entry.lines?.reduce((s, l) => s + (l.debit || 0), 0) || entry.totalDebit || 0) / 100;

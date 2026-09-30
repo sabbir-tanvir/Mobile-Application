@@ -9,6 +9,7 @@ import {
   useDeleteProduct,
 } from "@/hooks/queries/useProducts";
 import { formatTaka } from "@/lib/currency";
+import { showAlert, showConfirm } from "@/lib/alerts";
 import type { ProductItem, CreateProductPayload, ProductCategory } from "@/api/types/product.types";
 
 const CATEGORIES: ProductCategory[] = [
@@ -130,11 +131,7 @@ export default function ProductsScreen() {
       }
 
       setShowModal(false);
-      if (Platform.OS === "web") {
-        window.alert(`Product ${editingProduct ? "updated" : "created"} successfully!`);
-      } else {
-        Alert.alert("Success", `Product ${editingProduct ? "updated" : "created"} successfully!`);
-      }
+      showAlert("Success", `Product ${editingProduct ? "updated" : "created"} successfully!`);
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to save product");
     }
@@ -142,20 +139,13 @@ export default function ProductsScreen() {
 
   const handleDelete = (id: string, prodName: string) => {
     const confirmMsg = `Are you sure you want to delete "${prodName}" from inventory?`;
-    if (Platform.OS === "web") {
-      if (window.confirm(confirmMsg)) {
-        deleteMutation.mutate(id);
-      }
-    } else {
-      Alert.alert("Delete Product", confirmMsg, [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () => deleteMutation.mutate(id),
-        },
-      ]);
-    }
+    showConfirm(
+      "Delete Product",
+      confirmMsg,
+      () => deleteMutation.mutate(id),
+      undefined,
+      "Delete"
+    );
   };
 
   return (
@@ -263,7 +253,7 @@ export default function ProductsScreen() {
 
       {/* Products FlatList */}
       {isLoading ? (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} height={85} borderRadius={16} />
           ))}

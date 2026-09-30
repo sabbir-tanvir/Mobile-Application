@@ -29,7 +29,7 @@ export const BookingHeatmap = ({ bookings = [] }: { bookings?: Booking[] }) => {
   });
 
   bookings.forEach((b) => {
-    if (!b.date || b.paymentStatus === "cancelled" || b.status === "cancelled") return;
+    if (!b.date || b.status === "cancelled") return;
     const bDate = b.date;
     const dayIdx = weekDays.findIndex((d) => d.toISOString().split("T")[0] === bDate);
     if (dayIdx === -1) return; // Ignore bookings outside current week range

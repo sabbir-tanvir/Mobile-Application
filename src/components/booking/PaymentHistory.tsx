@@ -37,11 +37,11 @@ export const PaymentHistory: React.FC<PaymentHistoryProps> = ({ history = [] }) 
   };
 
   return (
-    <View className="space-y-2">
+    <View className="gap-2">
       {history.map((record, index) => (
         <View
           key={index}
-          className="bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800/80 rounded-2xl p-3.5 flex-row items-center justify-between mb-2 shadow-xs"
+          className="bg-slate-50 dark:bg-zinc-950 border border-slate-200/80 dark:border-zinc-800/80 rounded-2xl p-3.5 flex-row items-center justify-between shadow-xs"
         >
           <View className="flex-1 mr-3">
             <View className="flex-row items-center gap-2">

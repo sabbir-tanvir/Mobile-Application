@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Skeleton } from "@/components/ui";
 import { useCustomers, CustomerProfile } from "@/hooks/queries/useCustomers";
 import { formatTaka } from "@/lib/currency";
+import { showAlert } from "@/lib/alerts";
 
 const TIER_FILTERS: Array<"all" | "VIP" | "Regular" | "New"> = ["all", "VIP", "Regular", "New"];
 
@@ -39,15 +40,11 @@ export default function CustomersScreen() {
         if (supported) {
           Linking.openURL(url);
         } else {
-          if (Platform.OS === "web") {
-            window.alert(`Call ${phone}`);
-          } else {
-            Alert.alert("Call Player", `Dial: ${phone}`);
-          }
+          showAlert("Call Player", `Dial: ${phone}`);
         }
       })
       .catch(() => {
-        Alert.alert("Error", `Cannot open phone dialer for ${phone}`);
+        showAlert("Error", `Cannot open phone dialer for ${phone}`);
       });
   };
 
@@ -156,7 +153,7 @@ export default function CustomersScreen() {
 
       {/* Customer Directory List */}
       {isLoading ? (
-        <View className="space-y-3">
+        <View className="gap-3">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} height={85} borderRadius={16} />
           ))}

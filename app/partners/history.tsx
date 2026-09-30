@@ -72,7 +72,7 @@ export default function PartnerHistoryScreen() {
       {activeTab === "payouts" && (
         <>
           {loadingPayouts ? (
-            <View className="space-y-2.5">
+            <View className="gap-2.5">
               {[1, 2, 3, 4].map((i) => (
                 <Skeleton key={i} height={70} borderRadius={16} />
               ))}
@@ -139,7 +139,7 @@ export default function PartnerHistoryScreen() {
       {activeTab === "reallocations" && (
         <>
           {loadingHistory ? (
-            <View className="space-y-2.5">
+            <View className="gap-2.5">
               {[1, 2, 3].map((i) => (
                 <Skeleton key={i} height={80} borderRadius={16} />
               ))}

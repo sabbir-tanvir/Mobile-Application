@@ -20,6 +20,7 @@ import {
 } from "@/hooks/queries/useUsers";
 import { useAuthStore } from "@/stores/auth.store";
 import { formatDate } from "@/lib/date";
+import { showAlert, showConfirm } from "@/lib/alerts";
 import type { PlatformUser, UserRole, UserStatus } from "@/api/types/user.types";
 
 const ROLE_OPTIONS: { label: string; value: UserRole; icon: string; desc: string }[] = [
@@ -170,11 +171,7 @@ export default function UsersManagementScreen() {
 
   const handleDeleteUser = (user: PlatformUser) => {
     if (user.id === currentUser?.id) {
-      if (Platform.OS === "web") {
-        window.alert("You cannot delete your own logged-in administrator account!");
-      } else {
-        Alert.alert("Action Blocked", "You cannot delete your own logged-in administrator account!");
-      }
+      showAlert("Action Blocked", "You cannot delete your own logged-in administrator account!");
       return;
     }
 
@@ -182,20 +179,13 @@ export default function UsersManagementScreen() {
       deleteMutation.mutate(user.id);
     };
 
-    if (Platform.OS === "web") {
-      if (window.confirm(`Permanently delete account for "${user.fullName}" (${user.email})?`)) {
-        confirmDelete();
-      }
-    } else {
-      Alert.alert(
-        "Delete User Account",
-        `Are you sure you want to permanently delete "${user.fullName}"? This action cannot be undone.`,
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Delete Account", style: "destructive", onPress: confirmDelete },
-        ]
-      );
-    }
+    showConfirm(
+      "Delete User Account",
+      `Are you sure you want to permanently delete account for "${user.fullName}" (${user.email})? This action cannot be undone.`,
+      confirmDelete,
+      undefined,
+      "Delete Account"
+    );
   };
 
   const getRoleBadgeVariant = (role: UserRole) => {
@@ -394,7 +384,7 @@ export default function UsersManagementScreen() {
 
       {/* Users List */}
       {isLoading ? (
-        <View className="space-y-3">
+        <View className="gap-3">
           <Skeleton height={100} borderRadius={16} />
           <Skeleton height={100} borderRadius={16} />
           <Skeleton height={100} borderRadius={16} />
@@ -453,7 +443,7 @@ export default function UsersManagementScreen() {
               </View>
             ) : null}
 
-            <ScrollView showsVerticalScrollIndicator={false} className="space-y-4">
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-4 pb-6">
               <Input
                 label="Full Name *"
                 placeholder="e.g. Sabbir Tanvir"
@@ -483,7 +473,7 @@ export default function UsersManagementScreen() {
                 <Text className="text-slate-700 dark:text-zinc-400 text-xs font-semibold mb-2">
                   System Role & Access Scope
                 </Text>
-                <View className="space-y-2">
+                <View className="gap-2">
                   {ROLE_OPTIONS.map((opt) => {
                     const isSelected = role === opt.value;
                     return (

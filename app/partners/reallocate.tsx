@@ -3,6 +3,7 @@ import { View, Text, Pressable, ScrollView, TextInput, Alert, Platform } from "r
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Button, Input, Skeleton } from "@/components/ui";
 import { usePartners, useReallocateShares } from "@/hooks/queries/usePartners";
+import { showAlert } from "@/lib/alerts";
 import type { ReallocatePayload } from "@/api/types/partner.types";
 
 export default function ReallocateSharesScreen() {
@@ -69,12 +70,11 @@ export default function ReallocateSharesScreen() {
 
       await reallocateMutation.mutateAsync(payload);
 
-      if (Platform.OS === "web") {
-        window.alert("Shares successfully reallocated and recorded in audit log!");
-      } else {
-        Alert.alert("Success", "Shares successfully reallocated and recorded in audit log!");
-      }
-      router.back();
+      showAlert(
+        "Success",
+        "Shares successfully reallocated and recorded in audit log!",
+        () => router.back()
+      );
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to reallocate shares");
     }
@@ -148,13 +148,13 @@ export default function ReallocateSharesScreen() {
         </Text>
 
         {isLoading ? (
-          <View className="space-y-3">
+          <View className="gap-3">
             {[1, 2, 3].map((i) => (
               <Skeleton key={i} height={100} borderRadius={16} />
             ))}
           </View>
         ) : (
-          <View className="space-y-3 mb-4">
+          <View className="gap-3 mb-4">
             {partners.map((partner) => {
               const currentBp = shares[partner.id] ?? (partner.shareBp || 0);
               const percentage = (currentBp / 100).toFixed(2);

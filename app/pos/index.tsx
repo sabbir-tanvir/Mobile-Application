@@ -5,6 +5,7 @@ import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/component
 import { useProducts } from "@/hooks/queries/useProducts";
 import { useCreateOrder } from "@/hooks/queries/useOrders";
 import { formatTaka } from "@/lib/currency";
+import { showAlert } from "@/lib/alerts";
 import type { ProductItem, OrderLineItem, CreateOrderPayload } from "@/api/types/product.types";
 
 const CATEGORIES = ["All", "beverage", "snack", "food", "equipment", "clothing", "other"];
@@ -46,11 +47,7 @@ export default function PosScreen() {
   // Cart operations
   const addToCart = (product: ProductItem) => {
     if (product.stock <= 0) {
-      if (Platform.OS === "web") {
-        window.alert("This product is currently out of stock!");
-      } else {
-        Alert.alert("Out of Stock", "This product is currently out of stock!");
-      }
+      showAlert("Out of Stock", "This product is currently out of stock!");
       return;
     }
 
@@ -137,11 +134,7 @@ export default function PosScreen() {
       setCustomerPhone("");
       setCheckoutNotes("");
 
-      if (Platform.OS === "web") {
-        window.alert("Order completed! Stock has been updated.");
-      } else {
-        Alert.alert("Order Completed", "Sale recorded and stock decremented successfully!");
-      }
+      showAlert("Order Completed", "Sale recorded and stock decremented successfully!");
     } catch (err: any) {
       setCheckoutError(err.message || "Failed to complete checkout");
     }
@@ -228,7 +221,7 @@ export default function PosScreen() {
 
       {/* Product Catalog Grid */}
       {isLoading ? (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} height={80} borderRadius={16} />
           ))}
@@ -366,7 +359,7 @@ export default function PosScreen() {
 
             <ScrollView showsVerticalScrollIndicator={false} className="max-h-96">
               {/* Cart Line Items */}
-              <View className="space-y-2 mb-4">
+              <View className="gap-2 mb-4">
                 {cart.map((item) => (
                   <View
                     key={item.productId}

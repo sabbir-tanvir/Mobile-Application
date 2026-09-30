@@ -18,6 +18,7 @@ import {
 import { useAuthStore } from "@/stores/auth.store";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
+import { showConfirm } from "@/lib/alerts";
 import { TeamManager } from "@/components/tournament/TeamManagerModal";
 import { BracketVisualizer } from "@/components/tournament/BracketVisualizer";
 import type { TournamentStatus, TournamentTeam } from "@/api/types/tournament.types";
@@ -56,7 +57,7 @@ export default function TournamentDetailScreen() {
 
   if (isLoading) {
     return (
-      <ScreenWrapper className="p-4 space-y-4">
+      <ScreenWrapper className="p-4 gap-4">
         <Skeleton height={40} borderRadius={8} className="w-1/3 mb-2" />
         <Skeleton height={140} borderRadius={16} />
         <Skeleton height={80} borderRadius={16} />
@@ -109,20 +110,13 @@ export default function TournamentDetailScreen() {
       });
     };
 
-    if (Platform.OS === "web") {
-      if (window.confirm(`Permanently delete "${tournament.name}"?`)) {
-        executeDelete();
-      }
-    } else {
-      Alert.alert(
-        "Delete Tournament",
-        `Are you sure you want to delete "${tournament.name}"? This action cannot be undone.`,
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Delete", style: "destructive", onPress: executeDelete },
-        ]
-      );
-    }
+    showConfirm(
+      "Delete Tournament",
+      `Are you sure you want to delete "${tournament.name}"? This action cannot be undone.`,
+      executeDelete,
+      undefined,
+      "Delete"
+    );
   };
 
   const currentBadge = STATUS_BADGE_MAP[tournament.status] || {
@@ -132,7 +126,7 @@ export default function TournamentDetailScreen() {
 
   return (
     <ScreenWrapper className="pb-6">
-      <ScrollView showsVerticalScrollIndicator={false} className="space-y-4">
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-4 pb-6">
         {/* Top Header */}
         <View className="flex-row items-center justify-between my-2">
           <Pressable
@@ -185,7 +179,7 @@ export default function TournamentDetailScreen() {
 
           {/* Admin Status Dropdown */}
           {showStatusMenu && isAdmin ? (
-            <View className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-2xl p-2 my-2 space-y-1">
+            <View className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-2xl p-2 my-2 gap-1">
               <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold px-2 py-1">
                 Change Status
               </Text>
@@ -219,8 +213,8 @@ export default function TournamentDetailScreen() {
         </Card>
 
         {/* 4 Stat Counters */}
-        <View className="grid grid-cols-2 gap-2.5">
-          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <View className="flex-row flex-wrap justify-between gap-y-2.5">
+          <Card className="w-[48%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
             <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Registered Teams
             </Text>
@@ -243,7 +237,7 @@ export default function TournamentDetailScreen() {
             </View>
           </Card>
 
-          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Card className="w-[48%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
             <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Prize Pool
             </Text>
@@ -255,7 +249,7 @@ export default function TournamentDetailScreen() {
             </Text>
           </Card>
 
-          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Card className="w-[48%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
             <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Fees Collected
             </Text>
@@ -267,7 +261,7 @@ export default function TournamentDetailScreen() {
             </Text>
           </Card>
 
-          <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+          <Card className="w-[48%] bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-3.5 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
             <Text className="text-slate-400 dark:text-zinc-500 text-[10px] uppercase font-bold">
               Format
             </Text>
@@ -340,7 +334,7 @@ export default function TournamentDetailScreen() {
         )}
 
         {activeTab === "info" && (
-          <View className="space-y-3">
+          <View className="gap-3">
             {tournament.description ? (
               <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
                 <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">About Tournament</Text>

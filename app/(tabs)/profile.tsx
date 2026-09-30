@@ -178,7 +178,7 @@ export default function ProfileScreen() {
         <Text className="text-slate-500 dark:text-zinc-400 text-xs uppercase font-bold tracking-wider mb-2.5">
           Assigned Permissions & Scope
         </Text>
-        <View className="space-y-2">
+        <View className="gap-2">
           {permissions.map((perm, idx) => (
             <View key={idx} className="flex-row items-center gap-2">
               <Text className="text-emerald-500 font-bold text-xs">✓</Text>
@@ -194,7 +194,7 @@ export default function ProfileScreen() {
           <Text className="text-slate-500 dark:text-zinc-400 text-xs uppercase font-bold tracking-wider mb-2.5">
             Management Hubs
           </Text>
-          <View className="space-y-1">
+          <View className="gap-1">
             <Pressable
               onPress={() => router.push("/payments" as any)}
               className="py-2.5 border-b border-slate-100 dark:border-zinc-800/80 flex-row items-center justify-between active:opacity-75"

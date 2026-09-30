@@ -4,6 +4,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { ScreenWrapper, Input, Button, Card, Badge } from "@/components/ui";
 import { useTurf, useCreateTurf, useUpdateTurf, useDeleteTurf } from "@/hooks/queries/useTurfs";
 import { useAuthStore, selectUser } from "@/stores/auth.store";
+import { showAlert, showConfirm } from "@/lib/alerts";
 import type { Turf } from "@/api/types/turf.types";
 
 const PITCH_TYPES = [
@@ -122,11 +123,7 @@ export default function ManageTurfScreen() {
         await createTurfMutation.mutateAsync(payload);
       }
 
-      if (Platform.OS === "web") {
-        window.alert(isEdit ? "Turf updated successfully!" : "Turf created successfully!");
-      } else {
-        Alert.alert("Success", isEdit ? "Turf updated successfully!" : "Turf created successfully!");
-      }
+      showAlert("Success", isEdit ? "Turf updated successfully!" : "Turf created successfully!");
       router.back();
     } catch (err: any) {
       setErrorMessage(err.message || "Failed to save turf details");
@@ -139,31 +136,20 @@ export default function ManageTurfScreen() {
     const confirmDelete = async () => {
       try {
         await deleteTurfMutation.mutateAsync(id);
-        if (Platform.OS === "web") {
-          window.alert("Turf deleted successfully.");
-        } else {
-          Alert.alert("Deleted", "Turf deleted successfully.");
-        }
+        showAlert("Deleted", "Turf deleted successfully.");
         router.replace("/(tabs)/explore");
       } catch (err: any) {
         setErrorMessage(err.message || "Failed to delete turf");
       }
     };
 
-    if (Platform.OS === "web") {
-      if (window.confirm("Are you sure you want to delete this turf? This cannot be undone.")) {
-        confirmDelete();
-      }
-    } else {
-      Alert.alert(
-        "Delete Turf",
-        "Are you sure you want to permanently delete this turf ground?",
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Delete", style: "destructive", onPress: confirmDelete },
-        ]
-      );
-    }
+    showConfirm(
+      "Delete Turf",
+      "Are you sure you want to permanently delete this turf ground?",
+      confirmDelete,
+      undefined,
+      "Delete"
+    );
   };
 
   const isSaving = createTurfMutation.isPending || updateTurfMutation.isPending;

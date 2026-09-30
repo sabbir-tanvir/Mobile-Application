@@ -112,7 +112,7 @@ export default function ReportsScreen() {
 
   return (
     <ScreenWrapper className="pb-6">
-      <ScrollView showsVerticalScrollIndicator={false} className="space-y-4">
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-4 pb-8">
         {/* Top Header */}
         <View className="flex-row items-center justify-between my-2">
           <View className="flex-row items-center gap-3">
@@ -197,9 +197,9 @@ export default function ReportsScreen() {
 
         {/* TAB 1: PROFIT & LOSS */}
         {activeTab === "pnl" && (
-          <View className="space-y-4">
+          <View className="gap-4">
             {pnlLoading ? (
-              <View className="space-y-3">
+              <View className="gap-3">
                 <Skeleton height={100} borderRadius={16} />
                 <Skeleton height={100} borderRadius={16} />
                 <Skeleton height={200} borderRadius={16} />
@@ -255,7 +255,7 @@ export default function ReportsScreen() {
                 </Card>
 
                 {/* Revenue Streams Breakdown */}
-                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none space-y-3">
+                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
                   <View className="flex-row justify-between items-center pb-2 border-b border-slate-100 dark:border-zinc-800">
                     <Text className="text-slate-900 dark:text-white font-bold text-sm">📈 Revenue Streams</Text>
                     <Text className="text-emerald-600 dark:text-emerald-400 font-bold text-xs">
@@ -272,7 +272,7 @@ export default function ReportsScreen() {
                       const amount = item.amount || 0;
                       const pct = pnl.revenue.total > 0 ? (amount / pnl.revenue.total) * 100 : 0;
                       return (
-                        <View key={idx} className="space-y-1">
+                        <View key={idx} className="gap-1">
                           <View className="flex-row justify-between items-center">
                             <View className="flex-row items-center gap-1.5 flex-1 mr-2">
                               <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-mono">
@@ -299,7 +299,7 @@ export default function ReportsScreen() {
                 </Card>
 
                 {/* Expenses Breakdown */}
-                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none space-y-3">
+                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
                   <View className="flex-row justify-between items-center pb-2 border-b border-slate-100 dark:border-zinc-800">
                     <Text className="text-slate-900 dark:text-white font-bold text-sm">📉 Operating Expenses</Text>
                     <Text className="text-red-500 dark:text-red-400 font-bold text-xs">
@@ -316,7 +316,7 @@ export default function ReportsScreen() {
                       const amount = item.amount || 0;
                       const pct = pnl.expenses.total > 0 ? (amount / pnl.expenses.total) * 100 : 0;
                       return (
-                        <View key={idx} className="space-y-1">
+                        <View key={idx} className="gap-1">
                           <View className="flex-row justify-between items-center">
                             <View className="flex-row items-center gap-1.5 flex-1 mr-2">
                               <Text className="text-slate-400 dark:text-zinc-500 text-[10px] font-mono">
@@ -352,13 +352,13 @@ export default function ReportsScreen() {
 
         {/* TAB 2: CASH POSITION */}
         {activeTab === "cash" && (
-          <View className="space-y-4">
+          <View className="gap-4">
             {cashLoading ? (
               <Skeleton height={200} borderRadius={16} />
             ) : cash ? (
               <>
                 {/* Total Liquidity Banner */}
-                <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/80 dark:to-zinc-900 border border-blue-200 dark:border-blue-900/60 p-4 rounded-2xl shadow-sm shadow-blue-500/10 dark:shadow-none">
+                <Card className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 p-4 rounded-2xl shadow-sm shadow-blue-500/10 dark:shadow-none">
                   <Text className="text-blue-700 dark:text-blue-300 text-[10px] font-bold uppercase tracking-wider">
                     Total Liquid Reserves
                   </Text>
@@ -371,7 +371,7 @@ export default function ReportsScreen() {
                 </Card>
 
                 {/* Account Balances Table */}
-                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none space-y-3">
+                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
                   <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">
                     Vault, Bank & Mobile Wallets
                   </Text>
@@ -385,7 +385,7 @@ export default function ReportsScreen() {
                       const bal = acc.balance || 0;
                       const pct = cash.total > 0 ? (bal / cash.total) * 100 : 0;
                       return (
-                        <View key={idx} className="space-y-1 py-1 border-b border-slate-100 dark:border-zinc-800/40">
+                        <View key={idx} className="gap-1 py-1 border-b border-slate-100 dark:border-zinc-800/40">
                           <View className="flex-row justify-between items-center">
                             <View className="flex-row items-center gap-2 flex-1 mr-2">
                               <Badge label={acc.code} variant="info" size="sm" />
@@ -419,13 +419,13 @@ export default function ReportsScreen() {
 
         {/* TAB 3: RECEIVABLES */}
         {activeTab === "receivables" && (
-          <View className="space-y-4">
+          <View className="gap-4">
             {recLoading ? (
               <Skeleton height={200} borderRadius={16} />
             ) : receivables ? (
               <>
                 {/* Total Outstanding Due */}
-                <Card className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/80 dark:to-zinc-900 border border-amber-200 dark:border-amber-900/60 p-4 rounded-2xl shadow-sm shadow-amber-500/10 dark:shadow-none">
+                <Card className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 p-4 rounded-2xl shadow-sm shadow-amber-500/10 dark:shadow-none">
                   <Text className="text-amber-700 dark:text-amber-300 text-[10px] font-bold uppercase tracking-wider">
                     Total Customer Receivables Outstanding
                   </Text>
@@ -438,7 +438,7 @@ export default function ReportsScreen() {
                 </Card>
 
                 {/* Outstanding Invoices List */}
-                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none space-y-3">
+                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
                   <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">
                     Unpaid & Partial Reservations
                   </Text>
@@ -456,7 +456,7 @@ export default function ReportsScreen() {
                     receivables.bookings?.map((b, idx) => (
                       <View
                         key={idx}
-                        className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-3 rounded-2xl space-y-2 mb-2"
+                        className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-3 rounded-2xl gap-2 mb-2"
                       >
                         <View className="flex-row items-center justify-between">
                           <View className="flex-1 mr-2">
@@ -505,13 +505,13 @@ export default function ReportsScreen() {
 
         {/* TAB 4: PARTNER SHARES */}
         {activeTab === "shares" && (
-          <View className="space-y-4">
+          <View className="gap-4">
             {sharesLoading ? (
               <Skeleton height={200} borderRadius={16} />
             ) : partnerShares ? (
               <>
                 {/* Net Distributable Profit Banner */}
-                <Card className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/80 dark:to-zinc-900 border border-emerald-200 dark:border-emerald-900/60 p-4 rounded-2xl shadow-sm shadow-emerald-500/10 dark:shadow-none">
+                <Card className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 p-4 rounded-2xl shadow-sm shadow-emerald-500/10 dark:shadow-none">
                   <Text className="text-emerald-700 dark:text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
                     Distributable Net Profit ({period.toUpperCase()})
                   </Text>
@@ -524,7 +524,7 @@ export default function ReportsScreen() {
                 </Card>
 
                 {/* Partner Share Cards */}
-                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none space-y-3">
+                <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none gap-3">
                   <Text className="text-slate-900 dark:text-white font-bold text-sm mb-1">
                     Partner Distribution Roster
                   </Text>
@@ -537,7 +537,7 @@ export default function ReportsScreen() {
                     partnerShares.shares?.map((s, idx) => (
                       <View
                         key={idx}
-                        className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-3.5 rounded-2xl space-y-2 mb-2"
+                        className="bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 p-3.5 rounded-2xl gap-2 mb-2"
                       >
                         <View className="flex-row items-center justify-between">
                           <View className="flex-1 mr-2">

@@ -12,6 +12,7 @@ import {
 import { Card, Badge, Button, Input } from "@/components/ui";
 import { useUpdateTournament } from "@/hooks/queries/useTournaments";
 import { formatTaka } from "@/lib/currency";
+import { showConfirm } from "@/lib/alerts";
 import type { Tournament, TournamentTeam } from "@/api/types/tournament.types";
 
 interface TeamManagerProps {
@@ -108,20 +109,13 @@ export function TeamManager({ tournament }: TeamManagerProps) {
       });
     };
 
-    if (Platform.OS === "web") {
-      if (window.confirm(`Remove "${teamToRemove.name}" from this tournament?`)) {
-        confirmRemove();
-      }
-    } else {
-      Alert.alert(
-        "Remove Team",
-        `Are you sure you want to remove "${teamToRemove.name}" from this tournament?`,
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Remove", style: "destructive", onPress: confirmRemove },
-        ]
-      );
-    }
+    showConfirm(
+      "Remove Team",
+      `Are you sure you want to remove "${teamToRemove.name}" from this tournament?`,
+      confirmRemove,
+      undefined,
+      "Remove"
+    );
   };
 
   const handleCall = (phone: string) => {
@@ -130,7 +124,7 @@ export function TeamManager({ tournament }: TeamManagerProps) {
   };
 
   return (
-    <View className="space-y-4">
+    <View className="gap-4">
       {/* Header & Add Team Action */}
       <View className="flex-row items-center justify-between">
         <View>
@@ -162,7 +156,7 @@ export function TeamManager({ tournament }: TeamManagerProps) {
           </Text>
         </Card>
       ) : (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {teams.map((team, idx) => (
             <Card
               key={idx}
@@ -260,7 +254,7 @@ export function TeamManager({ tournament }: TeamManagerProps) {
               </View>
             ) : null}
 
-            <ScrollView showsVerticalScrollIndicator={false} className="space-y-4">
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-4 pb-6">
               <Input
                 label="Team Name *"
                 placeholder="e.g. Dhaka Strikers FC"

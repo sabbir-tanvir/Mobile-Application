@@ -10,6 +10,7 @@ import {
 } from "@/hooks/queries/useAccounting";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
+import { showAlert, showConfirm } from "@/lib/alerts";
 import type { CreateIncomePayload } from "@/api/types/accounting.types";
 
 const PAYMENT_METHODS = ["cash", "bkash", "nagad", "rocket", "card"];
@@ -89,12 +90,7 @@ export default function IncomesScreen() {
 
       await createIncomeMutation.mutateAsync(payload);
       setShowModal(false);
-
-      if (Platform.OS === "web") {
-        window.alert("Income recorded successfully!");
-      } else {
-        Alert.alert("Success", "Income recorded successfully!");
-      }
+      showAlert("Success", "Income recorded successfully!");
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to record income");
     }
@@ -102,20 +98,13 @@ export default function IncomesScreen() {
 
   const handleDelete = (id: string, desc: string) => {
     const confirmMessage = `Delete income "${desc}"? This will automatically post a reversal journal entry to the ledger.`;
-    if (Platform.OS === "web") {
-      if (window.confirm(confirmMessage)) {
-        deleteIncomeMutation.mutate(id);
-      }
-    } else {
-      Alert.alert("Delete Income", confirmMessage, [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: () => deleteIncomeMutation.mutate(id),
-        },
-      ]);
-    }
+    showConfirm(
+      "Delete Income",
+      confirmMessage,
+      () => deleteIncomeMutation.mutate(id),
+      undefined,
+      "Delete"
+    );
   };
 
   return (
@@ -185,7 +174,7 @@ export default function IncomesScreen() {
 
       {/* Incomes List */}
       {isLoading ? (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} height={75} borderRadius={16} />
           ))}

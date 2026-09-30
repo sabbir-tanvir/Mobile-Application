@@ -113,7 +113,7 @@ export default function BookingsScreen() {
 
       {/* TIMELINE / SLOT MATRIX VIEW */}
       {viewMode === "timeline" ? (
-        <ScrollView showsVerticalScrollIndicator={false} className="flex-1">
+        <ScrollView showsVerticalScrollIndicator={false} className="flex-1" contentContainerClassName="pb-8">
           {/* Date Selector Navigation Bar */}
           <View className="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-2xl p-3 mb-3.5 flex-row items-center justify-between shadow-sm shadow-slate-200/40 dark:shadow-none">
             <Pressable
@@ -215,7 +215,7 @@ export default function BookingsScreen() {
 
           {/* Timeline Matrix Component */}
           {isLoading ? (
-            <View className="space-y-3">
+            <View className="gap-3">
               <Skeleton height={60} borderRadius={12} />
               <Skeleton height={60} borderRadius={12} />
               <Skeleton height={60} borderRadius={12} />

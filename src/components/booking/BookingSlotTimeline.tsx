@@ -54,7 +54,7 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
   };
 
   return (
-    <View className="space-y-3">
+    <View className="gap-3">
       {hours.map((hour) => {
         return (
           <View key={hour} className="flex-row items-start gap-2.5">
@@ -66,7 +66,7 @@ export const BookingSlotTimeline: React.FC<BookingSlotTimelineProps> = ({
             </View>
 
             {/* Turf Slots Column */}
-            <View className="flex-1 space-y-2">
+            <View className="flex-1 gap-2">
               {targetTurfs.map((turf) => {
                 // Find if there is an active booking for this turf on this date and hour
                 const matchingBooking = bookings.find(

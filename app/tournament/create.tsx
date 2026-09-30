@@ -89,7 +89,7 @@ export default function CreateTournamentScreen() {
 
   return (
     <ScreenWrapper className="pb-8">
-      <ScrollView showsVerticalScrollIndicator={false} className="space-y-4">
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerClassName="gap-4 pb-8">
         {/* Header */}
         <View className="flex-row items-center justify-between my-2">
           <Pressable
@@ -110,7 +110,7 @@ export default function CreateTournamentScreen() {
         ) : null}
 
         {/* Basic Info */}
-        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 gap-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
             Tournament Details
           </Text>
@@ -225,7 +225,7 @@ export default function CreateTournamentScreen() {
         </Card>
 
         {/* Financials & Dates */}
-        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 gap-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
             Pricing & Schedule
           </Text>
@@ -272,7 +272,7 @@ export default function CreateTournamentScreen() {
         </Card>
 
         {/* Guidelines & Rules */}
-        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
+        <Card className="bg-white dark:bg-zinc-900 border border-slate-200/80 dark:border-zinc-800 p-4 gap-3 rounded-2xl shadow-sm shadow-slate-200/50 dark:shadow-none">
           <Text className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">
             Rules & Description
           </Text>

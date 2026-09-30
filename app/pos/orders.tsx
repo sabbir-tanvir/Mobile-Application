@@ -139,7 +139,7 @@ export default function OrdersScreen() {
 
       {/* Orders List */}
       {isLoading ? (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {[1, 2, 3, 4].map((i) => (
             <Skeleton key={i} height={90} borderRadius={16} />
           ))}

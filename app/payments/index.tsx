@@ -7,6 +7,7 @@ import { useBookings } from "@/hooks/queries/useBookings";
 import { DigitalReceiptModal } from "@/components/payment/DigitalReceiptModal";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
+import { showAlert } from "@/lib/alerts";
 import type { PaymentItem, CreatePaymentPayload } from "@/api/types/payment.types";
 import type { PaymentMethod } from "@/api/types/booking.types";
 
@@ -102,12 +103,7 @@ export default function PaymentsScreen() {
 
       await createPaymentMutation.mutateAsync(payload);
       setShowRecordModal(false);
-
-      if (Platform.OS === "web") {
-        window.alert("Payment successfully recorded!");
-      } else {
-        Alert.alert("Success", "Payment successfully recorded!");
-      }
+      showAlert("Success", "Payment successfully recorded!");
     } catch (err: any) {
       setRecordError(err.message || "Failed to record payment");
     }
@@ -246,7 +242,7 @@ export default function PaymentsScreen() {
 
       {/* Payments List */}
       {loadingPayments ? (
-        <View className="space-y-3">
+        <View className="gap-3">
           <Skeleton height={80} borderRadius={16} />
           <Skeleton height={80} borderRadius={16} />
           <Skeleton height={80} borderRadius={16} />

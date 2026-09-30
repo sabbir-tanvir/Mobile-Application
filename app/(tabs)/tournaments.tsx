@@ -118,7 +118,7 @@ export default function TournamentsScreen() {
           </View>
 
           {/* Registration Capacity Progress Bar */}
-          <View className="space-y-1">
+          <View className="gap-1">
             <View className="flex-row justify-between items-center">
               <Text className="text-slate-500 dark:text-zinc-500 text-[10px] font-semibold">
                 Roster Spots
@@ -221,7 +221,7 @@ export default function TournamentsScreen() {
       </View>
 
       {isLoading ? (
-        <View className="space-y-3">
+        <View className="gap-3">
           <Skeleton height={180} borderRadius={16} />
           <Skeleton height={180} borderRadius={16} />
         </View>

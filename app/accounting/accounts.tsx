@@ -3,6 +3,7 @@ import { View, Text, Pressable, FlatList, TextInput, Modal, Alert, Platform } fr
 import { useRouter } from "expo-router";
 import { ScreenWrapper, Card, Badge, Button, Input, Skeleton } from "@/components/ui";
 import { useAccounts, useCreateAccount } from "@/hooks/queries/useAccounting";
+import { showAlert } from "@/lib/alerts";
 import type { AccountType, NormalSide, CreateAccountPayload } from "@/api/types/accounting.types";
 
 const ACCOUNT_TYPES: Array<"all" | AccountType> = [
@@ -95,12 +96,7 @@ export default function AccountsScreen() {
 
       await createAccountMutation.mutateAsync(payload);
       setShowAddModal(false);
-
-      if (Platform.OS === "web") {
-        window.alert("Account created successfully!");
-      } else {
-        Alert.alert("Success", "Account created successfully!");
-      }
+      showAlert("Success", "Account created successfully!");
     } catch (err: any) {
       setErrorMsg(err.message || "Failed to create account");
     }
@@ -178,7 +174,7 @@ export default function AccountsScreen() {
 
       {/* Accounts List */}
       {isLoading ? (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {[1, 2, 3, 4, 5].map((i) => (
             <Skeleton key={i} height={60} borderRadius={14} />
           ))}

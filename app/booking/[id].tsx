@@ -164,7 +164,7 @@ export default function BookingDetailScreen() {
           />
         </View>
 
-        <View className="space-y-1.5 mb-3">
+        <View className="gap-1.5 mb-3">
           <Text className="text-slate-500 dark:text-zinc-400 text-xs">
             📅 Date:{" "}
             <Text className="text-slate-800 dark:text-zinc-200 font-semibold">

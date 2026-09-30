@@ -32,7 +32,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
       {/* Player Action Banner */}
       <Pressable
         onPress={() => router.push("/(tabs)/explore")}
-        className="rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 p-5 shadow-lg shadow-emerald-900/30 dark:shadow-emerald-950/50 active:scale-[0.99] border border-emerald-500/30 mb-6"
+        className="rounded-3xl bg-emerald-700 dark:bg-emerald-800 p-5 shadow-lg shadow-emerald-900/30 dark:shadow-emerald-950/50 active:scale-[0.99] border border-emerald-500/30 mb-6"
       >
         <View className="flex-row items-center justify-between">
           <View className="flex-1 mr-3">

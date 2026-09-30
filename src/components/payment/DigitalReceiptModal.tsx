@@ -3,6 +3,7 @@ import { View, Text, Modal, Pressable, Platform, Share } from "react-native";
 import { Card, Badge, Button } from "@/components/ui";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
+import { showAlert } from "@/lib/alerts";
 import type { PaymentItem } from "@/api/types/payment.types";
 
 interface DigitalReceiptModalProps {
@@ -40,9 +41,9 @@ export const DigitalReceiptModal: React.FC<DigitalReceiptModalProps> = ({
     if (Platform.OS === "web") {
       if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(message);
-        window.alert("Receipt details copied to clipboard!");
+        showAlert("Copied", "Receipt details copied to clipboard!");
       } else {
-        window.alert(message);
+        showAlert("Receipt", message);
       }
     } else {
       try {
@@ -75,7 +76,7 @@ export const DigitalReceiptModal: React.FC<DigitalReceiptModalProps> = ({
             </View>
 
             {/* Receipt Details Box */}
-            <View className="bg-slate-50 dark:bg-zinc-950/80 rounded-2xl p-4 border border-slate-200/80 dark:border-zinc-800/80 space-y-2.5 mb-5">
+            <View className="bg-slate-50 dark:bg-zinc-950/80 rounded-2xl p-4 border border-slate-200/80 dark:border-zinc-800/80 gap-2.5 mb-5">
               <View className="flex-row justify-between items-center py-1 border-b border-slate-200/60 dark:border-zinc-800/80">
                 <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Receipt No</Text>
                 <Text className="text-slate-900 dark:text-zinc-200 font-mono text-xs font-bold">

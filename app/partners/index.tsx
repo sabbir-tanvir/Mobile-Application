@@ -10,6 +10,7 @@ import {
   useCreatePayout,
 } from "@/hooks/queries/usePartners";
 import { formatTaka } from "@/lib/currency";
+import { showAlert } from "@/lib/alerts";
 import type { PartnerItem, CreatePartnerPayload, UpdatePartnerPayload } from "@/api/types/partner.types";
 
 const PAYOUT_METHODS = ["bank_transfer", "cash", "bkash", "nagad"];
@@ -97,11 +98,7 @@ export default function PartnersScreen() {
       }
 
       setShowPartnerModal(false);
-      if (Platform.OS === "web") {
-        window.alert(`Partner ${editingPartner ? "updated" : "created"} successfully!`);
-      } else {
-        Alert.alert("Success", `Partner ${editingPartner ? "updated" : "created"} successfully!`);
-      }
+      showAlert("Success", `Partner ${editingPartner ? "updated" : "created"} successfully!`);
     } catch (err: any) {
       setPartnerError(err.message || "Failed to save partner");
     }
@@ -134,11 +131,7 @@ export default function PartnersScreen() {
       });
 
       setShowPayoutModal(false);
-      if (Platform.OS === "web") {
-        window.alert("Payout recorded successfully and posted to general ledger!");
-      } else {
-        Alert.alert("Success", "Payout recorded successfully and posted to general ledger!");
-      }
+      showAlert("Success", "Payout recorded successfully and posted to general ledger!");
     } catch (err: any) {
       setPayoutError(err.message || "Failed to record payout");
     }
@@ -232,7 +225,7 @@ export default function PartnersScreen() {
 
       {/* Partners FlatList */}
       {isLoading ? (
-        <View className="space-y-3">
+        <View className="gap-3">
           {[1, 2, 3].map((i) => (
             <Skeleton key={i} height={85} borderRadius={16} />
           ))}

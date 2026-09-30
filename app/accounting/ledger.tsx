@@ -84,7 +84,7 @@ export default function LedgerScreen() {
 
       {/* Journal Entries List */}
       {isLoading ? (
-        <View className="space-y-2.5">
+        <View className="gap-2.5">
           {[1, 2, 3, 4, 5].map((i) => (
             <Skeleton key={i} height={80} borderRadius={16} />
           ))}

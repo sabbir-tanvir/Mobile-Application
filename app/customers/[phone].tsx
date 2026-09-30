@@ -5,6 +5,7 @@ import { ScreenWrapper, Card, Badge, Button, Skeleton } from "@/components/ui";
 import { useCustomerByPhone } from "@/hooks/queries/useCustomers";
 import { formatTaka } from "@/lib/currency";
 import { formatDate } from "@/lib/date";
+import { showAlert } from "@/lib/alerts";
 
 export default function CustomerDetailScreen() {
   const { phone } = useLocalSearchParams<{ phone: string }>();
@@ -20,15 +21,11 @@ export default function CustomerDetailScreen() {
         if (supported) {
           Linking.openURL(url);
         } else {
-          if (Platform.OS === "web") {
-            window.alert(`Call ${customer.phone}`);
-          } else {
-            Alert.alert("Call Player", `Dial: ${customer.phone}`);
-          }
+          showAlert("Call Player", `Dial: ${customer.phone}`);
         }
       })
       .catch(() => {
-        Alert.alert("Error", `Cannot open phone dialer`);
+        showAlert("Error", `Cannot open phone dialer`);
       });
   };
 
@@ -51,7 +48,7 @@ export default function CustomerDetailScreen() {
   if (isLoading) {
     return (
       <ScreenWrapper>
-        <View className="py-6 space-y-4">
+        <View className="py-6 gap-4">
           <Skeleton height={40} width={120} borderRadius={12} />
           <Skeleton height={140} borderRadius={16} />
           <Skeleton height={80} borderRadius={16} />
