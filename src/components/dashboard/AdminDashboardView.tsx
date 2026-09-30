@@ -29,9 +29,9 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
   };
 
   return (
-    <View className="flex-col gap-5">
+    <View>
       {/* Role Indicator Banner */}
-      <View className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
+      <View className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-3.5 flex-row items-center justify-between mb-5">
         <View className="flex-row items-center gap-2.5 flex-1 mr-2">
           <Text className="text-2xl">👑</Text>
           <View className="flex-1">
@@ -47,7 +47,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       </View>
 
       {/* Financial KPIs Grid */}
-      <View>
+      <View className="mb-5">
         <View className="flex-row items-center justify-between mb-2.5">
           <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider">
             Financial Overview (Monthly)
@@ -104,7 +104,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       </View>
 
       {/* Operational Stats */}
-      <View className="flex-row gap-2">
+      <View className="flex-row gap-2 mb-5">
         <Card variant="surface" className="flex-1 p-2.5">
           <Text className="text-slate-500 dark:text-zinc-500 text-[10px] uppercase font-bold" numberOfLines={1}>Turfs</Text>
           <Text className="text-slate-900 dark:text-white text-sm font-black mt-0.5" numberOfLines={1}>
@@ -133,7 +133,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       </View>
 
       {/* Quick Admin Actions */}
-      <Card className="p-4">
+      <Card className="p-4 mb-5">
         <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-3">
           Quick Management Actions
         </Text>

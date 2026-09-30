@@ -28,9 +28,9 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
   );
 
   return (
-    <View className="flex-col gap-5">
+    <View>
       {/* Role Banner */}
-      <View className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3.5 flex-row items-center justify-between">
+      <View className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3.5 flex-row items-center justify-between mb-5">
         <View className="flex-row items-center gap-2.5 flex-1 mr-2">
           <Text className="text-2xl">🛠️</Text>
           <View className="flex-1">
@@ -46,7 +46,7 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
       </View>
 
       {/* Shift Overview Metrics */}
-      <View className="flex-row gap-3">
+      <View className="flex-row gap-3 mb-5">
         <Card className="flex-1 p-3.5">
           <Text className="text-slate-500 dark:text-zinc-400 text-xs font-medium">Today's Matches</Text>
           <Text className="text-slate-900 dark:text-white text-2xl font-black mt-1">
@@ -67,7 +67,7 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
       </View>
 
       {/* Front-desk Quick Actions */}
-      <Card className="p-4">
+      <Card className="p-4 mb-5">
         <Text className="text-slate-800 dark:text-zinc-300 font-bold text-xs uppercase tracking-wider mb-3">
           Front-Desk Quick Actions
         </Text>
@@ -108,7 +108,7 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
       </Card>
 
       {/* Today's Scheduled Matches */}
-      <View>
+      <View className="mb-5">
         <View className="flex-row items-center justify-between mb-3">
           <Text className="text-slate-900 dark:text-white font-black text-base">
             Today's Schedule ({todayStr})
@@ -141,7 +141,7 @@ export const StaffDashboardView: React.FC<StaffDashboardViewProps> = ({
 
       {/* Pending Balance Warning List */}
       {partialDueBookings.length > 0 && (
-        <View>
+        <View className="mb-5">
           <View className="flex-row items-center justify-between mb-3">
             <Text className="text-amber-600 dark:text-amber-400 font-extrabold text-sm uppercase tracking-wider">
               ⚠️ Attention Needed: Pending Balances

@@ -28,9 +28,9 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
   };
 
   return (
-    <View className="flex-col gap-6">
+    <View>
       {/* Role Banner */}
-      <View className="bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/30 rounded-2xl p-3.5 flex-row items-center justify-between shadow-sm shadow-blue-500/5">
+      <View className="bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/30 rounded-2xl p-3.5 flex-row items-center justify-between shadow-sm shadow-blue-500/5 mb-6">
         <View className="flex-row items-center gap-2.5 flex-1 mr-2">
           <View className="w-9 h-9 rounded-xl bg-blue-500/20 items-center justify-center">
             <Text className="text-lg">💼</Text>
@@ -54,7 +54,7 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
       {/* Primary My Profit Share Card */}
       <Card
         variant="elevated"
-        className="bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 border-blue-500/30 dark:border-blue-500/40 p-5 shadow-md shadow-blue-500/10 dark:shadow-blue-950/20"
+        className="bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-950 border-blue-500/30 dark:border-blue-500/40 p-5 shadow-md shadow-blue-500/10 dark:shadow-blue-950/20 mb-6"
       >
         <View className="flex-row items-center justify-between mb-3.5">
           <Text className="text-slate-600 dark:text-zinc-400 text-xs font-bold uppercase tracking-wider">
@@ -109,7 +109,7 @@ export const PartnerDashboardView: React.FC<PartnerDashboardViewProps> = ({
       </Card>
 
       {/* Venue Overall Performance */}
-      <View>
+      <View className="mb-6">
         <Text className="text-slate-700 dark:text-zinc-300 font-bold text-sm uppercase tracking-wider mb-3">
           Overall Turf Business Performance
         </Text>

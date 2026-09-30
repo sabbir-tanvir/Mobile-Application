@@ -28,11 +28,11 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
   );
 
   return (
-    <View className="flex-col gap-6">
+    <View>
       {/* Player Action Banner */}
       <Pressable
         onPress={() => router.push("/(tabs)/explore")}
-        className="rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 p-5 shadow-lg shadow-emerald-900/30 dark:shadow-emerald-950/50 active:scale-[0.99] border border-emerald-500/30"
+        className="rounded-3xl bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 p-5 shadow-lg shadow-emerald-900/30 dark:shadow-emerald-950/50 active:scale-[0.99] border border-emerald-500/30 mb-6"
       >
         <View className="flex-row items-center justify-between">
           <View className="flex-1 mr-3">
@@ -52,7 +52,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
 
       {/* Next Upcoming Match Ticket */}
       {upcomingBookings.length > 0 && (
-        <View>
+        <View className="mb-6">
           <View className="flex-row items-center justify-between mb-2.5">
             <Text className="text-slate-900 dark:text-white font-bold text-base">
               My Next Upcoming Game
@@ -71,7 +71,7 @@ export const CustomerDashboardView: React.FC<CustomerDashboardViewProps> = ({
       )}
 
       {/* Featured Turf Grounds */}
-      <View>
+      <View className="mb-6">
         <View className="flex-row items-center justify-between mb-3">
           <Text className="text-slate-900 dark:text-white font-bold text-lg">Featured Grounds</Text>
           <Pressable onPress={() => router.push("/(tabs)/explore")}>
